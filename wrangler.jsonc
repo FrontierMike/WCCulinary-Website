@@ -1,0 +1,13 @@
+{
+  // Cloudflare Worker config for the West Coast Culinary Creations site.
+  // "name" MUST match the Worker project name in the Cloudflare dashboard.
+  "name": "wcculinary-website",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    // Astro's static build output. `npm run build` produces this.
+    "directory": "./dist",
+    // Exposes env.ASSETS so the Worker can serve static files.
+    "binding": "ASSETS"
+  }
+}

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* ponytail: no brand tokens yet — add --color-* / --font-* here once the
+   WCC palette and typeface are decided. Tailwind v4 reads @theme directly,
+   there is no tailwind.config file. */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}

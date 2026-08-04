@@ -1,0 +1,76 @@
+---
+// Posts JSON to /api/contact, handled by worker/index.js.
+---
+<section id="contact" class="px-6 py-20 bg-neutral-50">
+  <div class="max-w-lg mx-auto">
+    <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Get in touch</h2>
+
+    <form id="contact-form" class="mt-8 grid gap-4" novalidate>
+      <label class="grid gap-1.5">
+        <span class="text-sm font-medium text-neutral-700">Name</span>
+        <input name="name" type="text" required autocomplete="name"
+               class="rounded-lg border border-neutral-300 px-3.5 py-2.5 focus:border-neutral-900 focus:outline-none" />
+      </label>
+
+      <label class="grid gap-1.5">
+        <span class="text-sm font-medium text-neutral-700">Email</span>
+        <input name="email" type="email" required autocomplete="email"
+               class="rounded-lg border border-neutral-300 px-3.5 py-2.5 focus:border-neutral-900 focus:outline-none" />
+      </label>
+
+      <label class="grid gap-1.5">
+        <span class="text-sm font-medium text-neutral-700">Phone <span class="text-neutral-400">(optional)</span></span>
+        <input name="phone" type="tel" autocomplete="tel"
+               class="rounded-lg border border-neutral-300 px-3.5 py-2.5 focus:border-neutral-900 focus:outline-none" />
+      </label>
+
+      <label class="grid gap-1.5">
+        <span class="text-sm font-medium text-neutral-700">Message</span>
+        <textarea name="message" rows="5" required
+                  class="rounded-lg border border-neutral-300 px-3.5 py-2.5 focus:border-neutral-900 focus:outline-none"></textarea>
+      </label>
+
+      <!-- Honeypot: hidden from users, bots fill it. Checked in worker/index.js. -->
+      <input name="company-website" type="text" tabindex="-1" autocomplete="off"
+             aria-hidden="true" class="absolute -left-[9999px]" />
+
+      <button type="submit"
+              class="mt-2 rounded-lg bg-neutral-900 px-5 py-3 font-medium text-white hover:bg-neutral-700 disabled:opacity-50">
+        Send message
+      </button>
+
+      <p id="contact-status" role="status" aria-live="polite" class="text-sm text-neutral-600"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('contact-status') as HTMLParagraphElement;
+  const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    status.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        form.reset();
+        status.textContent = 'Thanks — we’ll get back to you shortly.';
+      } else {
+        status.textContent = data.error || 'Something went wrong. Please try again.';
+      }
+    } catch {
+      status.textContent = 'Something went wrong. Please try again.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>

@@ -89,11 +89,29 @@ Cloudflare Workers Builds is connected to this repo:
 - **Push to a non-`main` branch** → preview version with its own URL. Production is untouched.
 - **Push/merge to `main`** → production deploy.
 
-## TODO — DNS
+---
 
-Not configured yet. Once the domain is chosen:
+## TODO
 
-- Point the domain at Cloudflare, add a route/custom domain for the Worker.
-- SSL/TLS mode must be **Full** or **Full (strict)** — Flexible causes redirect loops.
-- Verify the sending domain in Resend and add its SPF/DKIM records, plus DMARC.
-- Update `CONTACT_FROM` and the `og:url` meta in `src/layouts/Base.astro`.
+**Infrastructure**
+- [ ] Create the Worker in Cloudflare and connect this repo (see *Cloudflare setup* above)
+- [ ] Confirm the first `main` push deploys and the site loads on `*.workers.dev`
+
+**Domain / DNS** — not configured yet
+- [ ] Pick and register the domain
+- [ ] Point it at Cloudflare, add a custom domain/route for the Worker
+- [ ] SSL/TLS mode → **Full** or **Full (strict)** (Flexible causes redirect loops)
+- [ ] Update the `og:url` meta in `src/layouts/Base.astro`
+
+**Contact form**
+- [ ] Verify the sending domain in Resend, add its SPF/DKIM records + DMARC
+- [ ] Set `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` in the Worker
+- [ ] Submit a real test message end to end
+- [ ] Decide whether leads also need logging somewhere (Frontier MFG writes to Notion)
+
+**Design + content**
+- [ ] Brand colours and typeface → `@theme` tokens in `src/styles/global.css`
+- [ ] Replace the placeholder `public/favicon.svg`
+- [ ] Real homepage copy — the current page is a placeholder
+- [ ] Decide the page set (menu, about, gallery, …) and add a nav/footer
+- [ ] Add a `src/pages/404.astro`

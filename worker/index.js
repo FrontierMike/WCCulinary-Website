@@ -12,7 +12,8 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === "/api/contact") {
+    // endsWith, not ===, so the /wcc demo build's /wcc/api/contact hits it too.
+    if (url.pathname.endsWith("/api/contact")) {
       if (request.method !== "POST") {
         return json({ ok: false, error: "Method not allowed." }, 405);
       }

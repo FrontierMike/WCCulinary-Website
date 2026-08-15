@@ -4,6 +4,13 @@
   "name": "wcculinary-website",
   "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
+  // TEMPORARY demo hosting: frontiermfg.ca/wcc* is more specific than the
+  // Frontier MFG worker's frontiermfg.ca/*, so Cloudflare routes it here.
+  // Nothing in the FrontierMFG-Website repo changes. Delete this block (and
+  // build without --base) once wcculinary.com is live.
+  "routes": [
+    { "pattern": "frontiermfg.ca/wcc*", "zone_name": "frontiermfg.ca" }
+  ],
   "assets": {
     // Astro's static build output. `npm run build` produces this.
     "directory": "./dist",

@@ -55,7 +55,10 @@
     status.textContent = 'Sending…';
 
     try {
-      const res = await fetch('/api/contact', {
+      // ponytail: relative, so this works at the site root AND under a base
+      // path (the /wcc demo). Switch to import.meta.env.BASE_URL if the site
+      // ever grows pages below the root.
+      const res = await fetch('api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form))),

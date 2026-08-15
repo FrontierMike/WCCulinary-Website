@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:demo": "astro build --base /wcc --outDir dist/wcc",
     "preview": "astro preview",
     "astro": "astro",
     "test": "node --test worker/"

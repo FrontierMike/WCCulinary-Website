@@ -1,0 +1,37 @@
+---
+// One route for every service page — they share a shape, so the differences
+// live in src/data/services.ts as content.
+//
+// Static routes (about.astro, menus.astro, …) win over this dynamic one, so
+// this only ever matches the slugs returned below.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceSections from '../components/ServiceSections.astro';
+import FAQ from '../components/FAQ.astro';
+import CTA from '../components/CTA.astro';
+import { services, type Service } from '../data/services';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { service: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props as { service: Service };
+---
+<Base active="services" title={service.seo.title} description={service.seo.description}>
+  <PageHero
+    kicker={service.hero.kicker}
+    heading={service.hero.heading}
+    lead={service.hero.lead}
+    slot={service.imageSlot}
+    alt={service.imageAlt}
+  />
+
+  <ServiceSections sections={service.sections} />
+
+  <FAQ variant={service.faqVariant} />
+
+  <CTA heading={service.cta.heading} body={service.cta.body} />
+</Base>

@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FAQ from '../components/FAQ.astro';
+import CTA from '../components/CTA.astro';
+import { services } from '../data/services';
+import { img } from '../data/images';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
+---
+<Base
+  active="services"
+  title="Services — West Coast Culinary Creations"
+  description="Private dining, weddings, corporate catering, celebrations, wine pairing dinners and dedicated gluten-free catering by Red Seal chef Janet Wait."
+>
+  <PageHero
+    kicker="Every way I cook"
+    heading="Services"
+    lead="One chef, a small number of events a year. Whatever the format, the food is cooked on the day and finished where you are eating it."
+    slot="jan-halibut"
+    alt="Chef Janet Wait plating a course"
+  />
+
+  <div class="wrap">
+    <ol class="rows">
+      {services.map((s, i) => (
+        <li data-reveal>
+          <a href={href(s.slug)}>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="content">
+              <span class="thumb">
+                <Image src={img(s.imageSlot)} alt={s.imageAlt} widths={[420, 640]} sizes="(max-width: 820px) 100vw, 40vw" loading="lazy" />
+              </span>
+              <span class="text">
+                <span class="title">{s.title}</span>
+                <span class="desc">{s.summary}</span>
+                <span class="more">Learn more →</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <FAQ />
+
+  <CTA
+    kicker="Not sure which one you need?"
+    heading="Describe the event and I will tell you which of these it is."
+    body="Most people land somewhere between two of them. Send the date, the headcount and where it is happening — that is enough to point you at the right format."
+  />
+</Base>
+
+<style>
+  .rows { margin: 0; padding: 72px 0 96px; list-style: none; }
+
+  .rows li { border-top: 1px solid var(--color-divider); }
+  .rows li:last-child { border-bottom: 1px solid var(--color-divider); }
+
+  .rows a {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 56px);
+    padding: 44px 0;
+    transition: opacity .3s var(--ease);
+  }
+  .rows a:hover { opacity: 0.86; }
+
+  .num { font-size: 12px; letter-spacing: 0.18em; color: var(--color-neutral-600); padding-top: 6px; }
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(20px, 3vw, 44px);
+    align-items: center;
+  }
+
+  .thumb { display: block; overflow: hidden; border-radius: var(--radius-md); }
+  .thumb :global(img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+
+  .text { display: block; }
+
+  .title {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.08;
+  }
+
+  .desc {
+    display: block;
+    margin-top: 14px;
+    max-width: 46ch;
+    font-size: 15px;
+    line-height: 1.68;
+    color: var(--color-neutral-400);
+  }
+
+  .more {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-300);
+  }
+</style>

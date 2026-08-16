@@ -1,0 +1,168 @@
+---
+// Renders the section list of a service page. Every service page is the same
+// shape — hero, several of these, FAQ, CTA — so the pages are content in
+// src/data/services.ts rather than seven copies of this markup.
+import type { Section } from '../data/services';
+
+interface Props { sections: Section[] }
+const { sections } = Astro.props;
+---
+{sections.map((s) => (
+  <section class="block divider-top" data-reveal>
+    <div class="wrap">
+      {s.kicker && <p class="kicker">{s.kicker}</p>}
+      <h2>{s.heading}</h2>
+      {s.lead && <p class="lead block-lead">{s.lead}</p>}
+
+      {s.type === 'narrative' && (
+        <div class="prose">
+          {s.paras.map((p) => <p class="body-copy">{p}</p>)}
+        </div>
+      )}
+
+      {s.type === 'cards' && (
+        <div class="cards" data-reveal-stagger="70">
+          {s.cards.map((c) => (
+            <div class="card" data-reveal>
+              <h3>{c.title}</h3>
+              <p>{c.body}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {s.type === 'steps' && (
+        <ol class="steps" data-reveal-stagger="70">
+          {s.steps.map((st, i) => (
+            <li data-reveal>
+              <span class="num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{st.title}</h3>
+                <p>{st.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+
+      {s.type === 'lists' && (
+        <div class="cards" data-reveal-stagger="70">
+          {s.lists.map((l) => (
+            <div class="card" data-reveal>
+              <h3>{l.title}</h3>
+              <ul>{l.items.map((i) => <li>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {s.type === 'menus' && (
+        <div class="cards" data-reveal-stagger="70">
+          {s.menus.map((m) => (
+            <div class="card menu" data-reveal>
+              <p class="tag">{m.tag}</p>
+              <h3>{m.title}</h3>
+              <ul>{m.items.map((i) => <li>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {s.type === 'quote' && (
+        <figure class="quote">
+          <blockquote>{s.text}</blockquote>
+          <figcaption>{s.attribution}</figcaption>
+        </figure>
+      )}
+
+      {s.note && <p class="note">{s.note}</p>}
+    </div>
+  </section>
+))}
+
+<style>
+  .block { padding: 104px 0; }
+
+  h2 {
+    max-width: 22ch;
+    font-size: clamp(32px, 4.4vw, 58px);
+    line-height: 1.05;
+  }
+  .kicker { margin-bottom: 18px; }
+  .block-lead { margin-top: 24px; }
+
+  .prose { margin-top: 34px; display: grid; gap: 20px; }
+
+  .cards {
+    margin-top: 46px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+
+  .card {
+    padding: 30px 28px 32px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  }
+  .card h3 { font-size: 21px; line-height: 1.25; }
+  .card p { margin-top: 12px; font-size: 14.5px; line-height: 1.68; color: var(--color-neutral-400); }
+
+  .card ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .card li {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--color-neutral-300);
+    padding-left: 16px;
+    position: relative;
+  }
+  .card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 5px;
+    height: 1px;
+    background: var(--color-accent-700);
+  }
+
+  .menu .tag {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-accent-300);
+    margin-bottom: 10px;
+  }
+
+  .steps { margin: 46px 0 0; padding: 0; list-style: none; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 56px);
+    padding: 32px 0;
+    border-top: 1px solid var(--color-divider);
+  }
+  .steps li:last-child { border-bottom: 1px solid var(--color-divider); }
+  .num { font-size: 12px; letter-spacing: 0.18em; color: var(--color-neutral-600); padding-top: 6px; }
+  .steps h3 { font-size: clamp(22px, 2.4vw, 28px); line-height: 1.15; }
+  .steps p { margin-top: 10px; max-width: 54ch; font-size: 15px; line-height: 1.68; color: var(--color-neutral-400); }
+
+  .quote { margin: 46px 0 0; padding-left: 26px; border-left: 2px solid var(--color-accent-700); }
+  blockquote {
+    margin: 0;
+    max-width: 44ch;
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 2.6vw, 30px);
+    line-height: 1.32;
+  }
+  figcaption {
+    margin-top: 18px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+
+  .note { margin-top: 30px; max-width: 60ch; font-size: 14.5px; line-height: 1.68; color: var(--color-neutral-500); }
+</style>

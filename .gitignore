@@ -22,4 +22,5 @@ npm-debug.log*
 
 # The client's original photography (~300MB of 6000px files). Kept locally;
 # `npm run images` derives the committed set in src/assets/images/.
-public/Images/
+# Deliberately NOT under public/ — public/ is copied into dist verbatim.
+originals/

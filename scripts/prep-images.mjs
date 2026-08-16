@@ -12,7 +12,9 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 
-const SRC = 'public/Images';
+// NOT under public/ — anything in public/ is copied into dist verbatim, which
+// would ship all ~300MB of originals to Cloudflare.
+const SRC = 'originals';
 const DEST = 'src/assets/images';
 const MAX_EDGE = 1800; // plenty for a full-bleed hero; astro:assets shrinks from here
 

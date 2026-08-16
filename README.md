@@ -125,8 +125,6 @@ content, not layout.
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
 - [ ] Consulting case study and day rates on `/gluten-free-consulting`
-- [ ] Confirm twelve vs fourteen years at Jan's on the Beach, then use one
-      number everywhere (copy currently says twelve)
 - [ ] Google Business Profile URL for the Reviews page button
 - [ ] Replace the placeholder `public/favicon.svg`
 - [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link

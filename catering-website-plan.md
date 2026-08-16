@@ -12,7 +12,7 @@
 
 ## 1. Situation
 
-- Owner-operated catering business. Ran Jan's on the Beach, an award-winning restaurant in White Rock, before this. **Length of service needs confirming** — the current site says over 12 years, Mike said 14. Pick one and use it consistently.
+- Owner-operated catering business. Ran Jan's on the Beach, an award-winning restaurant in White Rock, for twelve years before this.
 - Currently ~100% of bookings come from repeat customers and word of mouth. **Zero from marketing.** There is no acquisition channel.
 - Strong reputation in the gluten-free/celiac community — customers used to travel long distances for Jan's on the Beach's GF items. Not everything she makes is gluten-free, and most current clients don't care about it.
 - Small-scale operator. Not competing for 300-person banquets.
@@ -32,12 +32,12 @@
 
 **The brand is: a restaurateur who cooks at your event — not a catering company.**
 
-Standard catering is banquet food optimised for volume, and buyers quietly expect it to be mediocre. Fourteen years running a real restaurant is the counter-argument, and it's provable through the wine dinners and private chef work.
+Standard catering is banquet food optimised for volume, and buyers quietly expect it to be mediocre. Twelve years running a real restaurant is the counter-argument, and it's provable through the wine dinners and private chef work.
 
 Direction for the headline (not final copy):
-> Fourteen years running Jan's on the Beach. Now cooking at your table.
+> Twelve years running Jan's on the Beach. Now cooking at your table.
 
-(Adjust the number once confirmed. The existing tagline *Chef designed, chef made!* already carries this idea and should be kept — see section 8.)
+(The existing tagline *Chef designed, chef made!* already carries this idea and should be kept — see section 8.)
 
 **Gluten-free is a capability and an acquisition channel — not the brand.**
 
@@ -384,7 +384,7 @@ Explicitly avoid the seaside-town clichés: rope, anchors, driftwood script font
 
 The website is a 6–12 month play. These come first and will produce bookings sooner:
 
-1. **Reactivate the Jan's on the Beach customer list.** Fourteen years of customers, many of whom traveled for her food. A large share likely don't know she caters. Old POS records, mailing list, the restaurant's Facebook page, personal contacts. Potentially worth more than a year of SEO.
+1. **Reactivate the Jan's on the Beach customer list.** Twelve years of customers, many of whom traveled for her food. A large share likely don't know she caters. Old POS records, mailing list, the restaurant's Facebook page, personal contacts. Potentially worth more than a year of SEO.
 2. **Ask repeat clients for referrals.** They've almost certainly never been asked. Specific asks outperform general ones.
 3. **Google Business Profile + reviews** from those same clients.
 4. **Website.**
@@ -398,7 +398,6 @@ The website is a 6–12 month play. These come first and will produce bookings s
 ## 10. Open items
 
 - [ ] **Sample the circular WCCC logo for exact hex values.** The palette in section 8 has to be derived from it, and it wasn't retrievable from the site.
-- [ ] Confirm years at Jan's on the Beach — site says 12+, Mike said 14
 - [ ] **Full list of certifications and awards** with awarding body and year for each. Needed before About can be written, and it feeds three other pages.
 - [ ] List of charity organisations and causes she works with, for the community block on About. Past and upcoming both — but the page copy names organisations, not dated events.
 - [ ] Gluten-free consulting: confirm target segments, engagement model, and pricing. Is it remote, on-site, or both?

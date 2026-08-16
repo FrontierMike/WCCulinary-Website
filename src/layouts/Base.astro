@@ -1,14 +1,18 @@
 ---
 import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
   title?: string;
   description?: string;
+  active?: string;
 }
 
 const {
-  title = "West Coast Culinary Creations",
-  description = "West Coast Culinary Creations.",
+  title = 'West Coast Culinary Creations — Chef Janet Wait, Red Seal',
+  description = 'Restaurant cooking in your venue or your kitchen. Red Seal chef Janet Wait caters weddings, private dinners and corporate events in South Surrey, White Rock and the Lower Mainland.',
+  active = '',
 } = Astro.props;
 ---
 <!doctype html>
@@ -22,12 +26,22 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#161826" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    />
     {/* Demo builds (--base /wcc) must not get indexed under frontiermfg.ca.
         Disappears by itself once the site is built at the root again. */}
     {import.meta.env.BASE_URL !== '/' && <meta name="robots" content="noindex" />}
   </head>
   <body>
+    <SiteHeader active={active} />
     <slot />
+    <SiteFooter />
+    <script>import '../scripts/reveal.js';</script>
   </body>
 </html>

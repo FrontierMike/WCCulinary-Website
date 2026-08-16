@@ -19,3 +19,7 @@ npm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# The client's original photography (~300MB of 6000px files). Kept locally;
+# `npm run images` derives the committed set in src/assets/images/.
+public/Images/

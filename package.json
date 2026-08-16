@@ -11,6 +11,7 @@
     "build:demo": "astro build --base /wcc --outDir dist/wcc",
     "preview": "astro preview",
     "astro": "astro",
+    "images": "node scripts/prep-images.mjs",
     "test": "node --test worker/"
   },
   "dependencies": {

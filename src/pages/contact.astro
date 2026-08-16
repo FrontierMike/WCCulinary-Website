@@ -1,0 +1,193 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+// Service type can be prefilled from a service page: /contact?service=Weddings
+const services = [
+  'Private dining',
+  'Weddings',
+  'Corporate',
+  'Celebrations',
+  'Wine pairing dinners',
+  'Gluten-free catering',
+  'Gluten-free consulting',
+  'Not sure yet',
+];
+
+const budgets = [
+  'Under $1,500',
+  '$1,500 – $3,000',
+  '$3,000 – $6,000',
+  '$6,000 – $10,000',
+  'Over $10,000',
+  'Not sure yet',
+];
+---
+<Base
+  title="Enquire — West Coast Culinary Creations"
+  description="Tell Chef Janet Wait about your event. Every enquiry is answered personally, with a written quote before anything is booked."
+>
+  <PageHero
+    kicker="Enquiries"
+    heading="Tell Jan about your event."
+    lead="Jan answers her own enquiries. The more you can tell her about the date, the number of people and roughly what you had in mind, the more useful her first reply will be."
+    slot="jan-halibut"
+    alt="Chef Janet Wait in the kitchen"
+  />
+
+  <section class="wrap form-section">
+    <form id="contact-form" novalidate>
+      <div class="grid">
+        <label>
+          <span>Name <i>*</i></span>
+          <input name="name" type="text" required autocomplete="name" />
+        </label>
+
+        <label>
+          <span>Email <i>*</i></span>
+          <input name="email" type="email" required autocomplete="email" />
+        </label>
+
+        <label>
+          <span>Phone</span>
+          <input name="phone" type="tel" autocomplete="tel" />
+        </label>
+
+        <label>
+          <span>Event date</span>
+          <input name="event-date" type="date" />
+        </label>
+
+        <label>
+          <span>Guests</span>
+          <input name="guests" type="number" min="1" inputmode="numeric" placeholder="Roughly how many" />
+        </label>
+
+        <label>
+          <span>Venue or location</span>
+          <input name="venue" type="text" placeholder="Your home, a venue, or undecided" />
+        </label>
+
+        <label>
+          <span>Service</span>
+          <select name="service">
+            {services.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </label>
+
+        <label>
+          <span>Budget</span>
+          <select name="budget">
+            {budgets.map((b) => <option value={b}>{b}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <label class="full">
+        <span>What are you planning? <i>*</i></span>
+        <textarea name="message" rows="6" required
+          placeholder="The occasion, the kind of food you had in mind, anything your guests can't eat."></textarea>
+      </label>
+
+      {/* Honeypot: hidden from users, bots fill it. Checked in worker/index.js. */}
+      <input class="hp" name="company-website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit">Send enquiry</button>
+        <p id="contact-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('contact-status') as HTMLParagraphElement;
+  const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  // Prefill the service when a service page links here with ?service=…
+  const wanted = new URLSearchParams(location.search).get('service');
+  if (wanted) {
+    const select = form.elements.namedItem('service') as HTMLSelectElement | null;
+    const match = select && [...select.options].find((o) => o.value.toLowerCase() === wanted.toLowerCase());
+    if (select && match) select.value = match.value;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    status.textContent = 'Sending…';
+    status.className = '';
+
+    try {
+      // Relative, so this works at the site root AND under a base path.
+      const res = await fetch('api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        form.reset();
+        status.textContent = 'Thank you — Jan will be in touch shortly.';
+        status.className = 'ok';
+      } else {
+        status.textContent = data.error || 'Something went wrong. Please try again.';
+        status.className = 'err';
+      }
+    } catch {
+      status.textContent = 'Something went wrong. Please try again.';
+      status.className = 'err';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .form-section { padding: 96px 0 120px; }
+
+  form { max-width: 780px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 26px 32px;
+  }
+
+  label { display: grid; gap: 9px; }
+  label.full { margin-top: 26px; }
+
+  label span {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+  label i { color: var(--color-accent-300); font-style: normal; }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    padding: 13px 15px;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 15px;
+  }
+  textarea { resize: vertical; }
+  input::placeholder, textarea::placeholder { color: var(--color-neutral-600); }
+  input:focus, select:focus, textarea:focus { border-color: var(--color-accent); outline: none; }
+
+  /* Native date/number controls render a dark-on-dark glyph otherwise. */
+  input[type='date'] { color-scheme: dark; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 38px; }
+
+  #contact-status { font-size: 14px; color: var(--color-neutral-400); }
+  #contact-status.ok { color: var(--color-accent-300); }
+  #contact-status.err { color: #e2a0a0; }
+</style>

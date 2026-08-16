@@ -37,7 +37,19 @@ export function validate(data) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { error: "Please enter a valid email address." };
   }
-  return { name, email, message, phone: (data.phone || "").trim() };
+
+  const opt = (k) => (data[k] || "").toString().trim();
+  return {
+    name,
+    email,
+    message,
+    phone: opt("phone"),
+    eventDate: opt("event-date"),
+    guests: opt("guests"),
+    venue: opt("venue"),
+    service: opt("service"),
+    budget: opt("budget"),
+  };
 }
 
 async function handleContact(request, env) {
@@ -74,11 +86,16 @@ async function handleContact(request, env) {
         from: env.CONTACT_FROM,
         to: [env.CONTACT_TO],
         reply_to: fields.email,
-        subject: `New website enquiry — ${fields.name}`,
+        subject: `New enquiry — ${fields.service || "General"} — ${fields.name}`,
         text:
           `Name: ${fields.name}\n` +
           `Email: ${fields.email}\n` +
-          `Phone: ${fields.phone || "Not specified"}\n\n` +
+          `Phone: ${fields.phone || "Not specified"}\n` +
+          `Service: ${fields.service || "Not specified"}\n` +
+          `Event date: ${fields.eventDate || "Not specified"}\n` +
+          `Guests: ${fields.guests || "Not specified"}\n` +
+          `Venue: ${fields.venue || "Not specified"}\n` +
+          `Budget: ${fields.budget || "Not specified"}\n\n` +
           `Message:\n${fields.message}\n`,
       }),
     });

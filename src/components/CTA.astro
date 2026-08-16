@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
+
+interface Props {
+  kicker?: string;
+  heading: string;
+  body?: string;
+  label?: string;
+  slot?: string;
+  alt?: string;
+}
+
+const {
+  kicker = 'A small number of events a year',
+  heading,
+  body,
+  label = 'Request a quote',
+  slot = 'jan-plating',
+  alt = 'Jan in the kitchen, finishing a plate',
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="cta">
+  <Image src={img(slot)} alt={alt} widths={[900, 1400, 1900]} sizes="100vw" loading="lazy" />
+  <div class="scrim-lr"></div>
+  <div class="content" data-reveal>
+    <p class="kicker">{kicker}</p>
+    <h2>{heading}</h2>
+    {body && <p class="body-copy cta-body">{body}</p>}
+    <a class="btn btn-primary" href={`${base}/contact`.replace(/\/+/g, '/')}>{label}</a>
+  </div>
+</section>
+
+<style>
+  .cta { position: relative; }
+  .cta :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .content {
+    position: relative;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: clamp(96px, 12vw, 168px) var(--page-pad);
+  }
+
+  h2 {
+    margin: 20px 0 24px;
+    max-width: 20ch;
+    font-size: clamp(32px, 4.4vw, 58px);
+    line-height: 1.05;
+  }
+
+  .cta-body { max-width: 48ch; }
+  .btn { margin-top: 36px; }
+</style>

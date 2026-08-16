@@ -1,18 +1,279 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Contact from '../components/Contact.astro';
+import { img } from '../data/images';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
+
+const features = [
+  {
+    kicker: 'The chef',
+    heading: 'A Red Seal chef who still cooks every plate herself',
+    body: "Jan trained to the Red Seal standard and spent twelve years as owner and chef of Jan's on the Beach in White Rock. Everything she serves now comes off her own stove. There is no second kitchen, no roster of subcontractors, and no chef you haven't met turning up on the day.",
+    link: ["Read Jan's story →", 'about'],
+    slot: 'jan-whites',
+    alt: "Chef Janet Wait in her chef's whites outside Jan's on the Beach",
+  },
+  {
+    kicker: 'The food',
+    heading: 'Made from scratch, from what is actually in season',
+    body: 'Stocks, sauces, breads, pastry and cures are made in-house from raw ingredients. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
+    link: ['See example menus →', 'menus'],
+    slot: 'plating',
+    alt: 'Plating a course by hand, garnishing with fresh herbs',
+  },
+  {
+    kicker: 'Private dining',
+    heading: 'Two to thirty people, in your own kitchen',
+    body: 'Jan shops, arrives with her own knives and pans, cooks each course, serves it, and leaves the kitchen the way she found it. All you do is sit down. It is the easiest way to try her food, and the way most clients meet her before booking something larger.',
+    link: ['How private dining works →', 'private-dining'],
+    slot: 'private-dining-tacos',
+    alt: 'A plated course from a private dinner',
+  },
+  {
+    kicker: 'Weddings',
+    heading: 'Intimate weddings, under fifty guests',
+    body: 'One menu consultation, one tasting, and Jan is the chef on the day — not a name on the contract. Fifty guests is the ceiling on purpose: past that, the food stops being cooked and starts being reheated.',
+    link: ['See how weddings work →', 'weddings'],
+    slot: 'svc-weddings',
+    alt: 'A plated seafood course served at a wedding dinner',
+  },
+  {
+    kicker: 'Corporate',
+    heading: "Office lunches and board dinners that don't taste like catering",
+    body: 'Fixed delivery windows, plain per-head pricing, invoicing and standing accounts for repeat clients. Once Jan knows your office, booking a lunch takes one email.',
+    link: ['Corporate catering →', 'corporate'],
+    slot: 'svc-corporate',
+    alt: 'A plated main course prepared for a corporate dinner',
+  },
+];
+
+const strip = [
+  ['gal-lamb', 'Rack of lamb, carved and plated with jus'],
+  ['gal-shrimp', 'Prawns plated with a bright herb sauce'],
+  ['gal-grazing', 'A grazing board of cured meats, cheeses and fruit'],
+  ['gal-torte', 'A chocolate torte finished with cream'],
+  ['gal-salad', 'A composed salad with edible flowers'],
+];
 ---
 <Base>
-  <main>
-    <section class="px-6 py-28 text-center">
-      <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight text-neutral-900">
-        West Coast Culinary Creations
-      </h1>
-      <p class="mt-4 text-lg text-neutral-600">
-        Site coming soon.
+  <!-- Hero -->
+  <section class="hero">
+    <Image
+      src={img('hero-service')}
+      alt="Chef Janet Wait finishing a line of plated courses during service"
+      widths={[900, 1400, 1900]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="scrim-lr"></div>
+    <div class="scrim-bt"></div>
+    <div class="hero-content hero-rise">
+      <p class="kicker">Private chef &amp; catering · From South Surrey and White Rock to the Lower Mainland</p>
+      <h1>Twelve years running a restaurant. Now cooking at your table.</h1>
+      <p class="lead">
+        Janet Wait is a Red Seal chef and, for twelve years, was the owner of an
+        award-winning restaurant in White Rock. She isn't a catering company — she's
+        one chef, cooking restaurant food in your kitchen or your venue, for a small
+        number of events a year.
       </p>
-    </section>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={href('contact')}>Enquire about a date</a>
+        <a class="btn btn-secondary" href={href('gallery')}>See the food</a>
+      </div>
+    </div>
+  </section>
 
-    <Contact />
-  </main>
+  <div class="wrap">
+    <!-- Five alternating feature blocks -->
+    {features.map((f, i) => (
+      <section class:list={['feature', { flip: i % 2 === 1, first: i === 0 }]} data-reveal>
+        <div class="feature-img">
+          <Image src={img(f.slot)} alt={f.alt} widths={[520, 800]} sizes="(max-width: 900px) 100vw, 50vw" />
+        </div>
+        <div>
+          <p class="kicker">{f.kicker}</p>
+          <h3>{f.heading}</h3>
+          <p class="body-copy">{f.body}</p>
+          <a class="link-accent" href={href(f.link[1])}>{f.link[0]}</a>
+        </div>
+      </section>
+    ))}
+
+    <!-- Services catch-all -->
+    <div class="catchall divider-top" data-reveal>
+      <p>Celebrations, wine pairing dinners and dedicated gluten-free catering are all on the table too.</p>
+      <a class="link-accent" href={href('services')}>See all the ways I cook →</a>
+    </div>
+
+    <!-- Recent plates -->
+    <section class="plates">
+      <div class="plates-head" data-reveal>
+        <h2>Recent plates</h2>
+        <a class="btn btn-secondary" href={href('gallery')}>View the full gallery →</a>
+      </div>
+      <div class="strip" data-reveal-stagger="80">
+        {strip.map(([slot, alt]) => (
+          <a href={href('gallery')} data-reveal>
+            <Image src={img(slot)} alt={alt} widths={[260, 420]} sizes="20vw" loading="lazy" />
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <!-- Closing call to action -->
+  <section class="closing">
+    <Image
+      src={img('jan-plating')}
+      alt="Jan in the kitchen, finishing a plate"
+      widths={[900, 1400, 1900]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="scrim-lr"></div>
+    <div class="closing-content" data-reveal>
+      <p class="kicker">A small number of events a year</p>
+      <h2>Tell Jan the date and she will work with you to decide what she will cook.</h2>
+      <p class="body-copy closing-body">
+        Every enquiry is answered by Jan herself, with a written quote before anything
+        is booked. Two to three weeks' notice for a dinner; two to three months for a wedding.
+      </p>
+      <a class="btn btn-primary" href={href('contact')}>Request a quote</a>
+    </div>
+  </section>
 </Base>
+
+<style>
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    min-height: min(94vh, 880px);
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 46%;
+  }
+
+  .hero-content {
+    position: relative;
+    width: 100%;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 160px var(--page-pad) 96px;
+  }
+
+  .hero h1 {
+    margin: 22px 0 26px;
+    max-width: 17ch;
+    font-size: clamp(42px, 6.2vw, 88px);
+    line-height: 1.02;
+    letter-spacing: 0.002em;
+  }
+
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+
+  /* --- Feature blocks --- */
+  .feature {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+    padding: 96px 0;
+    border-top: 1px solid var(--color-divider);
+  }
+  .feature.first { border-top: 0; }
+
+  .feature-img :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Blocks 2 and 4 put the image on the right. */
+  .feature.flip .feature-img { order: 2; }
+
+  .feature h3 {
+    margin: 18px 0 20px;
+    max-width: 22ch;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.1;
+  }
+  .feature .link-accent { margin-top: 26px; }
+
+  /* --- Services catch-all --- */
+  .catchall { padding: 96px 0; }
+  .catchall p {
+    max-width: 30ch;
+    font-size: clamp(24px, 2.8vw, 34px);
+    line-height: 1.28;
+    color: var(--color-neutral-300);
+  }
+  .catchall .link-accent { margin-top: 30px; }
+
+  /* --- Recent plates --- */
+  .plates { padding: 16px 0 112px; }
+
+  .plates-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 36px;
+    margin-bottom: 40px;
+  }
+  .plates-head h2 { font-size: clamp(32px, 4.4vw, 58px); line-height: 1.05; }
+
+  /* minmax(0, …) matters — a pixel floor here overflowed the row and clipped
+     the fifth photo at laptop widths. */
+  .strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+
+  .strip a { overflow: hidden; border-radius: var(--radius-sm); }
+  .strip :global(img) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform .8s var(--ease);
+  }
+  .strip a:hover :global(img) { transform: scale(1.05); }
+
+  /* Five tracks is too narrow on a phone. */
+  @media (max-width: 600px) {
+    .strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .strip a:nth-child(n + 4) { display: none; }
+  }
+
+  /* --- Closing --- */
+  .closing { position: relative; }
+  .closing :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .closing-content {
+    position: relative;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: clamp(96px, 12vw, 168px) var(--page-pad);
+  }
+  .closing h2 {
+    margin: 20px 0 24px;
+    max-width: 20ch;
+    font-size: clamp(32px, 4.4vw, 58px);
+    line-height: 1.05;
+  }
+  .closing-body { max-width: 48ch; }
+  .closing .btn { margin-top: 36px; }
+</style>

@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
+
+interface Props {
+  kicker: string;
+  heading: string;
+  lead?: string;
+  slot: string;
+  alt: string;
+  /** Gallery's hero runs larger than the interior pages'. */
+  size?: 'interior' | 'gallery';
+  objectPosition?: string;
+}
+
+const {
+  kicker,
+  heading,
+  lead,
+  slot,
+  alt,
+  size = 'interior',
+  objectPosition = 'center 46%',
+} = Astro.props;
+---
+<section class:list={['hero', size]}>
+  <Image
+    src={img(slot)}
+    alt={alt}
+    widths={[900, 1400, 1900]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    style={`object-position:${objectPosition}`}
+  />
+  {/* Both scrims, always. The Gallery hero shipped with only the bottom-up one
+      and its kicker failed contrast over the bright part of the photo. */}
+  <div class="scrim-lr"></div>
+  <div class="scrim-bt"></div>
+  <div class="content hero-rise">
+    <p class="kicker">{kicker}</p>
+    <h1>{heading}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero.interior { min-height: min(62vh, 540px); }
+  .hero.gallery { min-height: min(72vh, 640px); }
+
+  .hero :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .content {
+    position: relative;
+    width: 100%;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 120px var(--page-pad) 72px;
+  }
+
+  h1 {
+    margin: 20px 0 24px;
+    max-width: 18ch;
+    font-size: clamp(40px, 6vw, 84px);
+    line-height: 1.02;
+  }
+
+  .gallery h1 {
+    font-size: clamp(48px, 8vw, 110px);
+    line-height: 0.98;
+    letter-spacing: 0.01em;
+  }
+</style>

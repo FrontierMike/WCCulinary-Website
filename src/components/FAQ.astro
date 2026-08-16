@@ -1,0 +1,153 @@
+---
+// Shared FAQ accordion. `variant` splices one service-specific question in at
+// position 3. Appears on all seven service pages and the Services index.
+//
+// ponytail: <details name="faq"> is the native exclusive accordion — opening
+// one closes the others with no JS and no state. That is the whole "one panel
+// open at a time" requirement from the handoff.
+interface Props { variant?: string; heading?: string }
+const { variant = '', heading = 'Questions people actually ask.' } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const shared: [string, string][] = [
+  ['Where does Jan cook?',
+   'South Surrey, White Rock and across the Lower Mainland. She cooks in your home kitchen or at your venue — if the venue is new to her she visits it beforehand to check the kitchen, power and service space. Beyond the Lower Mainland, ask; travel is possible for the right event.'],
+  ['How much does it cost?',
+   'Pricing is per head and depends on the menu, the ingredients and how much service you want. Plated multi-course dinners cost more than family-style or drop-off. Starting points: [per-head rates — to confirm with Jan]. Every enquiry gets a written quote before anything is booked.'],
+  ['Can we customise the menu?',
+   'Yes — the example menus are starting points, not a set list. Menus are written around what is in season, what you like and what your guests can eat. Jan writes a draft after the consultation and adjusts it until it is right.'],
+  ['Do you handle alcohol?',
+   'Jan does not supply alcohol. You buy the wine, beer and spirits — which is almost always cheaper for you — and she will tell you what to buy and how much, and pour and serve it during the meal. For wine pairing dinners she writes the courses around the bottles you already have.'],
+  ['How far ahead should we book?',
+   'Two to three weeks is enough for a private dinner. Weddings and larger events want two to three months, mostly so there is room for a tasting. Jan takes a small number of events a year, so summer Saturdays go early.'],
+  ['What is included, and what do we provide?',
+   'Jan brings her own knives, pans and small equipment, cooks, serves and leaves the kitchen clean. Plates, glassware, linen and extra service staff are quoted separately if you need them rented — many clients use what they already own. Dietary restrictions and allergies are handled properly, not worked around.'],
+];
+
+const variants: Record<string, [string, string]> = {
+  weddings: ['Do you do the cake and late-night food?',
+    'Cake is usually a separate baker and Jan is happy to work alongside one. Late-night food, canapés during photos and a plate for the couple who never get to eat are all things she plans for as a matter of course.'],
+  corporate: ['Can you invoice us, and do you hold a standing account?',
+    'Yes. Corporate work is invoiced on standard terms and repeat clients keep a standing account with agreed menus and delivery windows, so booking a lunch takes one email.'],
+  celebrations: ['Can you just drop the food off?',
+    'Yes. Celebrations run from drop-off — food arrives ready, with heating and serving notes — through to Jan cooking and serving the whole evening. Most people land somewhere in the middle.'],
+  'private-dining': ['What do you need from our kitchen?',
+    'Less than people expect: an oven, a few burners, counter space and a sink. Jan shops, arrives with everything else, cooks each course, serves it and leaves the kitchen the way she found it.'],
+  'wine-dinners': ['Do we need to know anything about wine?',
+    'No. Bring out the bottles you have been saving and Jan writes the courses around them. If you would rather she chose, tell her roughly what you like and the budget.'],
+  gf: ['How do you keep it genuinely gluten-free?',
+    'Separate boards, pans, oil and service utensils, and gluten-free menus written as their own dishes rather than substitutions. Jan will walk you through the handling before the event so you can answer your guests confidently.'],
+};
+
+const items = [...shared];
+if (variants[variant]) items.splice(2, 0, variants[variant]);
+
+// Unique per instance so two accordions on one page don't fight over the name.
+const group = `faq-${variant || 'default'}`;
+---
+<section class="divider-top">
+  <div class="inner">
+    <div data-reveal>
+      <p class="kicker">Before you ask</p>
+      <h2>{heading}</h2>
+      <p class="support">Anything not covered here, ask directly — Jan answers her own enquiries.</p>
+      <a class="ask" href={`${base}/contact`.replace(/\/+/g, '/')}>Send an enquiry →</a>
+    </div>
+
+    <div class="accordion" data-reveal data-reveal-delay="90">
+      {items.map(([q, a]) => (
+        <details name={group}>
+          <summary>
+            <span>{q}</span>
+            <span class="glyph"><i></i><i class="v"></i></span>
+          </summary>
+          <p>{a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .inner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 104px var(--page-pad) 112px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 64px;
+    align-items: start;
+  }
+
+  .kicker { margin-bottom: 18px; }
+
+  h2 { max-width: 16ch; font-size: clamp(32px, 3.4vw, 46px); line-height: 1.08; }
+
+  .support {
+    margin-top: 22px;
+    max-width: 34ch;
+    font-size: 14.5px;
+    line-height: 1.66;
+    color: var(--color-neutral-400);
+  }
+
+  .ask {
+    display: inline-block;
+    margin-top: 26px;
+    font-size: 13px;
+    color: var(--color-accent-300);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+    padding-bottom: 2px;
+    transition: color .25s var(--ease);
+  }
+  .ask:hover { color: var(--color-accent); }
+
+  .accordion { border-bottom: 1px solid var(--color-divider); }
+
+  details { border-top: 1px solid var(--color-divider); }
+
+  summary {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+    cursor: pointer;
+    font-size: 16.5px;
+    line-height: 1.42;
+    color: var(--color-neutral-200);
+    transition: color .25s var(--ease);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: var(--color-accent-300); }
+  details[open] summary { color: var(--color-text); }
+
+  .glyph {
+    flex: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    color: var(--color-accent-300);
+  }
+  .glyph i { position: absolute; background: currentColor; }
+  .glyph i:not(.v) { left: 2px; top: 9px; width: 16px; height: 1.5px; }
+  .glyph .v {
+    left: 9px;
+    top: 2px;
+    width: 1.5px;
+    height: 16px;
+    transition: transform .28s ease;
+  }
+  details[open] .glyph .v { transform: scaleY(0); }
+
+  details p {
+    padding: 0 44px 26px 0;
+    max-width: 62ch;
+    font-size: 14.5px;
+    line-height: 1.72;
+    color: var(--color-neutral-300);
+  }
+</style>

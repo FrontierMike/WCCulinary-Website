@@ -49,6 +49,12 @@ export function validate(data) {
     venue: opt("venue"),
     service: opt("service"),
     budget: opt("budget"),
+    // Gluten-free consulting uses the same endpoint with an operator-shaped
+    // form — different questions, same inbox.
+    business: opt("business"),
+    businessType: opt("business-type"),
+    currentHandling: opt("current-handling"),
+    timeline: opt("timeline"),
   };
 }
 
@@ -95,8 +101,14 @@ async function handleContact(request, env) {
           `Event date: ${fields.eventDate || "Not specified"}\n` +
           `Guests: ${fields.guests || "Not specified"}\n` +
           `Venue: ${fields.venue || "Not specified"}\n` +
-          `Budget: ${fields.budget || "Not specified"}\n\n` +
-          `Message:\n${fields.message}\n`,
+          `Budget: ${fields.budget || "Not specified"}\n` +
+          (fields.business
+            ? `\nBusiness: ${fields.business}\n` +
+              `Business type: ${fields.businessType || "Not specified"}\n` +
+              `Handles GF today: ${fields.currentHandling || "Not specified"}\n` +
+              `Timeline: ${fields.timeline || "Not specified"}\n`
+            : "") +
+          `\nMessage:\n${fields.message}\n`,
       }),
     });
     if (!res.ok) {

@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// PLACEHOLDER. These six are the design's stand-in copy — replace with real,
+// attributable reviews before launch. See the README's before-launch list.
+const reviews = [
+  ['She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
+   'Wedding, sixty guests · Crescent Beach'],
+  ['We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
+   'Corporate client dinner · South Surrey'],
+  ['Eight of us at our own table, four courses, and my wife did not stand up once all evening. That was the actual gift.',
+   'Anniversary dinner at home · White Rock'],
+  ['My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
+   'Fiftieth birthday · Ocean Park'],
+  ['She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
+   'Wedding, forty guests · Langley'],
+  ['The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
+   'Private dinner for ten · South Surrey'],
+];
+---
+<Base
+  active="reviews"
+  title="Reviews — West Coast Culinary Creations"
+  description="What clients say about Chef Janet Wait's catering and private dining across South Surrey, White Rock and the Lower Mainland."
+>
+  <PageHero
+    kicker="Reviews"
+    heading="Almost all of my work comes from people who have eaten it."
+    lead="Twelve years of restaurant regulars, and now clients who book the same dinner every year. These are their words, not mine."
+    slot="gal-grazing"
+    alt="A grazing board laid out for guests"
+  />
+
+  <section class="wrap cards" data-reveal-stagger="80">
+    {reviews.map(([quote, who]) => (
+      <figure data-reveal>
+        <blockquote>{quote}</blockquote>
+        <figcaption>{who}</figcaption>
+      </figure>
+    ))}
+  </section>
+
+  <section class="divider-top" data-reveal>
+    <div class="wrap ask">
+      <div>
+        <p class="kicker">Cooked for you before?</p>
+        <h2>A few sentences does more than any advertising I could buy.</h2>
+      </div>
+      <div>
+        <p class="body-copy">
+          What you ate and how the night went. It takes two minutes and I read every one.
+        </p>
+        <div class="ask-actions">
+          <a class="btn btn-primary" href={`${base}/contact`.replace(/\/+/g, '/')}>Send me a review</a>
+          {/* TODO: swap for the real Google Business Profile review link. */}
+          <a class="btn btn-secondary" href={`${base}/contact`.replace(/\/+/g, '/')}>Leave a Google review</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    kicker="Planning something of your own?"
+    heading="Tell me the date and roughly how many people."
+    body="Two business days to a real answer, and a written quote before anything is booked."
+  />
+</Base>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 88px 0 104px;
+  }
+
+  figure {
+    margin: 0;
+    padding: 34px 32px 30px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  }
+
+  blockquote {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.34;
+    color: var(--color-text);
+  }
+
+  figcaption {
+    margin-top: 22px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+
+  .ask {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 56px;
+    align-items: start;
+    padding-top: 104px;
+    padding-bottom: 112px;
+  }
+  .ask .kicker { margin-bottom: 18px; }
+  .ask h2 { max-width: 18ch; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; }
+  .ask-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+</style>

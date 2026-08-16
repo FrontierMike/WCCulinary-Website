@@ -610,4 +610,136 @@ export const services: Service[] = [
   },
 ];
 
+services.push({
+  slug: 'gluten-free-catering',
+  title: 'Gluten-free catering',
+  summary: 'Coeliac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
+  imageSlot: 'gal-salad',
+  imageAlt: 'A composed salad finished with edible flowers',
+  faqVariant: 'gf',
+  hiddenFromNav: true,
+  hero: {
+    kicker: 'Gluten-free catering',
+    heading: 'Coeliac guests get the same dinner as everyone else.',
+    lead: 'Not a substitute plate carried out after the others. A menu written so that the gluten-free version is the version — cooked with dedicated equipment, on separated surfaces, by a chef who ran a gluten-free program in a working restaurant for twelve years.',
+  },
+  seo: {
+    title: 'Gluten-free & coeliac-safe catering — White Rock & South Surrey | West Coast Culinary Creations',
+    description: 'Coeliac-safe catering with dedicated equipment, separated prep and verified sourcing, by a Red Seal chef who ran a gluten-free restaurant program for twelve years.',
+  },
+  sections: [
+    {
+      type: 'cards',
+      kicker: 'Kitchen protocols',
+      heading: 'Exactly how it is handled, so you can judge it yourself.',
+      lead: 'Anyone can say "we can do gluten free." The community has heard it and been made ill by it. So here is the actual process, in enough detail that you can decide whether it is good enough for the person you are worried about.',
+      cards: [
+        { title: 'Separated prep, before anything else starts', body: 'Gluten-free work is prepped first, on cleaned and sanitised surfaces, before any flour is opened that day. Dedicated boards, knives, pans, tongs and utensils — colour coded, stored separately, never in the shared rotation.' },
+        { title: 'Sourcing checked to the label', body: 'Every ingredient is verified — including stocks, soy and fish sauces, mustards, spice blends, baking powder and anything processed on shared lines. Suppliers are asked directly about their own facilities.' },
+        { title: 'On-site process', body: 'No shared fryer oil, ever. Separate service utensils and a covered holding area. Where there is a buffet, gluten-free items are placed first in the line and physically separated so nobody drags a serving spoon across them.' },
+        { title: 'Guests logged by seat', body: 'Coeliac guests are recorded by name and seat number and the plate is carried by a server who has been told which one it is. Nothing depends on a guest having to ask at the table.' },
+        { title: 'What I do not claim', body: 'I am not a third-party certified gluten-free facility, and I will not say I am. What I have is documented protocol and twelve years of practice. If you need certification, ask and I will tell you honestly where the line is.' },
+      ],
+    },
+    {
+      type: 'narrative',
+      kicker: 'The restaurant years',
+      heading: 'People drove from Vancouver for it, week after week.',
+      paras: [
+        "Jan's on the Beach ran a real gluten-free program — not two token items, but a menu where most dishes could be made properly gluten free, cooked in a kitchen with the equipment and the discipline to do it.",
+        'People drove from Vancouver and out of the Valley for it, week after week, for years. Coeliac families booked their birthdays with us because it was the one place a kid could order what everybody else was ordering.',
+        'That is the whole credential. It is also why I take this seriously enough to write it out rather than put a leaf icon on the menu.',
+      ],
+    },
+    {
+      type: 'menus',
+      kicker: 'Sample menus',
+      heading: 'Wholly gluten-free menus — nothing adapted, nothing missing.',
+      menus: [
+        {
+          tag: 'Four courses',
+          title: 'Seated dinner',
+          items: [
+            'Steamed clams, white wine, garlic, herbs',
+            'Buckwheat crêpe, smoked salmon, dill crème',
+            'Crisp polenta, wild mushroom ragù, aged parmesan',
+            'Almond and olive oil cake, roasted plums',
+          ],
+        },
+        {
+          tag: 'Passed',
+          title: 'Reception canapés',
+          items: [
+            'Seared scallop, salsa verde, crisp pancetta',
+            'Prawn cocktail, cucumber, lemon',
+            'Beef carpaccio on polenta, aioli, parmesan',
+            'Chicken satay, peanut, lime',
+            'Brown butter brownie bites',
+          ],
+        },
+        {
+          tag: 'Shared',
+          title: 'Wedding, family style',
+          items: [
+            'Grazing table — cheeses, cured meats, preserves',
+            'Market greens, pear, blue cheese, walnut',
+            'Braised short rib, celeriac purée, gremolata',
+            'Roasted carrots, hazelnut, honey',
+            'Chocolate pâté, crème fraîche, raspberry',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'lists',
+      kicker: 'Straight answers',
+      heading: 'The questions coeliac clients actually ask.',
+      lists: [
+        {
+          title: 'Certification and mixed menus',
+          items: [
+            'The kitchen is not certified gluten free, and I will not claim otherwise',
+            'Documented protocols in a kitchen that also handles gluten',
+            'If you need a certified facility I will say so rather than take the booking',
+            'Mixed menus are most of what I do — GF portions prepped first, plated separately, covered',
+          ],
+        },
+        {
+          title: 'Equipment and staff',
+          items: [
+            'Nothing gluten free ever goes through shared oil',
+            'Dedicated oil, or the dish is cooked another way',
+            'Every person on the team is briefed on cross-contamination before service',
+            'Serving staff are told by seat, not by tray',
+          ],
+        },
+        {
+          title: 'Transparency',
+          items: [
+            'Full ingredient lists for your menu on request, including brands',
+            'If a dish is compromised in transport or on site, it does not go out',
+            'I tell you why. That has been the rule for twelve years.',
+          ],
+        },
+      ],
+    },
+  ],
+  cta: {
+    heading: 'Tell me who is coming and what they cannot eat.',
+    body: 'Same enquiry form as everything else. Put the restriction in the message and I will answer that part first.',
+  },
+});
+
+/** Listed on the Services index but built as its own page — it has a
+ *  different audience and its own inquiry form. */
+export const indexOnly = [
+  {
+    slug: 'gluten-free-consulting',
+    title: 'Gluten-free consulting',
+    summary: 'Menu development, kitchen protocol and staff training for restaurants, care facilities and food manufacturers.',
+    imageSlot: 'jan-award',
+    imageAlt: 'Chef Janet Wait with an award from the restaurant years',
+  },
+];
+
 export const bySlug = (slug: string) => services.find((s) => s.slug === slug);

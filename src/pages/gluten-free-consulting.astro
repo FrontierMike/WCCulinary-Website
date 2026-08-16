@@ -1,0 +1,280 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceSections from '../components/ServiceSections.astro';
+import type { Section } from '../data/services';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
+
+const sections: Section[] = [
+  {
+    type: 'cards',
+    kicker: 'The credential',
+    heading: 'What you are actually buying.',
+    cards: [
+      { title: 'Certification', body: 'Certified Red Seal Chef — the trade journeyperson standard.' },
+      { title: 'Operator experience', body: 'Twelve years as owner-operator of a full-service restaurant.' },
+      { title: 'Proof', body: 'A gluten-free program customers travelled from Vancouver for, run daily through service.' },
+      { title: 'Delivery', body: 'Remote or on-site. Not limited to British Columbia.' },
+    ],
+  },
+  {
+    type: 'cards',
+    kicker: 'Who it is for',
+    heading: 'Operators, not event hosts.',
+    cards: [
+      { title: 'Restaurants', body: 'Independent operators who keep turning away coeliac guests, or who are serving them without being confident about it.' },
+      { title: 'Commercial kitchens', body: 'Production and ghost kitchens adding a gluten-free line without contaminating the rest of the operation.' },
+      { title: 'Care facilities', body: 'Long-term care, retirement residences and hospitals, where the resident cannot advocate for themselves and the stakes are medical.' },
+      { title: 'Food manufacturers', body: 'Small producers converting recipes and preparing for a certification audit.' },
+      { title: 'Event venues', body: 'Hotels and venues whose banquet kitchens need a protocol their casual staff can actually follow on a Saturday night.' },
+    ],
+  },
+  {
+    type: 'steps',
+    kicker: 'What is delivered',
+    heading: 'Named components, not a vague engagement.',
+    steps: [
+      { title: 'Menu development and recipe conversion', body: 'Which dishes convert cleanly, which never will, and what to put on in their place. Converted recipes are costed and tested on your equipment, not in theory.' },
+      { title: 'Kitchen protocol and cross-contamination audit', body: 'A walk-through of storage, prep flow, equipment, fryers and service, ending in a written protocol specific to your line — not a generic policy document.' },
+      { title: 'Staff training', body: 'One session for the line and one for front of house, because the failure is usually a server saying yes to something they should have checked. Delivered in your kitchen, in your language.' },
+      { title: 'Supplier and ingredient sourcing', body: 'Which products are actually safe, which suppliers answer questions properly, and where the hidden gluten sits in things you already buy.' },
+      { title: 'Certification readiness', body: 'If you are pursuing third-party certification, preparation of the documentation and process an auditor will ask for. I do not issue certification and cannot grant it.' },
+    ],
+  },
+  {
+    type: 'lists',
+    kicker: 'Engagement and pricing',
+    heading: 'How the work is structured.',
+    note: 'Rates to be confirmed before this page goes live. Stating them plainly is what keeps the wrong inquiries out.',
+    lists: [
+      {
+        title: 'Engagement model',
+        items: [
+          'One-off audit — a half or full day on site, ending in a written protocol and a training session. Most operators need only this.',
+          'Menu project — two to six weeks, recipe conversion and testing, priced as a project.',
+          'Ongoing retainer — monthly check-ins, new-hire training and menu changes reviewed before they go on.',
+          'Remote — audits from your photos, floor plan and spec sheets, with training by video. Works well outside the Lower Mainland.',
+        ],
+      },
+      {
+        title: 'Pricing',
+        items: [
+          'Day rate for audits and training',
+          'Project pricing for menu work',
+          'Monthly for retainers',
+          'The whole engagement is quoted before it starts — there is no hourly meter',
+        ],
+      },
+    ],
+  },
+  {
+    type: 'lists',
+    kicker: 'Case study',
+    heading: "Jan's on the Beach — a gluten-free program that paid for itself.",
+    note: 'Placeholder — this needs writing up properly with real numbers: covers, revenue share, how long the build took. It is the strongest content available for this page.',
+    lists: [
+      { title: 'The problem', items: ['A full-service beach restaurant turning away or under-serving a group of guests who ate out constantly and travelled to do it — and who tell each other everything.'] },
+      { title: 'What was built', items: ['Most of the menu made convertible, dedicated equipment and prep zones, a written protocol the whole line worked to, and front-of-house trained to answer without guessing.'] },
+      { title: 'The result', items: ['Regulars driving in from Vancouver and the Valley, coeliac families booking their celebrations there, and a reputation in that community that outlasted the restaurant itself.'] },
+    ],
+  },
+  {
+    type: 'lists',
+    kicker: 'Operator objections',
+    heading: 'The things owners ask before they commit.',
+    lists: [
+      {
+        title: 'Disruption',
+        items: [
+          'An audit runs during a normal service day — I need to see the kitchen working, not empty',
+          'Training is usually a pre-shift session. Nothing closes.',
+          'A single-location restaurant is usually ready in two to four weeks',
+        ],
+      },
+      {
+        title: 'Staff and value',
+        items: [
+          'Staff resist policies handed down without reason, not a chef who has run the line showing them why the tongs matter',
+          'It is a revenue exercise that also reduces liability',
+          'Coeliac diners eat out in groups, choose the venue for the whole table, and come back weekly when they trust you',
+        ],
+      },
+      {
+        title: 'Scope',
+        items: [
+          'I am not a certifying body and I will never claim to be',
+          'I build the protocol and prepare you for an audit if you want one',
+          'Menu conversion, protocol design and documentation all work remotely',
+        ],
+      },
+    ],
+  },
+];
+
+const businessTypes = ['Restaurant', 'Commercial or production kitchen', 'Care facility', 'Food manufacturer', 'Hotel or event venue', 'Other'];
+const handling = ['Not at all — we turn those guests away', 'Informally, and we are not confident about it', 'We have a process but want it reviewed', 'We are building a new program from scratch'];
+const timelines = ['As soon as possible', 'Next one to three months', 'This year', 'Researching for now'];
+---
+<Base
+  active="services"
+  title="Gluten-free consulting for restaurants & food operators | West Coast Culinary Creations"
+  description="Gluten-free menu development, kitchen protocol audits and staff training for restaurants, commercial kitchens, care facilities and food manufacturers. Remote or on-site."
+>
+  <PageHero
+    kicker="Gluten-free consulting"
+    heading="A Red Seal chef who ran a gluten-free program that people drove an hour for."
+    lead="Menu development, kitchen protocol and staff training for restaurants and food operators. Twelve years of running the program in a working kitchen, not a certification course and a binder."
+    slot="jan-award"
+    alt="Chef Janet Wait with an award from the restaurant years"
+  />
+
+  <ServiceSections sections={sections} />
+
+  <section class="divider-top" data-reveal>
+    <div class="wrap form-section">
+      <div class="intro">
+        <p class="kicker">Enquiries</p>
+        <h2>Tell me about your kitchen.</h2>
+        <p class="body-copy">
+          No event dates or guest counts here — this is for operators. I read these
+          myself and answer within two business days.
+        </p>
+        <p class="alt">
+          Catering a private event instead? <a href={href('gluten-free-catering')}>That is this page.</a>
+        </p>
+      </div>
+
+      <form id="consult-form" novalidate>
+        {/* Tags the enquiry so the subject line says which form it came from. */}
+        <input type="hidden" name="service" value="Gluten-free consulting" />
+
+        <div class="grid">
+          <label>
+            <span>Business name <i>*</i></span>
+            <input name="business" type="text" required autocomplete="organization" />
+          </label>
+          <label>
+            <span>Your name <i>*</i></span>
+            <input name="name" type="text" required autocomplete="name" />
+          </label>
+          <label>
+            <span>Email <i>*</i></span>
+            <input name="email" type="email" required autocomplete="email" />
+          </label>
+          <label>
+            <span>Business type</span>
+            <select name="business-type">{businessTypes.map((t) => <option value={t}>{t}</option>)}</select>
+          </label>
+          <label class="wide">
+            <span>How you handle gluten free today</span>
+            <select name="current-handling">{handling.map((h) => <option value={h}>{h}</option>)}</select>
+          </label>
+          <label class="wide">
+            <span>Timeline</span>
+            <select name="timeline">{timelines.map((t) => <option value={t}>{t}</option>)}</select>
+          </label>
+        </div>
+
+        <label class="full">
+          <span>What are you trying to solve? <i>*</i></span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+
+        <input class="hp" name="company-website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Send enquiry</button>
+          <p id="consult-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('consult-form') as HTMLFormElement;
+  const status = document.getElementById('consult-status') as HTMLParagraphElement;
+  const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    status.textContent = 'Sending…';
+    status.className = '';
+
+    try {
+      const res = await fetch('api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        form.reset();
+        status.textContent = 'Thank you — Jan will be in touch within two business days.';
+        status.className = 'ok';
+      } else {
+        status.textContent = data.error || 'Something went wrong. Please try again.';
+        status.className = 'err';
+      }
+    } catch {
+      status.textContent = 'Something went wrong. Please try again.';
+      status.className = 'err';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .form-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 64px;
+    align-items: start;
+    padding-top: 104px;
+    padding-bottom: 120px;
+  }
+
+  .intro .kicker { margin-bottom: 18px; }
+  .intro h2 { max-width: 16ch; font-size: clamp(32px, 3.4vw, 46px); line-height: 1.08; }
+  .intro .body-copy { margin-top: 22px; }
+  .intro .alt { margin-top: 26px; font-size: 14px; color: var(--color-neutral-500); }
+  .intro .alt a { color: var(--color-accent-300); border-bottom: 1px solid var(--color-accent-700); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px 26px; }
+  .wide { grid-column: 1 / -1; }
+
+  label { display: grid; gap: 9px; }
+  label.full { margin-top: 22px; }
+
+  label span {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+  label i { color: var(--color-accent-300); font-style: normal; }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    padding: 13px 15px;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 15px;
+  }
+  textarea { resize: vertical; }
+  input:focus, select:focus, textarea:focus { border-color: var(--color-accent); outline: none; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 34px; }
+  #consult-status { font-size: 14px; color: var(--color-neutral-400); }
+  #consult-status.ok { color: var(--color-accent-300); }
+  #consult-status.err { color: #e2a0a0; }
+</style>

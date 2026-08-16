@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceSections from '../components/ServiceSections.astro';
+import CTA from '../components/CTA.astro';
+import type { Section } from '../data/services';
+
+const sections: Section[] = [
+  {
+    type: 'narrative',
+    kicker: 'The restaurant years',
+    heading: 'I sold the restaurant and took the kitchen with me.',
+    paras: [
+      'I ran a restaurant on the beach for twelve years. It taught me the thing you cannot learn any other way: how to hold a standard when the room is full, the tickets are stacked and nobody out front can tell that anything is happening.',
+      'What a restaurant does not give you is the table. You cook for a room of strangers, the plates go out, and you almost never see the part that matters — the people at the table knowing each other, the reason they came, the moment the conversation stops because everyone is eating.',
+      'So I sold the restaurant and took the kitchen with me. Now I cook in other people’s houses and in halls and gardens across South Surrey and White Rock, and I am there for the part I used to miss.',
+      'I take a small number of events a year, on purpose. It means the person you speak to, the person who writes your menu, and the person on the line on the day are all me. There is no team you have not met and no chef I have subcontracted to.',
+      'I still shop like a restaurant — the fish boats, the Cloverdale growers, the same suppliers I used for twelve years. That part has not changed and will not.',
+    ],
+  },
+  {
+    type: 'lists',
+    kicker: 'Credentials',
+    heading: 'Verifiable, with the body and the year attached.',
+    note: 'Placeholder block — every line needs an awarding body and a year before it goes live. An unattributed claim does no work, and this block is the proof source three other pages borrow from.',
+    lists: [
+      {
+        title: 'Certification',
+        items: [
+          'Red Seal Certified Chef — Interprovincial Standards Red Seal Program, Cook trade',
+          'FOODSAFE Level 1 — BC Centre for Disease Control, current',
+          'Culinary training — institution and year to confirm',
+        ],
+      },
+      {
+        title: 'Awards · Jan’s on the Beach',
+        items: [
+          'Award name — awarding body, category, year',
+          'Award name — awarding body, category, year',
+          'Award name — awarding body, category, year',
+        ],
+      },
+      {
+        title: 'Press',
+        items: [
+          'Publication — headline, date, link where still live',
+          'Publication — headline, date',
+        ],
+      },
+    ],
+  },
+  {
+    type: 'narrative',
+    kicker: 'In the community',
+    heading: 'I cook for a few causes every year, and I do not make a campaign of it.',
+    note: 'Organisations to be named here — the list is more credible than any sentence about giving back.',
+    paras: [
+      'Fundraising dinners, community kitchens and a couple of organisations I have supported since the restaurant years. It is not a reason to hire me — it is just part of how the business runs.',
+    ],
+  },
+];
+---
+<Base
+  active="about"
+  title="About Chef Janet Wait — West Coast Culinary Creations"
+  description="Janet Wait is a Red Seal certified chef and was, for twelve years, owner and chef of Jan's on the Beach in White Rock. She now cooks private dinners and events across the Lower Mainland."
+>
+  <PageHero
+    kicker="About"
+    heading="Twelve years in a restaurant. Now in your kitchen."
+    lead="I am Janet Wait — Chef Jan. Red Seal certified, and for twelve years the owner and chef of Jan's on the Beach in White Rock."
+    slot="jan-whites"
+    alt="Chef Janet Wait in her chef's whites outside Jan's on the Beach"
+  />
+
+  <ServiceSections sections={sections} />
+
+  <CTA
+    kicker="Enquiries"
+    heading="If any of that sounds like the right fit, tell me about your event."
+    body="Two business days, a plain answer, and a menu written for your table."
+    slot="janet-bw"
+    alt="Black and white portrait of Chef Janet Wait"
+  />
+</Base>

@@ -110,8 +110,25 @@ Cloudflare Workers Builds is connected to this repo:
 - [ ] Decide whether leads also need logging somewhere (Frontier MFG writes to Notion)
 
 **Design + content**
-- [ ] Brand colours and typeface → `@theme` tokens in `src/styles/global.css`
+
+All fourteen pages from the design handoff are built. What is left is real
+content, not layout.
+
+- [ ] **Curate the provisional photos** — the slots marked `provisional` in
+      `src/data/images.ts` were filled from the camera roll, not chosen. Jan
+      should pick the hero, the five service headers and the gallery features.
+- [ ] Rewrite the generic gallery alt text (`GENERIC` in `src/data/gallery.ts`)
+- [ ] Real per-head rates — currently `[per-head rates — to confirm with Jan]`
+      in `src/components/FAQ.astro`
+- [ ] Phone number and Instagram in `src/components/SiteFooter.astro`
+- [ ] Six real reviews — `src/pages/reviews.astro` ships the design's placeholders
+- [ ] Credentials block on About: every line needs an awarding body and a year
+- [ ] Community organisations named on About
+- [ ] Consulting case study and day rates on `/gluten-free-consulting`
+- [ ] Confirm twelve vs fourteen years at Jan's on the Beach, then use one
+      number everywhere (copy currently says twelve)
+- [ ] Google Business Profile URL for the Reviews page button
 - [ ] Replace the placeholder `public/favicon.svg`
-- [ ] Real homepage copy — the current page is a placeholder
-- [ ] Decide the page set (menu, about, gallery, …) and add a nav/footer
-- [ ] Add a `src/pages/404.astro`
+- [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link
+- [ ] Add a `src/pages/404.astro` and set `not_found_handling` in `wrangler.jsonc`
+- [ ] `LocalBusiness` + `Service` structured data

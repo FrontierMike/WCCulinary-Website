@@ -3,6 +3,16 @@
 // Format is [quote, caption]. Catering captions name the event and the town;
 // restaurant captions name the year, so the two read differently even when a
 // quote is pulled out on its own elsewhere on the site.
+//
+// WRAP PASTED REVIEWS IN BACKTICKS, not 'single quotes'. Real reviews are full
+// of apostrophes ("we've", "Jan's") and every one of them ends a single-quoted
+// string early and breaks the build. Backticks don't care:
+//
+//   [`We've eaten here for years — "the best on the coast", my dad calls it.`,
+//    `Dinner service · 2016`],
+//
+// The only characters backticks mind are a backtick and a literal ${, neither
+// of which turns up in a restaurant review.
 
 /** Catering and private dining — the current business. */
 export const catering: [string, string][] = [
@@ -23,7 +33,8 @@ export const catering: [string, string][] = [
 ];
 
 /** Jan's on the Beach. Same chef, same suppliers, different room.
- *  Paste as many as you want — the page collapses them and counts them itself. */
+ *  Paste as many as you want — the page counts them itself and they load as
+ *  you scroll, so a long list costs nothing until someone scrolls into it. */
 export const restaurant: [string, string][] = [
   // PLACEHOLDER — real ones go here.
   ['Best meal we have had on this side of the water. We drove out from Vancouver on a friend’s word and we were not sorry.',

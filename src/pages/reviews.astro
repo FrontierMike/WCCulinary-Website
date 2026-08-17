@@ -2,25 +2,9 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CTA from '../components/CTA.astro';
+import { catering, restaurant, restaurantTotal } from '../data/reviews';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-// PLACEHOLDER. These six are the design's stand-in copy — replace with real,
-// attributable reviews before launch. See the README's before-launch list.
-const reviews = [
-  ['She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
-   'Wedding, sixty guests · Crescent Beach'],
-  ['We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
-   'Corporate client dinner · South Surrey'],
-  ['Eight of us at our own table, four courses, and my wife did not stand up once all evening. That was the actual gift.',
-   'Anniversary dinner at home · White Rock'],
-  ['My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
-   'Fiftieth birthday · Ocean Park'],
-  ['She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
-   'Wedding, forty guests · Langley'],
-  ['The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
-   'Private dinner for ten · South Surrey'],
-];
 ---
 <Base
   active="reviews"
@@ -35,16 +19,7 @@ const reviews = [
     alt="A table set for a celebration dinner"
   />
 
-  <section class="wrap cards" data-reveal-stagger="80">
-    {reviews.map(([quote, who]) => (
-      <figure data-reveal>
-        <blockquote>{quote}</blockquote>
-        <figcaption>{who}</figcaption>
-      </figure>
-    ))}
-  </section>
-
-  <section class="divider-top" data-reveal>
+  <section data-reveal>
     <div class="wrap ask">
       <div>
         <p class="kicker">Cooked for you before?</p>
@@ -61,6 +36,39 @@ const reviews = [
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="wrap cards divider-top" data-reveal-stagger="80">
+    {catering.map(([quote, who]) => (
+      <figure data-reveal>
+        <blockquote>{quote}</blockquote>
+        <figcaption>{who}</figcaption>
+      </figure>
+    ))}
+  </section>
+
+  <section class="divider-top" data-reveal>
+    <details class="wrap archive">
+      <summary>
+        <span>
+          <span class="kicker">The restaurant years</span>
+          <h2>Same chef, same kitchen, different room.</h2>
+        </span>
+        <span class="archive-count">{restaurant.length} of {restaurantTotal}</span>
+      </summary>
+      <p class="body-copy archive-note">
+        These were written about the restaurant, not the catering — same hands on
+        the pans and the same suppliers, so I have kept them.
+      </p>
+      <div class="cards archive-cards">
+        {restaurant.map(([quote, who]) => (
+          <figure>
+            <blockquote>{quote}</blockquote>
+            <figcaption>{who}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </details>
   </section>
 
   <CTA
@@ -107,10 +115,51 @@ const reviews = [
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 56px;
     align-items: start;
-    padding-top: 104px;
-    padding-bottom: 112px;
+    padding-top: 88px;
+    padding-bottom: 96px;
   }
   .ask .kicker { margin-bottom: 18px; }
   .ask h2 { max-width: 18ch; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; }
   .ask-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+
+  .archive { padding-top: 88px; padding-bottom: 104px; }
+
+  .archive summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    justify-content: space-between;
+    align-items: baseline;
+    cursor: pointer;
+    list-style: none;
+  }
+  .archive summary::-webkit-details-marker { display: none; }
+  .archive summary .kicker { display: block; margin-bottom: 18px; }
+  .archive summary h2 {
+    max-width: 18ch;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.08;
+  }
+
+  .archive-count {
+    font-size: 0.6875rem;
+    line-height: 1.6;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+    max-width: 26ch;
+  }
+  .archive-count::after { content: ' · show'; }
+  .archive[open] .archive-count::after { content: ' · hide'; }
+
+  .archive-note { margin-top: 26px; }
+  .archive-cards { padding: 48px 0 0; }
+
+  /* ponytail: the restaurant list runs to several hundred cards. Skipping
+     layout and paint for the off-screen ones is two lines; swap for real
+     pagination only if scrolling still stutters. */
+  .archive-cards figure {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 260px;
+  }
 </style>

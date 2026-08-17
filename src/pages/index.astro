@@ -6,6 +6,9 @@ import { img } from '../data/images';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 
+// PLACEHOLDER REVIEWS. Every quote on this page is drafted copy, not a real
+// customer. They read as specific and plausible, which is exactly what makes
+// them dangerous to ship — replace all six with real reviews before launch.
 const features = [
   {
     kicker: 'The chef',
@@ -14,6 +17,8 @@ const features = [
     link: ["Read Jan's story →", 'about'],
     slot: 'jan-whites',
     alt: "Chef Janet Wait in her chef's whites outside Jan's on the Beach",
+    quote: 'She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
+    attribution: 'Wedding, forty guests · Langley',
   },
   {
     kicker: 'The food',
@@ -22,6 +27,8 @@ const features = [
     link: ['See example menus →', 'menus'],
     slot: 'plating',
     alt: 'Plating a course by hand, garnishing with fresh herbs',
+    quote: 'My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
+    attribution: 'Fiftieth birthday · Ocean Park',
   },
   {
     kicker: 'Private dining',
@@ -30,6 +37,8 @@ const features = [
     link: ['How private dining works →', 'private-dining'],
     slot: 'private-dining-tacos',
     alt: 'A plated course from a private dinner',
+    quote: 'The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
+    attribution: 'Private dinner for ten · South Surrey',
   },
   {
     kicker: 'Weddings',
@@ -38,6 +47,8 @@ const features = [
     link: ['See how weddings work →', 'weddings'],
     slot: 'svc-weddings',
     alt: 'A plated seafood course served at a wedding dinner',
+    quote: 'She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
+    attribution: 'Wedding, sixty guests · Crescent Beach',
   },
   {
     kicker: 'Corporate',
@@ -46,7 +57,17 @@ const features = [
     link: ['Corporate catering →', 'corporate'],
     slot: 'svc-corporate',
     alt: 'A plated main course prepared for a corporate dinner',
+    quote: 'We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
+    attribution: 'Corporate client dinner · South Surrey',
   },
+];
+
+// The four services that are not one of the five blocks above.
+const everythingElse = [
+  ['Celebrations', 'Milestone birthdays, anniversaries and parties, at home or at a venue — drop-off through to full service.', 'celebrations'],
+  ['Wine pairing dinners', 'Bring out the bottles you have been saving and Jan writes the courses around them.', 'wine-dinners'],
+  ['Gluten-free catering', 'Menus written as gluten-free dishes in their own right, not substitutions, with separate boards and pans.', 'gluten-free-catering'],
+  ['Gluten-free consulting', 'For restaurants and kitchens — menu review, kitchen handling and a written protocol your staff will follow.', 'gluten-free-consulting'],
 ];
 
 const strip = [
@@ -97,22 +118,53 @@ const strip = [
           <p class="kicker">{f.kicker}</p>
           <h3>{f.heading}</h3>
           <p class="body-copy">{f.body}</p>
+          <div class="woven">
+            <span class="mark"></span>
+            <p class="quote">{f.quote}</p>
+            <a class="attribution" href={href('reviews')}>{f.attribution} →</a>
+          </div>
           <a class="link-accent" href={href(f.link[1])}>{f.link[0]}</a>
         </div>
       </section>
     ))}
 
-    <!-- Services catch-all -->
-    <div class="catchall divider-top" data-reveal>
-      <p>Celebrations, wine pairing dinners and dedicated gluten-free catering are all on the table too.</p>
-      <a class="link-accent" href={href('services')}>See all the ways I cook →</a>
-    </div>
+    <!-- Reviews row — the sixth quote -->
+    <section class="reviews-row divider-top" data-reveal>
+      <p class="reviews-line">More reviews, in their own words.</p>
+      <div class="woven reviews-quote">
+        <span class="mark"></span>
+        <p class="quote">
+          Eight of us at our own table, four courses, and my wife did not stand up
+          once all evening. That was the actual gift.
+        </p>
+        <a class="attribution" href={href('reviews')}>Anniversary dinner at home · White Rock →</a>
+      </div>
+      <a class="btn btn-secondary push-right" href={href('reviews')}>Read all reviews →</a>
+    </section>
+
+    <!-- Everything else -->
+    <section class="everything divider-top" data-reveal>
+      <div class="everything-head">
+        <div>
+          <p class="kicker">Everything else</p>
+          <h2>Four more ways Jan cooks</h2>
+        </div>
+        <a class="btn btn-secondary push-right" href={href('services')}>See all the ways I cook →</a>
+      </div>
+      {everythingElse.map(([title, desc, path]) => (
+        <a class="svc-row" href={href(path)}>
+          <h3>{title}</h3>
+          <p>{desc}</p>
+          <span class="learn">Learn more →</span>
+        </a>
+      ))}
+    </section>
 
     <!-- Recent plates -->
     <section class="plates">
       <div class="plates-head" data-reveal>
         <h2>Recent plates</h2>
-        <a class="btn btn-secondary" href={href('gallery')}>View the full gallery →</a>
+        <a class="btn btn-secondary push-right" href={href('gallery')}>View the full gallery →</a>
       </div>
       <div class="strip" data-reveal-stagger="80">
         {strip.map(([slot, alt]) => (
@@ -181,6 +233,11 @@ const strip = [
 
   .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
 
+  /* space-between only right-aligns the last item while both children share a
+     line; once the button wraps to its own row it falls back to flex-start.
+     margin-left: auto holds the right edge at every width. */
+  .push-right { margin-left: auto; }
+
   /* --- Feature blocks --- */
   .feature {
     display: grid;
@@ -210,15 +267,103 @@ const strip = [
   }
   .feature .link-accent { margin-top: 26px; }
 
-  /* --- Services catch-all --- */
-  .catchall { padding: 96px 0; }
-  .catchall p {
-    max-width: 30ch;
+  /* --- Woven review quote ---
+     Nocturne's short accent mark, deliberately not a card, not a left border
+     and not a quotation glyph. Attribution always links through to Reviews. */
+  .woven {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 46ch;
+  }
+  .mark { flex: none; width: 28px; height: 2px; background: var(--color-accent); }
+
+  .quote {
+    font-family: var(--font-serif);
+    font-style: italic; /* the only italic in the system — it marks a different voice */
+    font-size: 19.5px;
+    line-height: 1.48;
+    color: var(--color-neutral-200);
+  }
+
+  .attribution {
+    font-size: 12.5px;
+    color: var(--color-neutral-500);
+    transition: color .25s var(--ease);
+  }
+  .attribution:hover { color: var(--color-accent-300); }
+
+  .feature .woven { margin-bottom: 4px; }
+
+  /* --- Reviews row --- */
+  .reviews-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 36px;
+    padding: 44px 0 56px;
+  }
+  .reviews-line {
+    max-width: 20ch;
+    font-family: var(--font-serif);
     font-size: clamp(24px, 2.8vw, 34px);
     line-height: 1.28;
-    color: var(--color-neutral-300);
   }
-  .catchall .link-accent { margin-top: 30px; }
+  .reviews-quote { margin-top: 0; max-width: 36ch; }
+
+  /* --- Everything else --- */
+  .everything { padding: 44px 0 112px; }
+
+  .everything-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+  .everything-head h2 {
+    margin-top: 16px;
+    max-width: 20ch;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.08;
+  }
+
+  /* Title, description and "Learn more" must be *direct* grid children. An
+     earlier version wrapped the first two in a flex span and every description
+     started wherever its title happened to end. */
+  .svc-row {
+    display: grid;
+    grid-template-columns: minmax(190px, 230px) minmax(0, 1fr) auto;
+    gap: 8px 28px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-top: 1px solid var(--color-divider);
+    transition: opacity .25s var(--ease);
+  }
+  .svc-row:last-child { border-bottom: 1px solid var(--color-divider); }
+  .svc-row:hover { opacity: 0.8; }
+
+  .svc-row h3 { font-size: clamp(21px, 2.3vw, 28px); line-height: 1.14; }
+  .svc-row p { font-size: 15px; line-height: 1.6; color: var(--color-neutral-400); }
+  .learn {
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-300);
+    white-space: nowrap;
+  }
+
+  /* The site's only media query. Two of the three columns are effectively
+     fixed (190px floor + a nowrap link) and together need ~360px inside a
+     326px phone viewport. Grid does not wrap, so the middle column absorbed
+     the whole shortfall, went to 0px wide and rendered one character per line.
+     Raising its floor does not help — only collapsing to one column does. */
+  @media (max-width: 720px) {
+    .svc-row { grid-template-columns: 1fr; gap: 6px; }
+  }
 
   /* --- Recent plates --- */
   .plates { padding: 16px 0 112px; }

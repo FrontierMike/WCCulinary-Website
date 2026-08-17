@@ -1,10 +1,16 @@
 @import "tailwindcss";
 
-/* Design tokens — Nocturne, per design_handoff_wcculinary_site/README.md.
-   Never pure black or pure white. Do not introduce a second accent. */
+/* Design tokens — Nocturne, per design_handoff_wcculinary_site_v2/README.md.
+   Never pure black or pure white. Do not introduce a second accent.
+
+   The ground is neutral grey, not Nocturne's blue-purple. The prototypes reach
+   it with a second :root block overriding the design system; here the grey IS
+   the token. The accent stays Nocturne's purple, which reads distinctly purple
+   against grey rather than blending — the client has seen that and accepted it.
+   If it is ever revisited, change the accent, not the ground. */
 :root {
-  --color-bg: #161826;
-  --color-surface: #232532;
+  --color-bg: #1a1a1a;
+  --color-surface: #262626;
   --color-text: #e9e9ed;
   --color-accent: #9184d9;
   --color-accent-300: #d2cefd;
@@ -66,7 +72,7 @@ img { display: block; max-width: 100%; }
   outline-offset: 2px;
 }
 
-::selection { background: rgba(145, 132, 217, 0.32); }
+::selection { background: color-mix(in srgb, var(--color-accent) 32%, transparent); }
 
 /* --- Shared layout --- */
 .wrap {
@@ -107,10 +113,10 @@ img { display: block; max-width: 100%; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 26px;
+  padding: 16px 32px;
   border-radius: var(--radius-md);
-  font-size: 12px;
-  letter-spacing: 0.22em;
+  font-size: 14px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   transition: background .3s var(--ease), border-color .3s var(--ease);
 }
@@ -119,7 +125,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid var(--color-accent);
   color: var(--color-accent-300);
 }
-.btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 17%, transparent); }
+.btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
 
 .btn-secondary {
   border: 1px solid var(--color-neutral-700);
@@ -146,12 +152,22 @@ img { display: block; max-width: 100%; }
 .scrim-lr {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(22,24,38,.94) 0%, rgba(22,24,38,.72) 46%, rgba(22,24,38,.18) 100%);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-bg) 92%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 70%, transparent) 44%,
+    color-mix(in srgb, var(--color-bg) 20%, transparent) 100%
+  );
 }
 .scrim-bt {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #161826 1%, rgba(22,24,38,.15) 46%, rgba(22,24,38,.5) 100%);
+  background: linear-gradient(
+    to top,
+    var(--color-bg) 2%,
+    color-mix(in srgb, var(--color-bg) 55%, transparent) 50%,
+    color-mix(in srgb, var(--color-bg) 70%, transparent) 100%
+  );
 }
 
 /* --- Hero entry ---

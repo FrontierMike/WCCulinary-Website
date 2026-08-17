@@ -3,7 +3,8 @@
 
 export type Section = {
   kicker?: string;
-  heading: string;
+  /** Optional only for `quote` — the testimonial band carries no heading. */
+  heading?: string;
   lead?: string;
   note?: string;
 } & (
@@ -40,7 +41,7 @@ export const services: Service[] = [
     slug: 'private-dining',
     title: 'Private dining',
     summary: 'Two to thirty people, four or five courses, cooked in your kitchen and served to your table.',
-    imageSlot: 'svc-private',
+    imageSlot: 'private-dining-tacos',
     imageAlt: 'A plated course served at a private dinner',
     faqVariant: 'private-dining',
     hero: {
@@ -146,6 +147,11 @@ export const services: Service[] = [
             ],
           },
         ],
+      },
+      {
+        type: 'quote',
+        text: 'The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
+        attribution: 'Private dinner for ten · South Surrey',
       },
     ],
     cta: {
@@ -271,7 +277,6 @@ export const services: Service[] = [
       },
       {
         type: 'quote',
-        heading: 'From a wedding client.',
         text: 'She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
         attribution: 'Wedding, sixty guests · Crescent Beach',
       },
@@ -405,6 +410,11 @@ export const services: Service[] = [
           { title: 'Cancellations', body: 'Free up to the lead time for your order type. Inside that window, food already purchased is billed.' },
         ],
       },
+      {
+        type: 'quote',
+        text: 'We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
+        attribution: 'Corporate client dinner · South Surrey',
+      },
     ],
     cta: {
       heading: 'Send one lunch and see how it lands.',
@@ -532,6 +542,11 @@ export const services: Service[] = [
           },
         ],
       },
+      {
+        type: 'quote',
+        text: 'Eight of us at our own table, four courses, and my wife did not stand up once all evening. That was the actual gift.',
+        attribution: 'Anniversary dinner at home · White Rock',
+      },
     ],
     cta: {
       heading: 'Tell me what we are celebrating.',
@@ -543,7 +558,7 @@ export const services: Service[] = [
     slug: 'wine-dinners',
     title: 'Wine pairing dinners',
     summary: 'Five or six courses written around the bottles, for eight to twenty guests at your own table.',
-    imageSlot: 'svc-wine',
+    imageSlot: 'gal-lamb',
     imageAlt: 'Pan-seared halibut with pepper relish, plated for service',
     faqVariant: 'wine-dinners',
     hero: {
@@ -602,6 +617,11 @@ export const services: Service[] = [
           'Wine dinners are the natural first step if you are considering me for something larger — most of my wedding clients started at one.',
         ],
       },
+      {
+        type: 'quote',
+        text: 'She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
+        attribution: 'Wedding, forty guests · Langley',
+      },
     ],
     cta: {
       heading: 'Bring out the bottles and I will write the courses.',
@@ -614,7 +634,7 @@ services.push({
   slug: 'gluten-free-catering',
   title: 'Gluten-free catering',
   summary: 'Coeliac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
-  imageSlot: 'gal-salad',
+  imageSlot: 'gal-pate',
   imageAlt: 'A composed salad finished with edible flowers',
   faqVariant: 'gf',
   hiddenFromNav: true,
@@ -722,6 +742,11 @@ services.push({
           ],
         },
       ],
+    },
+    {
+      type: 'quote',
+      text: 'My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
+      attribution: 'Fiftieth birthday · Ocean Park',
     },
   ],
   cta: {

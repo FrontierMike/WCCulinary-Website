@@ -33,6 +33,7 @@ const SLOTS: Record<string, string> = {
   'gal-torte': 'cheesecake',
   'gal-salmon': 'salmononseafoodrisotto',
   'menu-burrowing-owl': 'burrowinowlwinedinner22sept2022',
+  'hero-services': '750-2757-edit',                // hands finishing stuffed poblanos
 
   // --- provisional ---
   'hero-service': 'catering',

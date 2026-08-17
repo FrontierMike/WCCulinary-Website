@@ -111,17 +111,30 @@ Cloudflare Workers Builds is connected to this repo:
 
 **Design + content**
 
-All fourteen pages from the design handoff are built. What is left is real
-content, not layout.
+All fourteen pages are built to **handoff v2** (`design_handoff_wcculinary_site_v2`,
+in the zip at the repo root). What is left is real content, not layout.
 
+- [ ] **Replace all six drafted reviews with real ones — highest priority.**
+      They are plausible and specific, which is what makes them dangerous to
+      ship. They now appear in three places: the five home feature blocks and
+      the home reviews row (`src/pages/index.astro`), the six service-page
+      testimonial bands (`type: 'quote'` in `src/data/services.ts`), and the
+      six cards on `src/pages/reviews.astro`.
+- [ ] **Prune the gallery to Jan's 128.** v2 says she cut the set to 128; the
+      build derives ~150 from `src/assets/images/` minus `EXCLUDE` in
+      `src/data/gallery.ts`. The bundle ships no asset list, so which 22 came
+      out is unknown — get the list from Jan and add them to `EXCLUDE`.
 - [ ] **Curate the provisional photos** — the slots marked `provisional` in
       `src/data/images.ts` were filled from the camera roll, not chosen. Jan
       should pick the hero, the five service headers and the gallery features.
+- [ ] Replace the home closing-block photo (`jan-plating`) — client is choosing one
+- [ ] Resolve the three duplicated hero photos: `gal-lamb` (Menus + Wine
+      Dinners), `svc-celebrations` (Reviews + Celebrations), `jan-halibut`
+      (GF Consulting hero + About's colour pair)
 - [ ] Rewrite the generic gallery alt text (`GENERIC` in `src/data/gallery.ts`)
 - [ ] Real per-head rates — currently `[per-head rates — to confirm with Jan]`
       in `src/components/FAQ.astro`
 - [ ] Phone number and Instagram in `src/components/SiteFooter.astro`
-- [ ] Six real reviews — `src/pages/reviews.astro` ships the design's placeholders
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
 - [ ] Consulting case study and day rates on `/gluten-free-consulting`

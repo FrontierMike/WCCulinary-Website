@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceSections from '../components/ServiceSections.astro';
 import CTA from '../components/CTA.astro';
+import { img } from '../data/images';
 import type { Section } from '../data/services';
 
 const sections: Section[] = [
@@ -65,21 +67,48 @@ const sections: Section[] = [
   title="About Chef Janet Wait — West Coast Culinary Creations"
   description="Janet Wait is a Red Seal certified chef and was, for twelve years, owner and chef of Jan's on the Beach in White Rock. She now cooks private dinners and events across the Lower Mainland."
 >
+  {/* 720px is a floor, not a preference. Her head occupies ~43% of a square
+      original, so a shallower hero crops it whatever object-position says. */}
   <PageHero
     kicker="About"
     heading="Twelve years in a restaurant. Now in your kitchen."
     lead="I am Janet Wait — Chef Jan. Red Seal certified, and for twelve years the owner and chef of Jan's on the Beach in White Rock."
-    slot="jan-whites"
-    alt="Chef Janet Wait in her chef's whites outside Jan's on the Beach"
+    photo="janet-bw"
+    alt="Portrait of Chef Janet Wait"
+    grayscale
+    objectPosition="center 34%"
+    height="min(76vh, 720px)"
   />
 
   <ServiceSections sections={sections} />
+
+  {/* Colour on purpose — the page was flat with a grayscale pair under a
+      grayscale hero. The hero stays grayscale; that photo is a mono original. */}
+  <section class="wrap pair" data-reveal-stagger="80">
+    <Image src={img('jan-halibut')} alt="Chef Janet Wait plating a course in her whites" widths={[420, 700]} sizes="(max-width: 760px) 50vw, 33vw" data-reveal />
+    <Image src={img('jan-plating')} alt="Jan at the pass, finishing two plates" widths={[420, 700]} sizes="(max-width: 760px) 50vw, 33vw" data-reveal />
+  </section>
 
   <CTA
     kicker="Enquiries"
     heading="If any of that sounds like the right fit, tell me about your event."
     body="Two business days, a plain answer, and a menu written for your table."
-    slot="janet-bw"
-    alt="Black and white portrait of Chef Janet Wait"
+    photo="jan-whites"
+    alt="Chef Janet Wait in her chef's whites outside Jan's on the Beach"
   />
 </Base>
+
+<style>
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+    padding-bottom: 112px;
+  }
+  .pair :global(img) {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+</style>

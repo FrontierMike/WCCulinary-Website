@@ -47,28 +47,33 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     ))}
   </section>
 
-  <section class="divider-top" data-reveal>
-    <details class="wrap archive">
-      <summary>
-        <span>
-          <span class="kicker">The restaurant years</span>
-          <h2>Same chef, same kitchen, different room.</h2>
-        </span>
-        <span class="archive-count">{restaurant.length} of {restaurantTotal}</span>
-      </summary>
-      <p class="body-copy archive-note">
-        These were written about the restaurant, not the catering — same hands on
-        the pans and the same suppliers, so I have kept them.
-      </p>
-      <div class="cards archive-cards">
-        {restaurant.map(([quote, who]) => (
-          <figure>
-            <blockquote>{quote}</blockquote>
-            <figcaption>{who}</figcaption>
-          </figure>
-        ))}
+  <section class="divider-top">
+    <div class="wrap archive-head" data-reveal>
+      <div>
+        <p class="kicker">The restaurant years</p>
+        <h2>Same chef, same kitchen, different room.</h2>
       </div>
-    </details>
+      <div>
+        <p class="body-copy">
+          These were written about the restaurant, not the catering — same hands
+          on the pans and the same suppliers, so I have kept them.
+        </p>
+        <p class="archive-count">{restaurant.length} of {restaurantTotal}</p>
+      </div>
+    </div>
+
+    {/* No data-reveal on these. The scroll-fade primes every tagged element on
+        load with inline styles and an observer, which is fine for six cards and
+        silly for five hundred — content-visibility below already holds them back
+        until you scroll to them. */}
+    <div class="wrap cards archive-cards">
+      {restaurant.map(([quote, who]) => (
+        <figure>
+          <blockquote>{quote}</blockquote>
+          <figcaption>{who}</figcaption>
+        </figure>
+      ))}
+    </div>
   </section>
 
   <CTA
@@ -122,42 +127,35 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .ask h2 { max-width: 18ch; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; }
   .ask-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 
-  .archive { padding-top: 88px; padding-bottom: 104px; }
-
-  .archive summary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 32px;
-    justify-content: space-between;
-    align-items: baseline;
-    cursor: pointer;
-    list-style: none;
+  .archive-head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 56px;
+    align-items: start;
+    padding-top: 88px;
   }
-  .archive summary::-webkit-details-marker { display: none; }
-  .archive summary .kicker { display: block; margin-bottom: 18px; }
-  .archive summary h2 {
+  .archive-head .kicker { margin-bottom: 18px; }
+  .archive-head h2 {
     max-width: 18ch;
     font-size: clamp(28px, 3vw, 40px);
     line-height: 1.08;
   }
 
   .archive-count {
+    margin-top: 22px;
     font-size: 0.6875rem;
-    line-height: 1.6;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-neutral-500);
-    max-width: 26ch;
   }
-  .archive-count::after { content: ' · show'; }
-  .archive[open] .archive-count::after { content: ' · hide'; }
 
-  .archive-note { margin-top: 26px; }
-  .archive-cards { padding: 48px 0 0; }
+  .archive-cards { padding-top: 56px; }
 
-  /* ponytail: the restaurant list runs to several hundred cards. Skipping
-     layout and paint for the off-screen ones is two lines; swap for real
-     pagination only if scrolling still stutters. */
+  /* ponytail: the restaurant list runs to several hundred cards, all on the
+     page at once. This is what makes them cost nothing until you scroll to
+     them — the browser skips layout and paint for the off-screen ones.
+     contain-intrinsic-size is the reserved height guess that keeps the
+     scrollbar honest; raise it if long quotes make the bar jump. */
   .archive-cards figure {
     content-visibility: auto;
     contain-intrinsic-size: auto 260px;

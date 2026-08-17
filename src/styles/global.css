@@ -44,6 +44,10 @@
 
 html { scroll-behavior: smooth; }
 
+/* Mobile type scale. Body/label sizes are rem (headings stay px/clamp), so this
+   one value scales all of them; 24px is 1.5x the 16px root. */
+@media (max-width: 640px) { html { font-size: 24px; } }
+
 body {
   margin: 0;
   background: var(--color-bg);
@@ -85,7 +89,7 @@ img { display: block; max-width: 100%; }
 
 /* --- Recurring type --- */
 .kicker {
-  font-size: 10.5px;
+  font-size: 0.6563rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--color-accent-300);
@@ -95,14 +99,14 @@ img { display: block; max-width: 100%; }
 }
 
 .lead {
-  font-size: 18.5px;
+  font-size: 1.1563rem;
   line-height: 1.6;
   color: var(--color-neutral-300);
   max-width: 52ch;
 }
 
 .body-copy {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--color-neutral-300);
   max-width: 50ch;
@@ -115,7 +119,7 @@ img { display: block; max-width: 100%; }
   gap: 10px;
   padding: 16px 32px;
   border-radius: var(--radius-md);
-  font-size: 14px;
+  font-size: 0.875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   transition: background .3s var(--ease), border-color .3s var(--ease);
@@ -136,7 +140,7 @@ img { display: block; max-width: 100%; }
 /* --- Text link with the 1px accent underline --- */
 .link-accent {
   display: inline-block;
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent-300);

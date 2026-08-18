@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { img } from '../data/images';
+import { catering } from '../data/reviews';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
@@ -9,6 +10,11 @@ const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 // PLACEHOLDER REVIEWS. Every quote on this page is drafted copy, not a real
 // customer. They read as specific and plausible, which is exactly what makes
 // them dangerous to ship — replace all six with real reviews before launch.
+//
+// The text lives in data/reviews.ts and is shared with the reviews page, so
+// replacing it there fixes both. Destructured BY POSITION — reorder that array
+// and these names quietly point at the wrong quotes.
+const [wedding60, corporate, , coeliac, menuAdvice, cleanKitchen] = catering;
 const features = [
   {
     kicker: 'The chef',
@@ -17,8 +23,8 @@ const features = [
     link: ["Read Jan's story →", 'about'],
     slot: 'jan-whites',
     alt: "Chef Janet Wait in her chef's whites outside Jan's on the Beach",
-    quote: 'She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
-    attribution: 'Wedding, forty guests · Langley',
+    quote: menuAdvice[0],
+    attribution: menuAdvice[1],
   },
   {
     kicker: 'The food',
@@ -27,8 +33,8 @@ const features = [
     link: ['See example menus →', 'menus'],
     slot: 'plating',
     alt: 'Plating a course by hand, garnishing with fresh herbs',
-    quote: 'My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
-    attribution: 'Fiftieth birthday · Ocean Park',
+    quote: coeliac[0],
+    attribution: coeliac[1],
   },
   {
     kicker: 'Private dining',
@@ -37,8 +43,8 @@ const features = [
     link: ['How private dining works →', 'private-dining'],
     slot: 'private-dining-tacos',
     alt: 'A plated course from a private dinner',
-    quote: 'The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
-    attribution: 'Private dinner for ten · South Surrey',
+    quote: cleanKitchen[0],
+    attribution: cleanKitchen[1],
   },
   {
     kicker: 'Weddings',
@@ -47,8 +53,8 @@ const features = [
     link: ['See how weddings work →', 'weddings'],
     slot: 'svc-weddings',
     alt: 'A plated seafood course served at a wedding dinner',
-    quote: 'She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
-    attribution: 'Wedding, sixty guests · Crescent Beach',
+    quote: wedding60[0],
+    attribution: wedding60[1],
   },
   {
     kicker: 'Corporate',
@@ -57,8 +63,8 @@ const features = [
     link: ['Corporate catering →', 'corporate'],
     slot: 'svc-corporate',
     alt: 'A plated main course prepared for a corporate dinner',
-    quote: 'We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
-    attribution: 'Corporate client dinner · South Surrey',
+    quote: corporate[0],
+    attribution: corporate[1],
   },
 ];
 

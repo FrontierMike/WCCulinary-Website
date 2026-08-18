@@ -41,6 +41,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="wrap cards divider-top" data-reveal-stagger="80">
     {catering.map(([quote, who]) => (
       <figure data-reveal>
+        <p class="stars" role="img" aria-label="Rated five out of five">★★★★★</p>
         <blockquote>{quote}</blockquote>
         <figcaption>{who}</figcaption>
       </figure>
@@ -155,15 +156,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   .archive-cards { padding-top: 56px; }
-
-  /* ponytail: five ★ glyphs, no icon set. role=img carries the rating to
-     screen readers, so the characters themselves are just decoration. */
-  .stars {
-    margin: 0 0 18px;
-    font-size: 19.5px;
-    letter-spacing: 0.3em;
-    color: var(--color-accent-300);
-  }
 
   /* ponytail: the restaurant list runs to several hundred cards, all on the
      page at once. This is what makes them cost nothing until you scroll to

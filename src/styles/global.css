@@ -112,6 +112,15 @@ img { display: block; max-width: 100%; }
   max-width: 50ch;
 }
 
+/* Five glyphs, no icon set. The role=img/aria-label on the element carries the
+   rating, so the characters themselves are decoration. */
+.stars {
+  margin: 0 0 18px;
+  font-size: 19.5px;
+  letter-spacing: 0.3em;
+  color: var(--color-accent-300);
+}
+
 /* --- Buttons --- */
 .btn {
   display: inline-flex;

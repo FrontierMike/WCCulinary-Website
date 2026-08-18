@@ -75,6 +75,7 @@ const reviews = `${base}/reviews`.replace(/\/+/g, '/');
       {s.type === 'quote' && (
         <>
           <figure class="quote">
+            <p class="stars" role="img" aria-label="Rated five out of five">★★★★★</p>
             <blockquote>{s.text}</blockquote>
             <figcaption>{s.attribution}</figcaption>
           </figure>

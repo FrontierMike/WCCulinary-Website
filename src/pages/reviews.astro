@@ -62,13 +62,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </div>
 
-    {/* No data-reveal on these. The scroll-fade primes every tagged element on
-        load with inline styles and an observer, which is fine for six cards and
-        silly for five hundred — content-visibility below already holds them back
-        until you scroll to them. */}
-    <div class="wrap cards archive-cards">
+    {/* Same scroll-reveal as the gallery grid. It primes every card on load
+        with inline styles and one shared observer — fine at a hundred cards,
+        worth reconsidering if this list ever runs to five hundred. */}
+    <div class="wrap cards archive-cards" data-reveal-stagger="80">
       {restaurant.map(([quote, who]) => (
-        <figure>
+        <figure data-reveal>
           <p class="stars" role="img" aria-label="Rated five out of five">★★★★★</p>
           <blockquote>{quote}</blockquote>
           <figcaption>{who}</figcaption>
@@ -161,7 +160,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
      screen readers, so the characters themselves are just decoration. */
   .stars {
     margin: 0 0 18px;
-    font-size: 13px;
+    font-size: 19.5px;
     letter-spacing: 0.3em;
     color: var(--color-accent-300);
   }

@@ -29,10 +29,9 @@ const rows = [...services, ...indexOnly];
 
   <div class="wrap">
     <ol class="rows">
-      {rows.map((s, i) => (
+      {rows.map((s) => (
         <li data-reveal>
           <a href={href(s.slug)}>
-            <span class="num">{String(i + 1).padStart(2, '0')}</span>
             <span class="content">
               <span class="thumb">
                 <Image src={img(s.imageSlot)} alt={s.imageAlt} widths={[420, 640]} sizes="(max-width: 820px) 100vw, 40vw" loading="lazy" />
@@ -65,15 +64,11 @@ const rows = [...services, ...indexOnly];
   .rows li:last-child { border-bottom: 1px solid var(--color-divider); }
 
   .rows a {
-    display: grid;
-    grid-template-columns: 56px minmax(0, 1fr);
-    gap: clamp(20px, 4vw, 56px);
+    display: block;
     padding: 44px 0;
     transition: opacity .3s var(--ease);
   }
   .rows a:hover { opacity: 0.86; }
-
-  .num { font-size: 0.75rem; letter-spacing: 0.18em; color: var(--color-neutral-600); padding-top: 6px; }
 
   .content {
     display: grid;

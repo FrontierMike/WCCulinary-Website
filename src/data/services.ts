@@ -40,18 +40,18 @@ export const services: Service[] = [
   {
     slug: 'private-dining',
     title: 'Private dining',
-    summary: 'Two to thirty-two people, three to five courses, cooked in your kitchen and served to your table.',
+    summary: 'Two to thirty-two people, three, four or five courses, cooked in your kitchen and served to your table.',
     imageSlot: 'private-dining-tacos',
     imageAlt: 'A plated course served at a private dinner',
     faqVariant: 'private-dining',
     hero: {
       kicker: 'Private dining',
       heading: 'I cook in your kitchen. You do not get up.',
-      lead: 'Two to thirty-two people, three to five courses, served to your table. It is the easiest way to eat my food, and the way I most like to cook it.',
+      lead: 'Two to thirty-two people, three, four or five courses, served to your table. It is the easiest way to eat my food, and the way I most like to cook it.',
     },
     seo: {
       title: 'Private chef — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'A Red Seal chef cooks three to five courses in your own kitchen, for two to thirty-two people. Private chef dinners across White Rock, South Surrey and the Lower Mainland.',
+      description: 'A Red Seal chef cooks three, four or five courses in your own kitchen, for two to thirty-two people. Private chef dinners across White Rock, South Surrey and the Lower Mainland.',
     },
     sections: [
       {
@@ -309,7 +309,7 @@ export const services: Service[] = [
     },
     seo: {
       title: 'Corporate & office lunch catering — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Office lunch and board dinner catering with fixed delivery windows, per-head pricing, PO numbers and Net 30 accounts. South Surrey, White Rock and the Lower Mainland.',
+      description: 'Office lunch and board dinner catering with fixed delivery windows, per-head pricing, PO numbers and itemised invoices. South Surrey, White Rock and the Lower Mainland.',
     },
     sections: [
       {
@@ -339,7 +339,6 @@ export const services: Service[] = [
             title: 'Accounts and invoicing',
             items: [
               'Purchase order numbers carried on every invoice',
-              'Net 30 terms on approved accounts',
               'One monthly invoice for recurring orders',
               'GST registered · WCB covered · liability insured',
             ],
@@ -424,13 +423,13 @@ export const services: Service[] = [
   {
     slug: 'celebrations',
     title: 'Celebrations',
-    summary: 'Milestone birthdays, anniversaries and parties — drop-off trays through to full service with staff.',
+    summary: 'Birthdays, milestones, anniversaries and parties — drop-off trays through to full service with staff.',
     imageSlot: 'svc-celebrations',
     imageAlt: 'A charcuterie board with cheeses, olives and edible flowers',
     faqVariant: 'celebrations',
     hero: {
       kicker: 'Celebrations',
-      heading: 'Milestone birthdays, anniversaries, and the parties in between.',
+      heading: 'Birthdays, milestones, anniversaries, and the parties in between.',
       lead: 'Fiftieths, sixtieths, engagement parties, retirements, a good excuse in general. At home or at a venue, from drop-off trays to full service with staff.',
     },
     seo: {
@@ -438,26 +437,6 @@ export const services: Service[] = [
       description: 'Milestone birthday, anniversary and celebration catering by a Red Seal chef. Drop-off through full service, at home or at a venue, across the Lower Mainland.',
     },
     sections: [
-      {
-        type: 'cards',
-        kicker: 'Guest counts',
-        heading: 'What changes as the room gets bigger.',
-        cards: [
-          { title: '8 – 20', body: 'A dinner party. Plated courses, cooked in your kitchen, served to the table. This is the format where the food is at its best.' },
-          { title: '20 – 40', body: 'Canapés and grazing, or family-style platters on a long table. One server keeps the room moving and clears as it goes. Still fits in most homes.' },
-          { title: '40 – 80', body: 'A venue, rentals and a kitchen team. Buffet or stations rather than plated, unless the room is set for seated service. Bar handled separately.' },
-          { title: '80 +', body: 'Possible, and I will be honest about it: past eighty the food has to be built to hold. If that is your headcount, ask and I will tell you whether it is worth doing.' },
-        ],
-      },
-      {
-        type: 'narrative',
-        kicker: 'At home, or at a venue',
-        heading: 'A home kitchen goes further than people expect.',
-        paras: [
-          'At home is warmer and cheaper, and a domestic kitchen is enough for far more than people expect — I have cooked forty covers out of a galley kitchen with one oven. What a home cannot absorb is rentals and standing room, so past about forty the venue starts to pay for itself.',
-          'If you have not booked anywhere yet, ask me first. Whether a room has a kitchen, water and a service door changes the menu more than any other factor.',
-        ],
-      },
       {
         type: 'cards',
         kicker: 'How much of it I do',
@@ -510,6 +489,15 @@ export const services: Service[] = [
         ],
       },
       {
+        type: 'narrative',
+        kicker: 'At home, or at a venue',
+        heading: 'A home kitchen goes further than people expect.',
+        paras: [
+          'At home is warmer and cheaper, and a domestic kitchen is enough for far more than people expect — I have cooked forty covers out of a galley kitchen with one oven. What a home cannot absorb is rentals and standing room, so past about forty the venue starts to pay for itself.',
+          'If you have not booked anywhere yet, ask me first. Whether a room has a kitchen, water and a service door changes the menu more than any other factor.',
+        ],
+      },
+      {
         type: 'lists',
         kicker: 'Practical',
         heading: 'The things people ask before booking.',
@@ -539,6 +527,17 @@ export const services: Service[] = [
               DIETARY,
             ],
           },
+        ],
+      },
+      {
+        type: 'cards',
+        kicker: 'Guest counts',
+        heading: 'What changes as the room gets bigger.',
+        cards: [
+          { title: '8 – 20', body: 'A dinner party. Plated courses, cooked in your kitchen, served to the table. This is the format where the food is at its best.' },
+          { title: '20 – 40', body: 'Canapés and grazing, or family-style platters on a long table. One server keeps the room moving and clears as it goes. Still fits in most homes.' },
+          { title: '40 – 80', body: 'A venue, rentals and a kitchen team. Buffet or stations rather than plated, unless the room is set for seated service. Bar handled separately.' },
+          { title: '80 +', body: 'Possible, and I will be honest about it: past eighty the food has to be built to hold. If that is your headcount, ask and I will tell you whether it is worth doing.' },
         ],
       },
       {

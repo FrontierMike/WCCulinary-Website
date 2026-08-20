@@ -536,8 +536,7 @@ export const services: Service[] = [
         cards: [
           { title: '8 – 20', body: 'A dinner party. Plated courses, cooked in your kitchen, served to the table. This is the format where the food is at its best.' },
           { title: '20 – 40', body: 'Canapés and grazing, or family-style platters on a long table. One server keeps the room moving and clears as it goes. Still fits in most homes.' },
-          { title: '40 – 80', body: 'A venue, rentals and a kitchen team. Buffet or stations rather than plated, unless the room is set for seated service. Bar handled separately.' },
-          { title: '80 +', body: 'Possible, and I will be honest about it: past eighty the food has to be built to hold. If that is your headcount, ask and I will tell you whether it is worth doing.' },
+          { title: '40 – 75', body: 'A venue, rentals and a kitchen team. Buffet or stations rather than plated, unless the room is set for seated service. Bar handled separately.' },
         ],
       },
       {

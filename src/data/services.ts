@@ -40,18 +40,18 @@ export const services: Service[] = [
   {
     slug: 'private-dining',
     title: 'Private dining',
-    summary: 'Two to thirty people, four or five courses, cooked in your kitchen and served to your table.',
+    summary: 'Two to thirty-two people, three to five courses, cooked in your kitchen and served to your table.',
     imageSlot: 'private-dining-tacos',
     imageAlt: 'A plated course served at a private dinner',
     faqVariant: 'private-dining',
     hero: {
       kicker: 'Private dining',
       heading: 'I cook in your kitchen. You do not get up.',
-      lead: 'Two to thirty people, four or five courses, served to your table. It is the easiest way to eat my food, and the way I most like to cook it.',
+      lead: 'Two to thirty-two people, three to five courses, served to your table. It is the easiest way to eat my food, and the way I most like to cook it.',
     },
     seo: {
       title: 'Private chef — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'A Red Seal chef cooks four or five courses in your own kitchen, for two to thirty people. Private chef dinners across White Rock, South Surrey and the Lower Mainland.',
+      description: 'A Red Seal chef cooks three to five courses in your own kitchen, for two to thirty-two people. Private chef dinners across White Rock, South Surrey and the Lower Mainland.',
     },
     sections: [
       {
@@ -69,8 +69,8 @@ export const services: Service[] = [
         kicker: 'How it works',
         heading: 'The shape of a private dinner.',
         cards: [
-          { title: 'Typical counts', body: 'Two to thirty. Eight to twelve is the sweet spot — one table, one conversation, and every course lands hot.' },
-          { title: 'The format', body: 'Four or five fixed courses, the same for the whole table apart from dietary changes. Fixed courses are what let me cook restaurant food in a home kitchen.' },
+          { title: 'Typical counts', body: 'Two to thirty-two. Eight to twelve is the sweet spot — one table, one conversation, and every course lands hot.' },
+          { title: 'The format', body: 'Three, four or five fixed courses — we talk it through and pick the one that suits your evening. The same menu for the whole table apart from dietary changes, which is what lets me cook restaurant food in a home kitchen.' },
           { title: 'How the menu gets built', body: 'We talk for twenty minutes — what you like, what you never want to see again, who has restrictions. I write the menu around what is good that week and send it for approval.' },
           { title: 'What it costs', body: 'Per guest, covering groceries, cooking, service and cleanup. A server is added for tables over twelve. No packages — you get a quote for your evening.' },
         ],
@@ -156,31 +156,31 @@ export const services: Service[] = [
     ],
     cta: {
       heading: 'Pick a Saturday and I will write you a menu.',
-      body: 'Two to thirty people. Tell me the date and roughly what you like to eat.',
+      body: 'Two to thirty-two people. Tell me the date and roughly what you like to eat.',
     },
   },
 
   {
     slug: 'weddings',
     title: 'Weddings',
-    summary: 'Intimate weddings under fifty guests, with one consultation, one tasting, and the chef you hired on the line.',
+    summary: 'Intimate weddings up to seventy-five guests, with one consultation and the chef you hired on the line.',
     imageSlot: 'svc-weddings',
     imageAlt: 'Seared scallops served on individual porcelain spoons with chutney',
     faqVariant: 'weddings',
     hero: {
       kicker: 'Weddings',
       heading: 'Small weddings, cooked by the chef you hired.',
-      lead: 'Intimate weddings — roughly under fifty guests. One menu consultation, one tasting, and I am the person on the line on the day. Not a name on your contract.',
+      lead: 'Intimate weddings — up to about seventy-five guests. One menu consultation, and I am the person on the line on the day. Not a name on your contract.',
     },
     seo: {
       title: 'Small wedding catering — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Intimate wedding catering under fifty guests by Red Seal chef Janet Wait. One consultation, one tasting, and the chef you hired cooking on the day.',
+      description: 'Intimate wedding catering up to seventy-five guests by Red Seal chef Janet Wait. One consultation, and the chef you hired cooking on the day.',
     },
     sections: [
       {
         type: 'narrative',
         kicker: 'Why smaller is better food',
-        heading: 'Fifty plates can leave a real kitchen properly. Three hundred cannot.',
+        heading: 'Seventy-five plates can leave a real kitchen properly. Three hundred cannot.',
         paras: [
           'A banquet kitchen cooking for three hundred has to hold food at temperature for an hour before it reaches a table. Everything is chosen for how well it survives that wait, which is why catered food has the reputation it does.',
           'At your scale I can cook to order, finish plates as they go out, and serve fish that was still whole that morning. The constraint is what makes the food good — not something to apologise for.',
@@ -193,8 +193,7 @@ export const services: Service[] = [
         heading: 'From first email to the last plate.',
         steps: [
           { title: 'Inquiry', body: 'Your date, venue, guest count and budget range. I answer within two business days and tell you plainly whether the venue can support the service you want.' },
-          { title: 'Menu consultation', body: 'An hour, in person where possible. What you both actually like to eat, what is in season on your date, and every dietary need at the table — built into the menu, not added to it.' },
-          { title: 'Tasting', body: 'Four to six dishes, plated exactly as they will be served. Bring two people whose opinions you trust. We edit until the menu is right.' },
+          { title: 'Menu consultation', body: 'An hour, in person where possible. What you both actually like to eat, what is in season on your date, and every dietary need at the table — built into the menu, not added to it. We edit until the menu is right.' },
           { title: 'The day', body: 'We arrive early and set the kitchen. A timed service plan goes to your photographer and MC. You eat a hot plate at your own wedding — I take that personally.' },
         ],
       },
@@ -206,7 +205,7 @@ export const services: Service[] = [
           {
             title: 'Included',
             items: [
-              'Menu design and one private tasting for up to four people',
+              'Menu design and a full menu consultation',
               'All food, prepared and finished on site',
               'Kitchen team and service staff, with a lead server',
               'Rental coordination — china, glassware, flatware, linen',

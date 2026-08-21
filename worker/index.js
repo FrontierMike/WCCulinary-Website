@@ -21,7 +21,16 @@ export default {
     }
 
     // Everything else: serve the static site (and its own 404 handling).
-    return env.ASSETS.fetch(request);
+    const res = await env.ASSETS.fetch(request);
+
+    // The preview host serves the same pages as production. Keep it out of
+    // the index so it never competes with wcculinary.com for its own copy.
+    if (url.hostname.startsWith("preview.")) {
+      const tagged = new Response(res.body, res);
+      tagged.headers.set("X-Robots-Tag", "noindex, nofollow");
+      return tagged;
+    }
+    return res;
   },
 };
 

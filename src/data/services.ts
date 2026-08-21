@@ -87,7 +87,7 @@ export const services: Service[] = [
             items: [
               'Steamed clams, white wine, garlic, herbs',
               'Little gem salad, anchovy dressing, rye crumb',
-              'Seared scallop, salsa verde, crisp pancetta',
+              'Seared scallop, pesto, crisp pancetta',
               'Braised short rib, celeriac purée, gremolata',
               'Dark chocolate pâté, crème fraîche, raspberry',
             ],
@@ -264,7 +264,7 @@ export const services: Service[] = [
             tag: 'Reception',
             title: 'Passed canapés, standing',
             items: [
-              'Seared scallop, salsa verde, crisp pancetta',
+              'Seared scallop, pesto, crisp pancetta',
               'Smoked salmon, caper, pickled onion on rye',
               'Puff pastry pinwheel, sun-dried tomato, herbs',
               'Chicken satay, peanut, lime',
@@ -358,7 +358,7 @@ export const services: Service[] = [
             items: [
               'Chicken satay with peanut and lime',
               'Roasted vegetable and goat cheese pinwheels',
-              'Market green salad, sherry vinaigrette',
+              'Market green salad, honey balsamic vinaigrette',
               'Grain salad with lemon, herbs, toasted seeds',
               'Chocolate pâté squares and fresh berries',
             ],
@@ -378,7 +378,7 @@ export const services: Service[] = [
             tag: 'Dinner',
             title: 'Client dinner, plated',
             items: [
-              'Seared scallop, salsa verde, crisp pancetta',
+              'Seared scallop, pesto, crisp pancetta',
               'Beef carpaccio, arugula, aioli, parmesan',
               'Braised short rib, celeriac purée, gremolata',
               'or Pan-seared halibut, pepper relish, new potato',
@@ -450,13 +450,13 @@ export const services: Service[] = [
       {
         type: 'menus',
         kicker: 'Sample menus',
-        heading: 'Three formats that suit a party.',
+        heading: 'Four formats that suit a party.',
         menus: [
           {
             tag: 'Canapés',
-            title: 'Cocktail party, passed',
+            title: 'Cocktail party',
             items: [
-              'Seared scallop, salsa verde, crisp pancetta',
+              'Seared scallop, pesto, crisp pancetta',
               'Smoked salmon, caper, pickled onion on rye',
               'Puff pastry pinwheel, sun-dried tomato, herbs',
               'Chicken satay, peanut, lime',
@@ -468,21 +468,31 @@ export const services: Service[] = [
             tag: 'Shared',
             title: 'Grazing table',
             items: [
-              'Local cheeses with preserves and honeycomb',
+              'Local cheeses with preserves',
               'Cured meats, cornichons, grainy mustard',
               'Marinated olives, roasted peppers, almonds',
-              'Steamed clams in white wine and herbs',
               'Warm breads and cultured butter',
+            ],
+          },
+          {
+            tag: 'Shared',
+            title: 'Meze table',
+            items: [
+              'Hummus and baba ganoush with warm pita',
+              'Marinated olives and dolmades',
+              'Spanakopita, spinach and feta in filo',
+              'Falafel with tahini and lemon',
+              'Steamed clams or mussels in white wine',
             ],
           },
           {
             tag: 'Seated',
             title: 'Milestone dinner, family style',
             items: [
-              'Market green salad, sherry vinaigrette',
+              'Market green salad, honey balsamic vinaigrette',
               'Braised beef with mashed potato and glazed carrots',
               'Roasted chicken with lemon and herbs',
-              'Seasonal vegetables from the Cloverdale growers',
+              'Seasonal vegetables from local growers',
               'Chocolate hazelnut torte',
             ],
           },
@@ -584,7 +594,7 @@ export const services: Service[] = [
             title: 'Five courses',
             items: [
               'Steamed clams, white wine, garlic, herbs · dry Riesling',
-              'Seared scallop, salsa verde, crisp pancetta · Chardonnay',
+              'Seared scallop, pesto, crisp pancetta · Chardonnay',
               'Halibut, pepper relish, new potato · Pinot Gris',
               'Aged cheeses, quince, walnut · late-harvest Viognier',
               'Almond and olive oil cake, roasted plums · Muscat',
@@ -687,7 +697,7 @@ services.push({
           tag: 'Passed',
           title: 'Reception canapés',
           items: [
-            'Seared scallop, salsa verde, crisp pancetta',
+            'Seared scallop, pesto, crisp pancetta',
             'Prawn cocktail, cucumber, lemon',
             'Beef carpaccio on polenta, aioli, parmesan',
             'Chicken satay, peanut, lime',

@@ -434,7 +434,7 @@ export const services: Service[] = [
     },
     seo: {
       title: 'Birthday & anniversary party catering — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Milestone birthday, anniversary and celebration catering by a Red Seal chef. Drop-off through full service, at home or at a venue, across the Lower Mainland.',
+      description: 'Birthday, milestone and anniversary catering by a Red Seal chef. Drop-off trays through to full service, at home or at a venue, across the Lower Mainland.',
     },
     sections: [
       {

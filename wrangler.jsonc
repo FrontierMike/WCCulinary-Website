@@ -4,12 +4,12 @@
   "name": "wcculinary-website",
   "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
-  // TEMPORARY demo hosting: frontiermfg.ca/wcc* is more specific than the
-  // Frontier MFG worker's frontiermfg.ca/*, so Cloudflare routes it here.
-  // Nothing in the FrontierMFG-Website repo changes. Delete this block (and
-  // build without --base) once wcculinary.com is live.
+  // Deploys into Jan's Cloudflare account, which holds the wcculinary.com
+  // zone. Preview subdomain for now; the live site is still WordPress at the
+  // apex. At cutover, add { "pattern": "wcculinary.com", "custom_domain": true }
+  // alongside this one.
   "routes": [
-    { "pattern": "frontiermfg.ca/wcc*", "zone_name": "frontiermfg.ca" }
+    { "pattern": "preview.wcculinary.com", "custom_domain": true }
   ],
   "assets": {
     // Astro's static build output. `npm run build` produces this.

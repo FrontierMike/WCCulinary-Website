@@ -45,8 +45,9 @@
 html { scroll-behavior: smooth; }
 
 /* Mobile type scale. Body/label sizes are rem (headings stay px/clamp), so this
-   one value scales all of them; 21.6px is 1.35x the 16px root. */
-@media (max-width: 640px) { html { font-size: 21.6px; } }
+   one value scales all of them; 18.36px is 1.15x the 16px root, and 15% down
+   from the 21.6px this used to be. */
+@media (max-width: 640px) { html { font-size: 18.36px; } }
 
 body {
   margin: 0;

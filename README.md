@@ -138,7 +138,6 @@ in the zip at the repo root). What is left is real content, not layout.
 - [ ] Rewrite the generic gallery alt text (`GENERIC` in `src/data/gallery.ts`)
 - [ ] Real per-head rates — currently `[per-head rates — to confirm with Jan]`
       in `src/components/FAQ.astro`
-- [ ] Phone number and Instagram in `src/components/SiteFooter.astro`
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
 - [ ] Consulting case study and day rates on `/gluten-free-consulting`

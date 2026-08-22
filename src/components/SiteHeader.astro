@@ -97,6 +97,10 @@ const nav = [
   .nav-link:hover { color: var(--color-accent-300); }
   .nav-link.on { color: var(--color-accent-300); }
 
+  /* Already the smallest text on the site, so it does not follow the root down
+     the mobile type scale — 0.625rem of a 16.524px root is barely 10px. */
+  @media (max-width: 640px) { .nav-link { font-size: 11.5px; } }
+
   .phone { white-space: nowrap; color: var(--color-neutral-200); }
 
   .enquire {

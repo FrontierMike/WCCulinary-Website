@@ -45,9 +45,10 @@
 html { scroll-behavior: smooth; }
 
 /* Mobile type scale. Body/label sizes are rem (headings stay px/clamp), so this
-   one value scales all of them; 18.36px is 1.15x the 16px root, and 15% down
-   from the 21.6px this used to be. */
-@media (max-width: 640px) { html { font-size: 18.36px; } }
+   one value scales all of them. Walked down from the original 21.6px in two
+   steps — 15%, then a further 10% off the body — to 16.524px, a shade above the
+   16px root. SiteHeader holds .nav-link back, which would otherwise land at 10px. */
+@media (max-width: 640px) { html { font-size: 16.524px; } }
 
 body {
   margin: 0;

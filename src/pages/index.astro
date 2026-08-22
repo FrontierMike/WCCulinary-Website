@@ -17,16 +17,6 @@ const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 const [wedding60, corporate, , coeliac, menuAdvice, cleanKitchen] = catering;
 const features = [
   {
-    kicker: 'The chef',
-    heading: 'Twelve years running her own restaurant, now bringing that cooking to your event',
-    body: "Jan is Red Seal trained, and her restaurant — Jan's on the Beach in White Rock — was an award-winning gourmet bistro for twelve years. Everything she serves is cooked by her, either in her commissary kitchen or on your own stove. No chef turns up on the day whom you have not already met.",
-    link: ["Read Jan's story →", 'about'],
-    slot: 'jan-whites',
-    alt: "Chef Janet Wait in her chef's whites outside Jan's on the Beach",
-    quote: menuAdvice[0],
-    attribution: menuAdvice[1],
-  },
-  {
     kicker: 'The food',
     heading: 'Main dishes made from scratch, with what is actually in season',
     body: 'Every main dish is cooked from raw ingredients, with the stocks, sauces, dressings and cures made from scratch. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
@@ -65,6 +55,16 @@ const features = [
     alt: 'A plated main course prepared for a corporate dinner',
     quote: corporate[0],
     attribution: corporate[1],
+  },
+  {
+    kicker: 'The chef',
+    heading: 'Twelve years running her own restaurant, now bringing that cooking to your event',
+    body: "Jan is Red Seal trained, and her restaurant — Jan's on the Beach in White Rock — was an award-winning gourmet bistro for twelve years. Everything she serves is cooked by her, either in her commissary kitchen or on your own stove. No chef turns up on the day whom you have not already met.",
+    link: ["Read Jan's story →", 'about'],
+    slot: 'jan-whites',
+    alt: "Chef Janet Wait in her chef's whites outside Jan's on the Beach",
+    quote: menuAdvice[0],
+    attribution: menuAdvice[1],
   },
 ];
 

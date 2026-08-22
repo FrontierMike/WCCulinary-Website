@@ -240,4 +240,4 @@ export const restaurant: [string, string][] = [
 
 /** What the restaurant actually earned, not what is published below it.
  *  Only the honest total belongs here — it is the claim doing the persuading. */
-export const restaurantTotal = 'the hundreds of five-star reviews she earned';
+export const restaurantTotal = 'the hundreds of five-star reviews the restaurant earned';

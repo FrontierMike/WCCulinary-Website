@@ -10,10 +10,18 @@ interface Props {
 }
 
 const {
-  title = 'West Coast Culinary Creations — Chef Janet Wait, Red Seal',
+  title = 'Private chef & catering — White Rock & South Surrey | West Coast Culinary Creations',
   description = 'Restaurant cooking in your venue or your kitchen. Red Seal chef Janet Wait caters weddings, private dinners and corporate events in South Surrey, White Rock and the Lower Mainland.',
   active = '',
 } = Astro.props;
+
+// Absolute URLs for canonical/social tags — Astro.site is set in astro.config.mjs.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('og.jpg', Astro.site);
+
+// Cloudflare Web Analytics. Renders nothing until the token is set as a
+// PUBLIC_CF_BEACON_TOKEN build variable (see README).
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 
 // Structured data: the same facts the pages state in prose, in the shape
 // Google reads. Only verifiable claims belong here — no hours, no price
@@ -53,10 +61,17 @@ const businessJsonLd = {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <script type="application/ld+json" set:html={JSON.stringify(businessJsonLd)} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Chef Janet Wait finishing a line of plated courses during service" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1a1a1a" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -71,5 +86,12 @@ const businessJsonLd = {
     <slot />
     <SiteFooter />
     <script>import '../scripts/reveal.js';</script>
+    {beaconToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: beaconToken })}
+      />
+    )}
   </body>
 </html>

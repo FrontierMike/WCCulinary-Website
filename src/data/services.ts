@@ -585,11 +585,6 @@ export const services: Service[] = [
         note: 'More past menus are added as they are collected — they are the proof this page runs on.',
         menus: [
           {
-            tag: 'September 2022 · Burrowing Owl',
-            title: 'Six courses, six wines',
-            items: ['A full evening built with the winery — menu card archived.'],
-          },
-          {
             tag: 'Okanagan whites',
             title: 'Five courses',
             items: [

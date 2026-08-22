@@ -96,6 +96,10 @@ Cloudflare Workers Builds is connected to this repo:
 **Infrastructure**
 - [ ] Create the Worker in Cloudflare and connect this repo (see *Cloudflare setup* above)
 - [ ] Confirm the first `main` push deploys and the site loads on `*.workers.dev`
+- [ ] Enable Cloudflare Web Analytics: create a site in the dashboard (Analytics →
+      Web Analytics), then set its token as a `PUBLIC_CF_BEACON_TOKEN` build
+      variable. The beacon script in `src/layouts/Base.astro` renders nothing
+      until the variable is set.
 
 **Domain / DNS** — not configured yet
 - [ ] Pick and register the domain

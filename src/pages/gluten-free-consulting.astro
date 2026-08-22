@@ -214,7 +214,7 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
       const data = await res.json();
       if (data.ok) {
         form.reset();
-        status.textContent = 'Thank you — Jan will be in touch within two business days.';
+        status.textContent = 'Thank you — I will be in touch within two business days.';
         status.className = 'ok';
       } else {
         status.textContent = data.error || 'Something went wrong. Please try again.';

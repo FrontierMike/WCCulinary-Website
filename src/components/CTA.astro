@@ -10,6 +10,8 @@ interface Props {
   /** Design slot in src/data/images.ts. NOT named `slot` — see PageHero. */
   photo?: string;
   alt?: string;
+  /** Prefills the contact form's Service select — must match one of its options. */
+  service?: string;
 }
 
 const {
@@ -19,9 +21,13 @@ const {
   label = 'Request a quote',
   photo = 'jan-plating',
   alt = 'Jan in the kitchen, finishing a plate',
+  service,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const contactHref =
+  `${base}/contact`.replace(/\/+/g, '/') +
+  (service ? `?service=${encodeURIComponent(service)}` : '');
 ---
 <section class="cta">
   <Image src={img(photo)} alt={alt} widths={[900, 1400, 1900]} sizes="100vw" loading="lazy" />
@@ -30,7 +36,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p class="kicker">{kicker}</p>
     <h2>{heading}</h2>
     {body && <p class="body-copy cta-body">{body}</p>}
-    <a class="btn btn-primary" href={`${base}/contact`.replace(/\/+/g, '/')}>{label}</a>
+    <a class="btn btn-primary" href={contactHref}>{label}</a>
   </div>
 </section>
 

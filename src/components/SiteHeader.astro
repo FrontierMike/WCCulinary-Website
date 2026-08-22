@@ -9,6 +9,7 @@ const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 const nav = [
   { key: 'services', label: 'Services', path: 'services' },
   { key: 'menus',    label: 'Menus',    path: 'menus' },
+  { key: 'gluten-free', label: 'Gluten-free', path: 'gluten-free-catering' },
   { key: 'gallery',  label: 'Gallery',  path: 'gallery' },
   { key: 'reviews',  label: 'Reviews',  path: 'reviews' },
   { key: 'about',    label: 'About',    path: 'about' },
@@ -25,6 +26,7 @@ const nav = [
       {nav.map((item) => (
         <a href={href(item.path)} class:list={['nav-link', { on: active === item.key }]}>{item.label}</a>
       ))}
+      <a href="tel:+16046266527" class="nav-link phone">604 626 6527</a>
       <a href={href('contact')} class="enquire">Enquire</a>
     </nav>
 
@@ -36,6 +38,7 @@ const nav = [
         {nav.map((item) => (
           <a href={href(item.path)} class:list={['nav-link', { on: active === item.key }]}>{item.label}</a>
         ))}
+        <a href="tel:+16046266527" class="nav-link phone">604 626 6527</a>
         <a href={href('contact')} class="enquire">Enquire</a>
       </div>
     </details>
@@ -75,7 +78,7 @@ const nav = [
   }
 
   .tagline {
-    font-size: 0.5313rem;
+    font-size: 0.6875rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--color-neutral-500);
@@ -93,6 +96,8 @@ const nav = [
   }
   .nav-link:hover { color: var(--color-accent-300); }
   .nav-link.on { color: var(--color-accent-300); }
+
+  .phone { white-space: nowrap; color: var(--color-neutral-200); }
 
   .enquire {
     padding: 10px 17px;
@@ -145,7 +150,8 @@ const nav = [
     border-radius: var(--radius-md);
   }
 
-  @media (max-width: 1049.98px) {
+  /* Raised from 1050 when the phone number and Gluten-free joined the row. */
+  @media (max-width: 1279.98px) {
     .nav-desktop { display: none; }
     .nav-mobile { display: block; }
   }

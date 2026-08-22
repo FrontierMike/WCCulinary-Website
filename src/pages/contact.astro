@@ -29,8 +29,8 @@ const budgets = [
 >
   <PageHero
     kicker="Enquiries"
-    heading="Tell Jan about your event."
-    lead="Jan answers her own enquiries. The more you can tell her about the date, the number of people and roughly what you had in mind, the more useful her first reply will be."
+    heading="Tell me about your event."
+    lead="I answer my own enquiries. The more you can tell me about the date, the number of people and roughly what you had in mind, the more useful my first reply will be."
     photo="gal-torte"
     alt="A chocolate torte finished with cream"
     height="min(58vh, 500px)"
@@ -98,6 +98,11 @@ const budgets = [
         <p id="contact-status" role="status" aria-live="polite"></p>
       </div>
     </form>
+
+    <p class="direct">
+      Prefer to talk? Call <a href="tel:+16046266527">604 626 6527</a> or email
+      <a href="mailto:jan@wcculinary.com">jan@wcculinary.com</a>.
+    </p>
   </section>
 </Base>
 
@@ -130,7 +135,7 @@ const budgets = [
       const data = await res.json();
       if (data.ok) {
         form.reset();
-        status.textContent = 'Thank you — Jan will be in touch shortly.';
+        status.textContent = 'Thank you — I will be in touch shortly.';
         status.className = 'ok';
       } else {
         status.textContent = data.error || 'Something went wrong. Please try again.';
@@ -185,6 +190,9 @@ const budgets = [
   input[type='date'] { color-scheme: dark; }
 
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+
+  .direct { margin-top: 34px; font-size: 0.875rem; color: var(--color-neutral-400); }
+  .direct a { color: var(--color-accent-300); border-bottom: 1px solid var(--color-accent-700); }
 
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 38px; }
 

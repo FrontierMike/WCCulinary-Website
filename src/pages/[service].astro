@@ -33,5 +33,5 @@ const { service } = Astro.props as { service: Service };
 
   <FAQ variant={service.faqVariant} />
 
-  <CTA heading={service.cta.heading} body={service.cta.body} />
+  <CTA heading={service.cta.heading} body={service.cta.body} service={service.title} />
 </Base>

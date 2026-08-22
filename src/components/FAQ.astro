@@ -11,33 +11,33 @@ const { variant = '', heading = 'Questions people actually ask.' } = Astro.props
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const shared: [string, string][] = [
-  ['Where does Jan cook?',
-   'South Surrey, White Rock and across the Lower Mainland. She cooks in your home kitchen or at your venue, and for larger events she has access to a commissary kitchen at the Elks Hall. Beyond the Lower Mainland, ask; travel is possible for the right event.'],
+  ['Where do you cook?',
+   'South Surrey, White Rock and across the Lower Mainland. I cook in your home kitchen or at your venue, and for larger events I have access to a commissary kitchen at the Elks Hall. Beyond the Lower Mainland, ask; travel is possible for the right event.'],
   ['How much does it cost?',
    'Pricing is per head and depends on the menu, the ingredients and how much service you want. Plated multi-course dinners cost more than family-style or drop-off. Starting points: [per-head rates — to confirm with Jan]. Every enquiry gets a written quote before anything is booked.'],
   ['Can we customise the menu?',
-   'Yes — the example menus are starting points, not a set list. Menus are written around what is in season, what you like and what your guests can eat. Jan writes a draft after the consultation and adjusts it until it is right.'],
+   'Yes — the example menus are starting points, not a set list. Menus are written around what is in season, what you like and what your guests can eat. I write a draft after the consultation and adjust it until it is right.'],
   ['Do you handle alcohol?',
-   'Jan does not supply alcohol. You buy the wine, beer and spirits — which is almost always cheaper for you — and she will tell you what to buy and how much, and pour and serve it during the meal. For wine pairing dinners she writes the courses around the bottles you already have.'],
+   'I do not supply alcohol. You buy the wine, beer and spirits — which is almost always cheaper for you — and I will tell you what to buy and how much, and pour and serve it during the meal. For wine pairing dinners I write the courses around the bottles you already have.'],
   ['How far ahead should we book?',
-   'Two to three weeks is enough for a private dinner. Weddings and larger events want two to three months, mostly so the menu and the rentals are settled well ahead of the date. Jan takes a small number of events a year, so summer Saturdays go early.'],
+   'Two to three weeks is enough for a private dinner. Weddings and larger events want two to three months, mostly so the menu and the rentals are settled well ahead of the date. I take a small number of events a year, so summer Saturdays go early.'],
   ['What is included, and what do we provide?',
-   'Jan brings her own knives, pans and small equipment, cooks, serves and leaves the kitchen clean. Plates, glassware, linen and extra service staff are quoted separately if you need them rented — many clients use what they already own. Dietary restrictions and allergies are handled properly, not worked around.'],
+   'I bring my own knives, pans and small equipment, cook, serve and leave the kitchen clean. Plates, glassware, linen and extra service staff are quoted separately if you need them rented — many clients use what they already own. Dietary restrictions and allergies are handled properly, not worked around.'],
 ];
 
 const variants: Record<string, [string, string]> = {
   weddings: ['Do you do the cake and late-night food?',
-    'Cake is usually a separate baker and Jan is happy to work alongside one. Late-night food, canapés during photos and a plate for the couple who never get to eat are all things she plans for as a matter of course.'],
+    'Cake is usually a separate baker and I am happy to work alongside one. Late-night food, canapés during photos and a plate for the couple who never get to eat are all things I plan for as a matter of course.'],
   corporate: ['Can you invoice us, and do you hold a standing account?',
     'Yes. Corporate work is invoiced on standard terms and repeat clients keep a standing account with agreed menus and delivery windows, so booking a lunch takes one email.'],
   celebrations: ['Can you just drop the food off?',
-    'Yes. Celebrations run from drop-off — food arrives ready, with heating and serving notes — through to Jan cooking and serving the whole evening. Most people land somewhere in the middle.'],
+    'Yes. Celebrations run from drop-off — food arrives ready, with heating and serving notes — through to me cooking and serving the whole evening. Most people land somewhere in the middle.'],
   'private-dining': ['What do you need from our kitchen?',
-    'Less than people expect: an oven, a few burners, counter space and a sink. Jan shops, arrives with everything else, cooks each course, serves it and leaves the kitchen the way she found it.'],
+    'Less than people expect: an oven, a few burners, counter space and a sink. I shop, arrive with everything else, cook each course, serve it and leave the kitchen the way I found it.'],
   'wine-dinners': ['Do we need to know anything about wine?',
-    'No. Bring out the bottles you have been saving and Jan writes the courses around them. If you would rather she chose, tell her roughly what you like and the budget.'],
+    'No. Bring out the bottles you have been saving and I write the courses around them. If you would rather I chose, tell me roughly what you like and the budget.'],
   gf: ['How do you keep it genuinely gluten-free?',
-    'Separate boards, pans, oil and service utensils, and gluten-free menus written as their own dishes rather than substitutions. Jan will walk you through the handling before the event so you can answer your guests confidently.'],
+    'Separate boards, pans, oil and service utensils, and gluten-free menus written as their own dishes rather than substitutions. I will walk you through the handling before the event so you can answer your guests confidently.'],
 };
 
 const items = [...shared];
@@ -45,13 +45,25 @@ if (variants[variant]) items.splice(2, 0, variants[variant]);
 
 // Unique per instance so two accordions on one page don't fight over the name.
 const group = `faq-${variant || 'default'}`;
+
+// The same questions and answers, in the shape Google reads.
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map(([q, a]) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
 ---
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 <section class="divider-top">
   <div class="inner">
     <div data-reveal>
       <p class="kicker">Before you ask</p>
       <h2>{heading}</h2>
-      <p class="support">Anything not covered here, ask directly — Jan answers her own enquiries.</p>
+      <p class="support">Anything not covered here, ask directly — I answer my own enquiries.</p>
       <a class="ask" href={`${base}/contact`.replace(/\/+/g, '/')}>Send an enquiry →</a>
     </div>
 

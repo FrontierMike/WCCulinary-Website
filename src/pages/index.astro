@@ -17,16 +17,6 @@ const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 const [wedding60, corporate, , coeliac, menuAdvice, cleanKitchen] = catering;
 const features = [
   {
-    kicker: 'The food',
-    heading: 'Main dishes made from scratch, with what is currently in season',
-    body: 'Every main dish is cooked from raw ingredients, with the stocks, sauces, dressings and cures made from scratch. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
-    link: ['See example menus →', 'menus'],
-    slot: 'plating',
-    alt: 'Plating a course by hand, garnishing with fresh herbs',
-    quote: coeliac[0],
-    attribution: coeliac[1],
-  },
-  {
     kicker: 'Private dining',
     heading: 'Two to thirty-two people, in your own kitchen',
     body: 'Jan shops, arrives with her own knives and pans, cooks each course, serves it, and leaves the kitchen the way she found it. All you do is sit down. It is the easiest way to try her food, and the way most clients meet her before booking something larger.',
@@ -55,6 +45,16 @@ const features = [
     alt: 'A plated main course prepared for a corporate dinner',
     quote: corporate[0],
     attribution: corporate[1],
+  },
+  {
+    kicker: 'The food',
+    heading: 'Main dishes made from scratch, with what is currently in season',
+    body: 'Every main dish is cooked from raw ingredients, with the stocks, sauces, dressings and cures made from scratch. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
+    link: ['See example menus →', 'menus'],
+    slot: 'plating',
+    alt: 'Plating a course by hand, garnishing with fresh herbs',
+    quote: coeliac[0],
+    attribution: coeliac[1],
   },
   {
     kicker: 'The chef',

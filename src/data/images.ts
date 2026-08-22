@@ -34,10 +34,10 @@ const SLOTS: Record<string, string> = {
   'gal-salmon': 'salmononseafoodrisotto',
   'menu-burrowing-owl': 'burrowinowlwinedinner22sept2022',
   'hero-services': '750-2757-edit',                // hands finishing stuffed poblanos
+  'plating': 'screenshot-2026-08-14-203255',       // scallops — chosen by Jan
 
   // --- provisional ---
   'hero-service': 'catering',
-  'plating': 'img-4916',
   'private-dining-tacos': 'tuscan-chicken',
   'svc-weddings': 'seafood',
   'svc-corporate': 'chicken-parm',

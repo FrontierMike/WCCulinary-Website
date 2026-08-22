@@ -52,7 +52,10 @@ const features = [
     body: 'Every main dish is cooked from raw ingredients, with the stocks, sauces, dressings and cures made from scratch. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
     link: ['See example menus →', 'menus'],
     slot: 'plating',
-    alt: 'Plating a course by hand, garnishing with fresh herbs',
+    alt: 'Seared scallops on a herb purée and red pepper sauce, finished with crisp cured ham',
+    // The scallop plate is shot upright on a 520px-wide phone frame. A 4:3 box
+    // crops it to the middle two scallops; 4:5 fits the whole plate.
+    ratio: '4 / 5',
     quote: coeliac[0],
     attribution: coeliac[1],
   },
@@ -117,7 +120,7 @@ const strip = [
     <!-- Five alternating feature blocks -->
     {features.map((f, i) => (
       <section class:list={['feature', { flip: i % 2 === 1, first: i === 0 }]} data-reveal>
-        <div class="feature-img">
+        <div class="feature-img" style={f.ratio && `--img-ratio: ${f.ratio}`}>
           <Image src={img(f.slot)} alt={f.alt} widths={[520, 800]} sizes="(max-width: 900px) 100vw, 50vw" />
         </div>
         <div>
@@ -257,7 +260,7 @@ const strip = [
 
   .feature-img :global(img) {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: var(--img-ratio, 4 / 3);
     object-fit: cover;
     border-radius: var(--radius-lg);
   }

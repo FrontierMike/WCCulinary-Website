@@ -1,26 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { enquiryOptions, heardFrom } from '../data/services';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Service type can be prefilled from a service page: /contact?service=Weddings
-const services = [
-  'Private dining',
-  'Weddings',
-  'Corporate',
-  'Celebrations',
-  'Wine pairing dinners',
-  'Gluten-free catering',
-  'Gluten-free consulting',
-  'Not sure yet',
-];
+// The label→slug map rides on the form as a data attribute rather than
+// define:vars, which would force the script inline and break its imports.
+const serviceSlugs = Object.fromEntries(enquiryOptions);
 
+// "Not sure yet" leads, so an untouched form does not invent a budget.
 const budgets = [
+  'Not sure yet',
   'Under $1,500',
   '$1,500 – $3,000',
   '$3,000 – $6,000',
   '$6,000 – $10,000',
   'Over $10,000',
-  'Not sure yet',
 ];
 ---
 <Base
@@ -37,7 +34,7 @@ const budgets = [
   />
 
   <section class="wrap form-section">
-    <form id="contact-form" novalidate>
+    <form id="contact-form" novalidate data-slugs={JSON.stringify(serviceSlugs)} data-base={base}>
       <div class="grid">
         <label>
           <span>Name <i>*</i></span>
@@ -72,7 +69,7 @@ const budgets = [
         <label>
           <span>Service</span>
           <select name="service">
-            {services.map((s) => <option value={s}>{s}</option>)}
+            {enquiryOptions.map(([label]) => <option value={label}>{label}</option>)}
           </select>
         </label>
 
@@ -83,6 +80,14 @@ const budgets = [
           </select>
         </label>
       </div>
+
+      <label class="full">
+        <span>How did you hear about me?</span>
+        <select name="heard-from">
+          <option value="">Please choose</option>
+          {heardFrom.map((h) => <option value={h}>{h}</option>)}
+        </select>
+      </label>
 
       <label class="full">
         <span>What are you planning? <i>*</i></span>
@@ -107,9 +112,14 @@ const budgets = [
 </Base>
 
 <script>
+  import { attribution } from '../scripts/attribution.js';
+
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const status = document.getElementById('contact-status') as HTMLParagraphElement;
   const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  const slugs: Record<string, string> = JSON.parse(form.dataset.slugs || '{}');
+  const base = form.dataset.base || '';
 
   // Prefill the service when a service page links here with ?service=…
   const wanted = new URLSearchParams(location.search).get('service');
@@ -130,21 +140,26 @@ const budgets = [
       const res = await fetch('api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        body: JSON.stringify({
+          ...Object.fromEntries(new FormData(form)),
+          ...attribution(),
+        }),
       });
       const data = await res.json();
       if (data.ok) {
-        form.reset();
-        status.textContent = 'Thank you — I will be in touch shortly.';
-        status.className = 'ok';
+        const service = (form.elements.namedItem('service') as HTMLSelectElement).value;
+        // replace, not assign: the form drops out of history, so Back returns
+        // to the page they came from instead of a filled form they could
+        // resubmit — which would double both the enquiry and the conversion.
+        location.replace(`${base}/contact/thank-you/${slugs[service] || 'not-sure'}`);
       } else {
         status.textContent = data.error || 'Something went wrong. Please try again.';
         status.className = 'err';
+        button.disabled = false;
       }
     } catch {
       status.textContent = 'Something went wrong. Please try again.';
       status.className = 'err';
-    } finally {
       button.disabled = false;
     }
   });

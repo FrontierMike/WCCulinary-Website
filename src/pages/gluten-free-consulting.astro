@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceSections from '../components/ServiceSections.astro';
-import type { Section } from '../data/services';
+import { heardFrom, type Section } from '../data/services';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
@@ -147,7 +147,7 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
         </p>
       </div>
 
-      <form id="consult-form" novalidate>
+      <form id="consult-form" novalidate data-base={base}>
         {/* Tags the enquiry so the subject line says which form it came from. */}
         <input type="hidden" name="service" value="Gluten-free consulting" />
 
@@ -176,6 +176,13 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
             <span>Timeline</span>
             <select name="timeline">{timelines.map((t) => <option value={t}>{t}</option>)}</select>
           </label>
+          <label class="wide">
+            <span>How did you hear about me?</span>
+            <select name="heard-from">
+              <option value="">Please choose</option>
+              {heardFrom.map((h) => <option value={h}>{h}</option>)}
+            </select>
+          </label>
         </div>
 
         <label class="full">
@@ -195,9 +202,12 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
 </Base>
 
 <script>
+  import { attribution } from '../scripts/attribution.js';
+
   const form = document.getElementById('consult-form') as HTMLFormElement;
   const status = document.getElementById('consult-status') as HTMLParagraphElement;
   const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const base = form.dataset.base || '';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -209,21 +219,23 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
       const res = await fetch('api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        body: JSON.stringify({
+          ...Object.fromEntries(new FormData(form)),
+          ...attribution(),
+        }),
       });
       const data = await res.json();
       if (data.ok) {
-        form.reset();
-        status.textContent = 'Thank you — I will be in touch within two business days.';
-        status.className = 'ok';
+        // This form's service is fixed by the hidden field above.
+        location.replace(`${base}/contact/thank-you/gluten-free-consulting`);
       } else {
         status.textContent = data.error || 'Something went wrong. Please try again.';
         status.className = 'err';
+        button.disabled = false;
       }
     } catch {
       status.textContent = 'Something went wrong. Please try again.';
       status.className = 'err';
-    } finally {
       button.disabled = false;
     }
   });

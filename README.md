@@ -82,6 +82,37 @@ Until all three are set, `/api/contact` returns `{ ok: false, error: "Contact fo
 
 For local Worker testing, put the same values in a `.dev.vars` file (gitignored).
 
+## Conversion tracking
+
+Cloudflare Web Analytics has no custom events and strips query strings, so
+conversions are tracked by **path** instead: a successful form submission
+redirects to `/contact/thank-you/<service-slug>`, and page views of those paths
+are the enquiry count, split by service.
+
+- The slugs come from `enquiryOptions` in `src/data/services.ts`, which also
+  fills the form's Service dropdown — one list, so the two cannot drift.
+- The pages are `noindex` and excluded from the sitemap. Without that, crawler
+  hits would inflate the numbers they exist to measure.
+- In the dashboard: filter Path by `/contact/thank-you/` for total enquiries,
+  group by Path for the service mix, and compare against `/contact` page views
+  for a form completion rate.
+
+Channel attribution does **not** come from analytics. It comes from the enquiry
+email, which carries three fields the Worker adds:
+
+| Field | Source |
+|---|---|
+| `heard-from` | The "How did you hear about me?" answer — catches word of mouth, venue referrals and the restaurant's reputation, which no pixel can see |
+| `landing` | First page of the visit, query string intact, so `?utm_*` tags survive |
+| `referrer` | External referrer captured on that first page, before internal navigation overwrites it |
+
+`landing` and `referrer` are captured once per session by
+`src/scripts/attribution.js` and travel with the form POST, so an ad blocker
+cannot drop them. Copy all three into `booking-log.xlsx` (gitignored), whose
+**By channel** tab turns them into booked revenue per channel — the number that
+should actually decide marketing spend, and the one analytics can never produce
+because it never learns which enquiries closed.
+
 ## Deployment
 
 Cloudflare Workers Builds is connected to this repo:
@@ -111,7 +142,10 @@ Cloudflare Workers Builds is connected to this repo:
 - [ ] Verify the sending domain in Resend, add its SPF/DKIM records + DMARC
 - [ ] Set `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` in the Worker
 - [ ] Submit a real test message end to end
-- [ ] Decide whether leads also need logging somewhere (Frontier MFG writes to Notion)
+- [ ] Auto-log leads somewhere structured, the way Frontier MFG writes to Notion.
+      Deferred on purpose — `booking-log.xlsx` (gitignored, holds client data) is
+      the manual version for now, and the enquiry email already carries the
+      `heard-from` / `landing` / `referrer` fields it would need.
 
 **Design + content**
 

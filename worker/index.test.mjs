@@ -34,3 +34,20 @@ test('carries the optional event fields through, blank when absent', () => {
   assert.equal(r.service, 'Weddings');
   assert.equal(r.budget, '');     // absent → empty, never undefined
 });
+
+test('carries attribution through, blank when absent', () => {
+  const r = validate({
+    name: 'Ada', email: 'ada@example.com', message: 'hi',
+    'heard-from': 'Instagram',
+    landing: '/weddings?utm_source=ig',
+    referrer: 'https://www.instagram.com/',
+  });
+  assert.equal(r.heardFrom, 'Instagram');
+  assert.equal(r.landing, '/weddings?utm_source=ig');  // query string kept
+  assert.equal(r.referrer, 'https://www.instagram.com/');
+
+  const bare = validate({ name: 'Ada', email: 'ada@example.com', message: 'hi' });
+  assert.equal(bare.heardFrom, '');
+  assert.equal(bare.landing, '');
+  assert.equal(bare.referrer, '');
+});

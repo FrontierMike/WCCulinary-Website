@@ -1,0 +1,97 @@
+---
+// One page per service, because Cloudflare Web Analytics strips query strings
+// but keeps the path. Page views of /contact/thank-you/<slug> ARE the enquiry
+// count, split by service, with device and referrer available on top.
+//
+// Generated from the same list that fills the form's dropdown, so a service can
+// never exist in one place and not the other.
+import Base from '../../../layouts/Base.astro';
+import { enquiryOptions } from '../../../data/services';
+
+export function getStaticPaths() {
+  return enquiryOptions.map(([label, slug]) => ({
+    params: { service: slug },
+    props: { label, slug },
+  }));
+}
+
+const { label, slug } = Astro.props as { label: string; slug: string };
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
+
+// "Not sure yet" is a real option, and "your enquiry about Not sure yet" reads
+// like a bug.
+const named = slug !== 'not-sure';
+---
+<Base
+  noindex
+  title="Thank you — West Coast Culinary Creations"
+  description="Your enquiry has been received. Chef Janet Wait answers every enquiry personally, within two business days."
+>
+  <section class="wrap thanks">
+    <p class="kicker">Enquiry received</p>
+    <h1>Thank you — it is with me now.</h1>
+
+    <p class="lead">
+      {named
+        ? `Your enquiry about ${label.toLowerCase()} has come straight to my inbox.`
+        : 'Your enquiry has come straight to my inbox.'}
+      {' '}I read and answer every one myself, usually within two business days,
+      and nothing gets booked before you have a written quote.
+    </p>
+
+    <p class="body-copy urgent">
+      If your date is close or something has changed, call me on
+      <a href="tel:+16046266527">604 626 6527</a> rather than waiting on email.
+    </p>
+
+    <div class="next">
+      <p class="next-label">While you wait</p>
+      <p class="body-copy">
+        I post the food from recent events on Instagram — it is the best look at
+        what I am actually cooking this season.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.instagram.com/west_coast_culinary_creations/" target="_blank" rel="noopener">
+          Follow on Instagram
+        </a>
+        <a class="btn btn-secondary" href={href('menus')}>Example menus →</a>
+        <a class="btn btn-secondary" href={href('gallery')}>Gallery →</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks { padding: 128px 0 112px; max-width: 68ch; }
+
+  .thanks h1 {
+    margin: 22px 0 28px;
+    max-width: 18ch;
+    font-size: clamp(38px, 5.4vw, 68px);
+    line-height: 1.04;
+  }
+
+  .lead { max-width: 54ch; }
+
+  .urgent { margin-top: 26px; max-width: 52ch; }
+  .urgent a { color: var(--color-accent-300); border-bottom: 1px solid var(--color-accent-700); }
+
+  .next {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .next-label {
+    margin-bottom: 14px;
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+  .next .body-copy { max-width: 48ch; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+</style>

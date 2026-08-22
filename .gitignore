@@ -17,6 +17,10 @@ npm-debug.log*
 # wrangler local state
 .wrangler/
 
+# The booking log holds real client names and deal values. Kept locally and
+# backed up wherever Jan keeps her business records — never in the repo.
+booking-log.xlsx
+
 # macOS-specific files
 .DS_Store
 

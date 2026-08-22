@@ -7,12 +7,17 @@ interface Props {
   title?: string;
   description?: string;
   active?: string;
+  /** Keeps a page out of search results. Used by the thank-you pages, which
+   *  would otherwise get indexed and have crawler hits inflate the enquiry
+   *  count they exist to measure. */
+  noindex?: boolean;
 }
 
 const {
   title = 'Private chef & catering — White Rock & South Surrey | West Coast Culinary Creations',
   description = 'Restaurant cooking in your venue or your kitchen. Red Seal chef Janet Wait caters weddings, private dinners and corporate events in South Surrey, White Rock and the Lower Mainland.',
   active = '',
+  noindex = false,
 } = Astro.props;
 
 // Absolute URLs for canonical/social tags — Astro.site is set in astro.config.mjs.
@@ -63,6 +68,7 @@ const businessJsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <script type="application/ld+json" set:html={JSON.stringify(businessJsonLd)} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -86,7 +92,11 @@ const businessJsonLd = {
     <SiteHeader active={active} />
     <slot />
     <SiteFooter />
-    <script>import '../scripts/reveal.js';</script>
+    <script>
+      import '../scripts/reveal.js';
+      import { capture } from '../scripts/attribution.js';
+      capture();
+    </script>
     {beaconToken && (
       <script
         defer

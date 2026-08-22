@@ -64,6 +64,12 @@ export function validate(data) {
     businessType: opt("business-type"),
     currentHandling: opt("current-handling"),
     timeline: opt("timeline"),
+    // Attribution. `heardFrom` is what they told us; `landing` and `referrer`
+    // are what the browser saw on the first page of the visit. They disagree
+    // more often than you would think, and the disagreement is the useful part.
+    heardFrom: opt("heard-from"),
+    landing: opt("landing"),
+    referrer: opt("referrer"),
   };
 }
 
@@ -117,7 +123,11 @@ async function handleContact(request, env) {
               `Handles GF today: ${fields.currentHandling || "Not specified"}\n` +
               `Timeline: ${fields.timeline || "Not specified"}\n`
             : "") +
-          `\nMessage:\n${fields.message}\n`,
+          `\nMessage:\n${fields.message}\n` +
+          `\n— Where this came from —\n` +
+          `Heard about me via: ${fields.heardFrom || "Not answered"}\n` +
+          `Landed on: ${fields.landing || "Unknown"}\n` +
+          `Referred by: ${fields.referrer || "Direct or unknown"}\n`,
       }),
     });
     if (!res.ok) {

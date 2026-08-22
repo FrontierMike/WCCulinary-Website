@@ -770,3 +770,39 @@ export const indexOnly = [
 ];
 
 export const bySlug = (slug: string) => services.find((s) => s.slug === slug);
+
+/** The contact form's Service dropdown, as [label, slug].
+ *
+ *  One list drives three things: the <select> options, the thank-you page the
+ *  form redirects to on success, and the routes that page generates. Cloudflare
+ *  Web Analytics strips query strings, so the slug in the path is what carries
+ *  the attribution — /contact/thank-you/weddings is the conversion event.
+ *
+ *  "Not sure yet" is first so an untouched form reports honestly rather than
+ *  silently attributing every direct visit to whatever happened to be first. */
+export const enquiryOptions: [string, string][] = [
+  ['Not sure yet', 'not-sure'],
+  ...services.map((s): [string, string] => [s.title, s.slug]),
+  ...indexOnly.map((s): [string, string] => [s.title, s.slug]),
+];
+
+// A duplicate slug would collapse two services onto one thank-you route and
+// quietly merge their numbers. Fail the build instead.
+const slugs = enquiryOptions.map(([, slug]) => slug);
+if (new Set(slugs).size !== slugs.length) {
+  throw new Error(`Duplicate enquiry slug in enquiryOptions: ${slugs.join(', ')}`);
+}
+
+/** Self-reported attribution. The offline options are the point — word of
+ *  mouth and venue referrals are invisible to every analytics tool there is,
+ *  and for this business they are probably the largest channels. */
+export const heardFrom = [
+  'Google or another search engine',
+  'Instagram',
+  'Facebook',
+  'A friend or family recommendation',
+  'My venue, planner or another vendor',
+  "I knew Jan's on the Beach",
+  'An event you catered',
+  'Other',
+];

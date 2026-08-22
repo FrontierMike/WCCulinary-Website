@@ -17,16 +17,6 @@ const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 const [wedding60, corporate, , coeliac, menuAdvice, cleanKitchen] = catering;
 const features = [
   {
-    kicker: 'Private dining',
-    heading: 'Two to thirty-two people, in your own kitchen',
-    body: 'Jan shops, arrives with her own knives and pans, cooks each course, serves it, and leaves the kitchen the way she found it. All you do is sit down. It is the easiest way to try her food, and the way most clients meet her before booking something larger.',
-    link: ['How private dining works →', 'private-dining'],
-    slot: 'private-dining-tacos',
-    alt: 'A plated course from a private dinner',
-    quote: cleanKitchen[0],
-    attribution: cleanKitchen[1],
-  },
-  {
     kicker: 'Weddings',
     heading: 'Intimate weddings, up to seventy-five guests',
     body: 'One menu consultation, and Jan is the chef on the day — not a name on the contract. Seventy-five guests is the ceiling on purpose: past that, the food stops being cooked and starts being reheated.',
@@ -35,6 +25,16 @@ const features = [
     alt: 'A plated seafood course served at a wedding dinner',
     quote: wedding60[0],
     attribution: wedding60[1],
+  },
+  {
+    kicker: 'Private dining',
+    heading: 'Two to thirty-two people, in your own kitchen',
+    body: 'Jan shops, arrives with her own knives and pans, cooks each course, serves it, and leaves the kitchen the way she found it. All you do is sit down. It is the easiest way to try her food, and the way most clients meet her before booking something larger.',
+    link: ['How private dining works →', 'private-dining'],
+    slot: 'private-dining-tacos',
+    alt: 'A plated course from a private dinner',
+    quote: cleanKitchen[0],
+    attribution: cleanKitchen[1],
   },
   {
     kicker: 'Corporate',

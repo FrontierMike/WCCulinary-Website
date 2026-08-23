@@ -154,10 +154,12 @@ in the zip at the repo root). What is left is real content, not layout.
 
 - [ ] **Replace all six drafted reviews with real ones — highest priority.**
       They are plausible and specific, which is what makes them dangerous to
-      ship. They now appear in three places: the five home feature blocks and
-      the home reviews row (`src/pages/index.astro`), the six service-page
-      testimonial bands (`type: 'quote'` in `src/data/services.ts`), and the
-      six cards on `src/pages/reviews.astro`.
+      ship. They now appear in three places: the home page
+      (`src/pages/index.astro` — three one-line excerpts woven into the
+      feature blocks, plus the reviews row; excerpts are hardcoded there, so
+      update them alongside `reviews.ts`), the six service-page testimonial
+      bands (`type: 'quote'` in `src/data/services.ts`), and the six cards on
+      `src/pages/reviews.astro`.
 - [ ] **Prune the gallery to Jan's 128.** v2 says she cut the set to 128; the
       build derives ~150 from `src/assets/images/` minus `EXCLUDE` in
       `src/data/gallery.ts`. The bundle ships no asset list, so which 22 came

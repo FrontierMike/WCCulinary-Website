@@ -15,8 +15,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     kicker="Reviews"
     heading="Almost all of my work comes from repeat customers."
     lead="Twelve years of restaurant regulars, and now clients who book the same dinner every year. These are their words, not mine."
-    photo="svc-celebrations"
-    alt="A table set for a celebration dinner"
+    photo="hero-reviews"
+    alt="Cilantro scattered over stuffed poblanos finished with crema and pomegranate"
+    {/* Square photo (1707x1707) in a full-bleed hero: `cover` scales it to the
+        viewport width whatever the height is, so a short band crops it to a
+        sliver. Taller, and pushed down the frame, keeps the hand and the
+        finished plate in shot. */}
+    height="min(76vh, 720px)"
+    objectPosition="center 56%"
   />
 
   <section data-reveal>

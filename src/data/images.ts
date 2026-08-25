@@ -33,7 +33,10 @@ const SLOTS: Record<string, string> = {
   'gal-torte': 'cheesecake',
   'gal-salmon': 'salmononseafoodrisotto',
   'menu-burrowing-owl': 'burrowinowlwinedinner22sept2022',
-  'hero-services': '750-2757-edit',                // hands finishing stuffed poblanos
+  // Cropped from screenshot-2026-08-14-204208 — that frame has the video
+  // player's Save/share overlay burnt into the top right corner.
+  'hero-services': 'plating-line-romesco',         // hands finishing a line of plates
+  'hero-reviews': '750-2757-edit',                 // hands finishing stuffed poblanos
   'plating': 'screenshot-2026-08-14-203255',       // scallops — chosen by Jan
 
   // --- provisional ---

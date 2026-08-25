@@ -22,6 +22,7 @@ const EXCLUDE = new Set([
   'janet-blackwhite-1024x1024',
   'janwithbiaaward',
   'screenshot-2026-08-14-201754',
+  'screenshot-2026-08-14-204208',  // superseded by plating-line-romesco
   'screenshot-2026-08-14-205449',
   'burrowinowlwinedinner22sept2022',
   'wccc-logo-circle',
@@ -43,6 +44,7 @@ const NAMED: Record<string, string> = {
   'turkeydinner': 'Roast turkey dinner, carved and plated',
   'tuscan-chicken': 'Tuscan chicken, plated with sauce',
   'img-1033-collage': 'A set of dishes from one event',
+  'plating-line-romesco': 'Plates finished with green beans and romesco',
 };
 
 const GENERIC = [

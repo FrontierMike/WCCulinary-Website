@@ -6,6 +6,12 @@
 //
 // ponytail: sharp comes with Astro, so no new dependency. Re-running is cheap
 // and idempotent — it skips a file whose output already exists.
+//
+// That skip is load-bearing: four of the screenshot-2026-08-14-* frames are
+// video-player grabs with a Save/share overlay burnt into the top right, and
+// the copies in src/assets/images/ have had 72px cropped off the top by hand.
+// The originals still carry the overlay, so deleting a derivative and
+// re-running brings the chrome back — re-crop it if that happens.
 
 import { readdir, mkdir, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';

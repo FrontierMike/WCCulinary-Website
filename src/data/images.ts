@@ -42,9 +42,10 @@ const SLOTS: Record<string, string> = {
   // --- provisional ---
   'hero-service': 'catering',
   'private-dining-tacos': 'tuscan-chicken',
-  'svc-weddings': 'seafood',
-  'svc-corporate': 'chicken-parm',
-  'svc-celebrations': 'img-4883-2',
+  'svc-weddings': 'chocolate-pate',              // was the clam platter, now on gluten-free
+  'svc-corporate': 'screenshot-2026-08-14-210100',  // the buffet line
+  'svc-celebrations': 'img-4948',                // chicken on arugula, orchid garnish
+  'svc-gluten-free': 'seafood',                  // clams — came down from weddings
   'svc-private': 'img-5843',
   'svc-wine': 'img-5126',
   'gal-shrimp': 'img-4684',

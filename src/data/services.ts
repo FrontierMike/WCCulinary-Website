@@ -165,7 +165,7 @@ export const services: Service[] = [
     title: 'Weddings',
     summary: 'Intimate weddings up to seventy-five guests, with one consultation and the chef you hired on the line.',
     imageSlot: 'svc-weddings',
-    imageAlt: 'Seared scallops served on individual porcelain spoons with chutney',
+    imageAlt: 'A chocolate pâté dessert plated with raspberry coulis and cream',
     faqVariant: 'weddings',
     hero: {
       kicker: 'Weddings',
@@ -300,7 +300,7 @@ export const services: Service[] = [
     title: 'Corporate',
     summary: 'Office lunches, board dinners and client entertaining on fixed delivery windows and plain per-head pricing.',
     imageSlot: 'svc-corporate',
-    imageAlt: 'A tray of smoked salmon canapés with capers and pickled onion',
+    imageAlt: 'A buffet line of chafing dishes with guests serving themselves',
     faqVariant: 'corporate',
     hero: {
       kicker: 'Corporate catering',
@@ -425,7 +425,7 @@ export const services: Service[] = [
     title: 'Celebrations',
     summary: 'Birthdays, milestones, anniversaries and parties — drop-off trays through to full service with staff.',
     imageSlot: 'svc-celebrations',
-    imageAlt: 'A charcuterie board with cheeses, olives and edible flowers',
+    imageAlt: 'Plated chicken on arugula with pineapple salsa and an orchid garnish',
     faqVariant: 'celebrations',
     hero: {
       kicker: 'Celebrations',
@@ -636,8 +636,8 @@ services.push({
   slug: 'gluten-free-catering',
   title: 'Gluten-free catering',
   summary: 'Coeliac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
-  imageSlot: 'gal-pate',
-  imageAlt: 'A composed salad finished with edible flowers',
+  imageSlot: 'svc-gluten-free',
+  imageAlt: 'A platter of steamed clams with basil and chilli',
   faqVariant: 'gf',
   hiddenFromNav: true,
   hero: {

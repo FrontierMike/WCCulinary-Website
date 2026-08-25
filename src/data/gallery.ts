@@ -44,6 +44,7 @@ const NAMED: Record<string, string> = {
   'turkeydinner': 'Roast turkey dinner, carved and plated',
   'tuscan-chicken': 'Tuscan chicken, plated with sauce',
   'img-1033-collage': 'A set of dishes from one event',
+  'camerazoom-20140603190224595': 'Charcuterie boards being built along the pass',
   'plating-line-romesco': 'Plates finished with green beans and romesco',
 };
 

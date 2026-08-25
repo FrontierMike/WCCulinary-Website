@@ -27,8 +27,12 @@ const groups = services
     heading="Every menu here has been cooked. Yours could be one of them."
     lead="Starting points, not a set list. Every menu is written around what is in season, what you like and what your guests can eat."
     photo="hero-menus"
-    alt="Stuffed pepper halves and zucchini boats plated on white china"
-    fit="contain"
+    alt="Five charcuterie boards being built along the pass"
+    {/* 4:3 in a full-bleed band: at the default height `cover` cuts it to
+        the middle boards. Taller, and dropped down the frame, keeps all
+        five and the hands still working on the last one. */}
+    height="min(70vh, 620px)"
+    objectPosition="center 55%"
   />
 
   <nav class="jump wrap" data-reveal>

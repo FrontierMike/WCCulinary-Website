@@ -33,7 +33,7 @@ const SLOTS: Record<string, string> = {
   // player's Save/share overlay burnt into the top right corner.
   'hero-services': 'plating-line-romesco',         // hands finishing a line of plates
   'hero-reviews': '750-2757-edit',                 // hands finishing stuffed poblanos
-  'hero-menus': '750-2738-edit',                   // stuffed peppers and zucchini, same shoot
+  'hero-menus': 'camerazoom-20140603190224595',    // charcuterie boards being built on the pass
   'plating': 'screenshot-2026-08-14-203255',       // scallops — chosen by Jan
 
   // --- Dishes and rooms (from the camera-roll pool, confirmed by Jan) ---

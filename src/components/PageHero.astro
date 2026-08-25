@@ -16,9 +16,6 @@ interface Props {
   /** Per-page, because the subject dictates it — see the About note below. */
   height?: string;
   objectPosition?: string;
-  /** `contain` shows the whole frame and bars the sides with the page
-      background. Menus uses it — the plates run to the edge of that shot. */
-  fit?: 'cover' | 'contain';
   /** About's portrait is a monochrome original. Nothing else uses this. */
   grayscale?: boolean;
 }
@@ -32,7 +29,6 @@ const {
   size = 'interior',
   height = 'min(62vh, 540px)',
   objectPosition = 'center 46%',
-  fit = 'cover',
   grayscale = false,
 } = Astro.props;
 ---
@@ -44,7 +40,7 @@ const {
     sizes="100vw"
     loading="eager"
     fetchpriority="high"
-    style={`object-position:${objectPosition};object-fit:${fit}${grayscale ? ';filter:grayscale(1)' : ''}`}
+    style={`object-position:${objectPosition}${grayscale ? ';filter:grayscale(1)' : ''}`}
   />
   {/* Both scrims, always. The Gallery hero shipped with only the bottom-up one
       and its kicker failed contrast over the bright part of the photo. */}

@@ -160,6 +160,14 @@ in the zip at the repo root). What is left is real content, not layout.
       three one-line excerpts woven into the feature blocks, plus the reviews
       row) now carry real ones; the home page excerpts are hardcoded, so keep
       them in step with `reviews.ts` whenever that changes.
+- [ ] **Replace the drafted menus that are left.** Private dining, corporate
+      and celebrations now carry menus Jan has actually cooked (client names
+      left off deliberately — put them back only with permission). Still
+      drafted: both wedding menus, the wine dinners, gluten-free catering, the
+      corporate drop-off lunch and the celebrations meze table. They sit under a
+      hero reading "Every menu here has been cooked", so this one is a claim,
+      not a nicety. All of them live in `src/data/services.ts`; the menus page
+      derives from it.
 - [ ] **Prune the gallery to Jan's 128.** v2 says she cut the set to 128; the
       build derives ~150 from `src/assets/images/` minus `EXCLUDE` in
       `src/data/gallery.ts`. The bundle ships no asset list, so which 22 came

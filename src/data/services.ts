@@ -1,5 +1,11 @@
 // Service page content. Copy is from the design handoff and is final —
 // treat edits here as copy changes, not code changes.
+//
+// MENUS: private dining, corporate and celebrations are Jan's own — menus she
+// has cooked, with the client names left off. The rest are still the handoff's
+// drafted copy: both wedding menus, the wine dinners, gluten-free catering, the
+// corporate drop-off lunch and the celebrations meze table. The menus page hero
+// says every menu here has been cooked, so those want replacing before launch.
 
 export type Section = {
   kicker?: string;
@@ -82,34 +88,40 @@ export const services: Service[] = [
         note: 'Want it built around specific bottles? That is a wine pairing dinner.',
         menus: [
           {
-            tag: 'Five courses',
-            title: 'Sunday for eight',
+            tag: 'Three courses',
+            title: 'Dinner party for twelve',
             items: [
-              'Steamed clams, white wine, garlic, herbs',
-              'Little gem salad, anchovy dressing, rye crumb',
-              'Seared scallop, pesto, crisp pancetta',
-              'Braised short rib, celeriac purée, gremolata',
-              'Dark chocolate pâté, crème fraîche, raspberry',
+              'Mixed greens, apple cider vinaigrette',
+              'Pistachio-crusted halibut',
+              'Lemon risotto, grilled seasonal vegetables',
+              'Chocolate mousse',
             ],
           },
           {
-            tag: 'Four courses',
-            title: 'Birthday for twelve',
+            tag: 'Three courses',
+            title: 'Dinner for six',
             items: [
-              'Prawn cocktail, cucumber, lemon',
-              'Beef carpaccio, arugula, aioli, parmesan',
-              'Pan-seared halibut, pepper relish, new potato',
-              'Chocolate hazelnut torte, whipped cream',
+              'Mixed greens, honey balsamic dressing',
+              'Baked ham with honey mustard glaze',
+              'Cheesy scalloped potatoes, spicy green beans',
+              'Brownies',
             ],
           },
           {
-            tag: 'Four courses',
-            title: 'Quiet dinner for six',
+            tag: 'Seven courses',
+            title: 'Small plates dinner for fourteen',
             items: [
-              'Roasted squash soup, brown butter, sage',
-              'Market greens, pear, blue cheese, walnut',
-              'Duck breast, wild rice, thyme jus, glazed carrot',
-              'Almond and olive oil cake, roasted plums',
+              'Poached pear on Brie crostini',
+              'Spicy crab salad in wonton tarts',
+              'Duck salad — romaine, radicchio, mandarin, confit duck, orange champagne dressing',
+              'Pork tenderloin lettuce wraps — basil, mint, cilantro, lemongrass, ginger, lime',
+              'Palate cleanser: lemongrass sorbet',
+              'Oregano chicken on Mexican street corn — feta, lime, Tajín',
+              'Mongolian lamb popsicle — crisp potato and onion, hoisin, black bean, sesame',
+              'Palate cleanser: basil sorbet',
+              'Grand Marnier and orange glazed wild salmon and prawns, lemon risotto',
+              'Palate cleanser: sparkling lemon water',
+              'Lemon mousse',
             ],
           },
         ],
@@ -364,25 +376,23 @@ export const services: Service[] = [
             ],
           },
           {
-            tag: 'Lunch',
-            title: 'Hot buffet lunch',
+            tag: 'Dinner',
+            title: 'Casual dinner for forty',
             items: [
-              'Tuscan chicken with white beans and greens',
-              'Baked pasta with roasted vegetables',
-              'Little gem salad, anchovy dressing, rye crumb',
-              'Warm rolls and cultured butter',
-              'Lemon tart',
+              'Greek and Caesar salads',
+              'Tortellini alfredo, garlic toast',
+              'Greek chicken, roasted potatoes, mixed vegetables',
+              'Brownies, tarts, cheesecake squares',
             ],
           },
           {
             tag: 'Dinner',
-            title: 'Client dinner, plated',
+            title: 'Corporate dinner for nine',
             items: [
-              'Seared scallop, pesto, crisp pancetta',
-              'Beef carpaccio, arugula, aioli, parmesan',
-              'Braised short rib, celeriac purée, gremolata',
-              'or Pan-seared halibut, pepper relish, new potato',
-              'Dark chocolate pâté, crème fraîche',
+              'Orange, radicchio and romaine salad',
+              'Chicken piccata',
+              'Roasted potatoes, seasonal vegetables',
+              'Pecan squares',
             ],
           },
         ],
@@ -453,25 +463,40 @@ export const services: Service[] = [
         heading: 'Four formats that suit a party.',
         menus: [
           {
-            tag: 'Canapés',
-            title: 'Cocktail party',
+            tag: 'Canapés and seated',
+            title: 'Golden anniversary for twenty-four',
             items: [
-              'Seared scallop, pesto, crisp pancetta',
-              'Smoked salmon, caper, pickled onion on rye',
-              'Puff pastry pinwheel, sun-dried tomato, herbs',
-              'Chicken satay, peanut, lime',
-              'Prawn cocktail, cucumber, lemon',
-              'Chocolate pâté squares, raspberry',
+              'Chicken satay',
+              'Mini quesadillas',
+              'Vegetable platter',
+              'Charcuterie and cheese boards',
+              'Plated pear and blue cheese salad',
+              'Grilled chicken and spinach ravioli',
+              'Roasted potatoes and vegetables',
             ],
           },
           {
-            tag: 'Shared',
-            title: 'Grazing table',
+            tag: 'Canapés and family style',
+            title: 'Seventy-fifth birthday for twenty',
             items: [
-              'Local cheeses with preserves',
-              'Cured meats, cornichons, grainy mustard',
-              'Marinated olives, roasted peppers, almonds',
-              'Warm breads and cultured butter',
+              'Chicken satay',
+              'Cioppino shots',
+              'Sun-dried tomato and Brie crostini',
+              'Plated grilled peach salad',
+              'Grilled chicken and ribs, family style',
+              'Roasted potatoes, grilled vegetables',
+            ],
+          },
+          {
+            tag: 'Four courses',
+            title: 'Summer party for eight',
+            items: [
+              'Bruschetta',
+              'Brie and tomato jam crostini',
+              'Meat and cheese charcuterie',
+              'Grand Marnier and orange salmon and prawns',
+              'Lemon risotto, asparagus, multicoloured carrots',
+              'Grand Marnier strawberries on angel food cake, whipped cream',
             ],
           },
           {
@@ -483,17 +508,6 @@ export const services: Service[] = [
               'Spanakopita, spinach and feta in filo',
               'Falafel with tahini and lemon',
               'Steamed clams or mussels in white wine',
-            ],
-          },
-          {
-            tag: 'Seated',
-            title: 'Milestone dinner, family style',
-            items: [
-              'Market green salad, honey balsamic vinaigrette',
-              'Braised beef with mashed potato and glazed carrots',
-              'Roasted chicken with lemon and herbs',
-              'Seasonal vegetables from local growers',
-              'Chocolate hazelnut torte',
             ],
           },
         ],

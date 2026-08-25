@@ -95,6 +95,9 @@ const groups = services
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Menus run from three courses to eleven lines — without this the short
+       cards stretch to the tallest and sit half empty inside their border. */
+    align-items: start;
     gap: 28px;
   }
 

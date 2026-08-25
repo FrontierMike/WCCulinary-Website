@@ -161,8 +161,6 @@ captions verbatim — keep them in step when that file changes.
       `src/data/gallery.ts`. The bundle ships no asset list, so which 22 came
       out is unknown — get the list from Jan and add them to `EXCLUDE`.
 - [ ] Replace the home closing-block photo (`jan-plating`) — client is choosing one
-- [ ] Resolve the two duplicated hero photos: `gal-lamb` (Menus + Wine
-      Dinners) and `jan-halibut` (GF Consulting hero + About's colour pair)
 - [ ] Rewrite the generic gallery alt text (`GENERIC` in `src/data/gallery.ts`)
 - [ ] Per-head rates, once they are set. The site states no prices at all now:
       the FAQ answer in `src/components/FAQ.astro` explains how pricing works

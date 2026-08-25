@@ -6,13 +6,12 @@ import { img } from '../data/images';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 
-// PLACEHOLDER REVIEWS. The four quotes on this page (three below, one in the
-// reviews row) are drafted copy, not real customers — replace before launch.
-//
-// These are deliberately EXCERPTS, not the full reviews: one sharp line each,
-// on the three blocks where the buying decision needs the most reassurance.
-// The full versions live on the reviews page; when real reviews arrive, pull
-// the single best sentence out of each for here.
+// The four quotes on this page (three below, one in the reviews row) are
+// deliberately EXCERPTS, not the full reviews: one sharp line each, on the
+// three blocks where the buying decision needs the most reassurance. The full
+// versions live on the reviews page in src/data/reviews.ts — pull the single
+// best sentence out of a new review for here, and keep the caption identical
+// so the two pages agree.
 const features = [
   {
     kicker: 'Weddings',
@@ -21,8 +20,8 @@ const features = [
     link: ['See how weddings work →', 'weddings'],
     slot: 'svc-weddings',
     alt: 'A plated seafood course served at a wedding dinner',
-    quote: 'She fed sixty people in a hall with no real kitchen and it came out like a restaurant.',
-    attribution: 'Wedding, sixty guests · Crescent Beach',
+    quote: 'The salmon was done to perfection, the tomato and bocconcini and the pasta and roasted vegetables were amazing!!',
+    attribution: 'Small wedding at a local winery',
   },
   {
     kicker: 'Private dining',
@@ -31,8 +30,8 @@ const features = [
     link: ['How private dining works →', 'private-dining'],
     slot: 'private-dining-tacos',
     alt: 'A plated course from a private dinner',
-    quote: 'The kitchen was cleaner when she left than when she arrived.',
-    attribution: 'Private dinner for ten · South Surrey',
+    quote: 'You and your server, Persayis went above and beyond! Everyone loved her too!',
+    attribution: 'Evening celebration · S & L',
   },
   {
     kicker: 'The food',
@@ -45,8 +44,8 @@ const features = [
     // crops it to the middle two scallops; 4:5 fits the whole plate.
     ratio: '4 / 5',
     // Both sentences stay — the first is the context that makes the second land.
-    quote: 'My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
-    attribution: 'Fiftieth birthday · Ocean Park',
+    quote: "We truly appreciate all the effort you're putting into creating lovely meals, accommodating dietary needs and keeping everyone safe and well fed.",
+    attribution: 'Two days of gluten-free catering, memorial · C & Family',
   },
   {
     kicker: 'Corporate',
@@ -74,12 +73,18 @@ const everythingElse = [
   ['Gluten-free consulting', 'For restaurants and kitchens — menu review, kitchen handling and a written protocol your staff will follow.', 'gluten-free-consulting'],
 ];
 
+// Ten plates, two rows of five. Narrow screens drop to two rows of three.
 const strip = [
   ['gal-lamb', 'Rack of lamb, carved and plated with jus'],
   ['gal-shrimp', 'Prawns plated with a bright herb sauce'],
   ['gal-grazing', 'A grazing board of cured meats, cheeses and fruit'],
   ['gal-torte', 'A chocolate torte finished with cream'],
   ['gal-salad', 'A composed salad with edible flowers'],
+  ['gal-salmon', 'Salmon served on a seafood risotto'],
+  ['gal-clams', 'Clams steamed in their broth'],
+  ['gal-braised', 'A braised main course plated with vegetables'],
+  ['gal-crostini', 'Crostini topped and plated for a canape service'],
+  ['gal-pate', 'A chocolate pate, sliced and plated'],
 ];
 ---
 <Base>
@@ -140,10 +145,10 @@ const strip = [
       <div class="woven reviews-quote">
         <span class="mark"></span>
         <p class="quote">
-          Eight of us at our own table, four courses, and my wife did not stand up
-          once all evening. That was the actual gift.
+          We are incredibly grateful for the care, effort and thoughtfulness you
+          showed. The food was delicious.
         </p>
-        <a class="attribution" href={href('reviews')}>Anniversary dinner at home · White Rock →</a>
+        <a class="attribution" href={href('reviews')}>School parent Christmas party · E &amp; S →</a>
       </div>
       <a class="btn btn-secondary push-right" href={href('reviews')}>Read all reviews →</a>
     </section>
@@ -399,7 +404,7 @@ const strip = [
   /* Five tracks is too narrow on a phone. */
   @media (max-width: 600px) {
     .strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .strip a:nth-child(n + 4) { display: none; }
+    .strip a:nth-child(n + 7) { display: none; }
   }
 
   /* --- Closing --- */

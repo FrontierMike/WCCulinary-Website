@@ -1,8 +1,8 @@
 // Reviews, split by where they were earned.
 //
-// Format is [quote, caption]. Catering captions name the event and the town;
-// restaurant captions name the year, so the two read differently even when a
-// quote is pulled out on its own elsewhere on the site.
+// Format is [quote, caption]. Catering captions name the event and whoever
+// signed the note; restaurant captions name the reviewer and the year, so the
+// two read differently even when a quote is pulled out elsewhere on the site.
 //
 // WRAP PASTED REVIEWS IN BACKTICKS, not 'single quotes'. Real reviews are full
 // of apostrophes ("we've", "Jan's") and every one of them ends a single-quoted
@@ -16,20 +16,18 @@
 
 /** Catering and private dining — the current business. */
 export const catering: [string, string][] = [
-  // PLACEHOLDER. These six are the design's stand-in copy — replace with real,
-  // attributable reviews before launch. See the README's before-launch list.
-  ['She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
-   'Wedding, sixty guests · Crescent Beach'],
-  ['We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
-   'Corporate client dinner · South Surrey'],
-  ['Eight of us at our own table, four courses, and my wife did not stand up once all evening. That was the actual gift.',
-   'Anniversary dinner at home · White Rock'],
-  ['My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
-   'Fiftieth birthday · Ocean Park'],
-  ['She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
-   'Wedding, forty guests · Langley'],
-  ['The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
-   'Private dinner for ten · South Surrey'],
+  [`Everyone was raving about their meal last night! The meal was wonderful. The salmon was done to perfection, the tomato and bocconcini and the pasta and roasted vegetables were amazing!!`,
+   `Small wedding at a local winery`],
+  [`I want to thank you so much for your spectacular catering!! Everyone was certainly raving! Wish I indulged more ;)`,
+   `Rooftop wedding, appetizer dinner · Danielle`],
+  [`Thank you again for the amazing food! Everyone was raving about it! We had the leftovers for dinner yesterday. You and your server, Persayis went above and beyond! Everyone loved her too! Thank Gord as well for the music. It really made the evening special!`,
+   `Evening celebration · S & L`],
+  [`We had a wonderful night. Many thanks to you and your crew for doing such a fantastic job, we appreciated it and so did our guests. Looking forward to working with you again!`,
+   `Catered event · L`],
+  [`Thank you for your care, thoughtfulness and professionalism during this meaningful time for our family. We truly appreciate all the effort you're putting into creating lovely meals, accommodating dietary needs and keeping everyone safe and well fed. We're grateful for the time and energy you're dedicating to making these days so special.`,
+   `Two days of gluten-free catering, memorial · C & Family`],
+  [`Thank you so much for everything you did to make last night's school parent Christmas party so special. We are incredibly grateful for the care, effort and thoughtfulness you showed. The food was delicious, and we truly appreciated how you went above and beyond to accommodate our requests — from swapping in turkey to make it feel more Christmassy, to the veggie cups and even the special sandwiches for the picky kids. Thank you again for helping make our party a huge success!`,
+   `School parent Christmas party · E & S`],
 ];
 
 /** Jan's on the Beach. Same chef, same suppliers, different room.

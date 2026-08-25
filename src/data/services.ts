@@ -1,11 +1,8 @@
 // Service page content. Copy is from the design handoff and is final —
 // treat edits here as copy changes, not code changes.
 //
-// MENUS: private dining, corporate and celebrations are Jan's own — menus she
-// has cooked, with the client names left off. The rest are still the handoff's
-// drafted copy: both wedding menus, the wine dinners, gluten-free catering, the
-// corporate drop-off lunch and the celebrations meze table. The menus page hero
-// says every menu here has been cooked, so those want replacing before launch.
+// MENUS: client names are deliberately left off — put one back only with that
+// client's permission.
 
 export type Section = {
   kicker?: string;
@@ -162,8 +159,8 @@ export const services: Service[] = [
       },
       {
         type: 'quote',
-        text: 'The kitchen was cleaner when she left than when she arrived. I keep telling people that and they keep not believing me.',
-        attribution: 'Private dinner for ten · South Surrey',
+        text: 'The food was delicious, and we truly appreciated how you went above and beyond to accommodate our requests.',
+        attribution: 'School parent Christmas party · E & S',
       },
     ],
     cta: {
@@ -288,8 +285,8 @@ export const services: Service[] = [
       },
       {
         type: 'quote',
-        text: 'She fed sixty people in a hall with no real kitchen and it came out like a restaurant. Two guests asked for her card before dessert.',
-        attribution: 'Wedding, sixty guests · Crescent Beach',
+        text: 'Everyone was raving about their meal last night! The meal was wonderful.',
+        attribution: 'Small wedding at a local winery',
       },
       {
         type: 'narrative',
@@ -420,8 +417,8 @@ export const services: Service[] = [
       },
       {
         type: 'quote',
-        text: 'We book her for the same client dinner every quarter now. It arrives when she says it will and there has never been a correction to the invoice.',
-        attribution: 'Corporate client dinner · South Surrey',
+        text: 'Many thanks to you and your crew for doing such a fantastic job, we appreciated it and so did our guests. Looking forward to working with you again!',
+        attribution: 'Catered event · L',
       },
     ],
     cta: {
@@ -565,8 +562,8 @@ export const services: Service[] = [
       },
       {
         type: 'quote',
-        text: 'Eight of us at our own table, four courses, and my wife did not stand up once all evening. That was the actual gift.',
-        attribution: 'Anniversary dinner at home · White Rock',
+        text: 'Thank you again for the amazing food! Everyone was raving about it!',
+        attribution: 'Evening celebration · S & L',
       },
     ],
     cta: {
@@ -635,8 +632,8 @@ export const services: Service[] = [
       },
       {
         type: 'quote',
-        text: 'She talked us out of the menu we asked for and into a better one, and she was right. That is worth more than being agreeable.',
-        attribution: 'Wedding, forty guests · Langley',
+        text: 'I want to thank you so much for your spectacular catering!! Everyone was certainly raving!',
+        attribution: 'Rooftop wedding, appetizer dinner · Danielle',
       },
     ],
     cta: {
@@ -761,8 +758,8 @@ services.push({
     },
     {
       type: 'quote',
-      text: 'My daughter has coeliac disease. It is the first catered dinner where I did not have to watch her plate all night.',
-      attribution: 'Fiftieth birthday · Ocean Park',
+      text: 'Thank you for your care, thoughtfulness and professionalism during this meaningful time for our family.',
+      attribution: 'Two days of gluten-free catering, memorial · C & Family',
     },
   ],
   cta: {

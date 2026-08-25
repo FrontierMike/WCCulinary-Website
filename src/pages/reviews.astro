@@ -37,8 +37,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </p>
         <div class="ask-actions">
           <a class="btn btn-primary" href={`${base}/contact`.replace(/\/+/g, '/')}>Send me a review</a>
-          {/* TODO: swap for the real Google Business Profile review link. */}
-          <a class="btn btn-secondary" href={`${base}/contact`.replace(/\/+/g, '/')}>Leave a Google review</a>
+          {/* The #lrd fragment opens Google's rate-and-review box directly: the
+              listing's feature id, then `,3` for the write-review panel. Tested
+              signed in — it works. Deliberately not the URL Google leaves in the
+              address bar afterwards, which carries authuser and session tokens.
+              Swap for the g.page/r/…/review link once the profile finishes
+              verification; the plain profile is https://maps.google.com/?cid=11488159639631320576 */}
+          <a class="btn btn-secondary" href="https://www.google.com/search?q=West+Coast+Culinary+Creations#lrd=0x1de33033abe7d4d:0x9f6e24534b345600,3,,,," target="_blank" rel="noopener">Leave a Google review</a>
         </div>
       </div>
     </div>

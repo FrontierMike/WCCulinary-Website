@@ -152,41 +152,28 @@ Cloudflare Workers Builds is connected to this repo:
 All fourteen pages are built to **handoff v2** (`design_handoff_wcculinary_site_v2`,
 in the zip at the repo root). What is left is real content, not layout.
 
-- [ ] **Replace the six drafted service-page reviews with real ones — highest
-      priority.** They are plausible and specific, which is what makes them
-      dangerous to ship. What is left is the testimonial band on each service
-      page (`type: 'quote'` in `src/data/services.ts`). The reviews page
-      (`src/data/reviews.ts`) and the home page (`src/pages/index.astro` —
-      three one-line excerpts woven into the feature blocks, plus the reviews
-      row) now carry real ones; the home page excerpts are hardcoded, so keep
-      them in step with `reviews.ts` whenever that changes.
-- [ ] **Replace the drafted menus that are left.** Private dining, corporate
-      and celebrations now carry menus Jan has actually cooked (client names
-      left off deliberately — put them back only with permission). Still
-      drafted: both wedding menus, the wine dinners, gluten-free catering, the
-      corporate drop-off lunch and the celebrations meze table. They sit under a
-      hero reading "Every menu here has been cooked", so this one is a claim,
-      not a nicety. All of them live in `src/data/services.ts`; the menus page
-      derives from it.
+Every review and menu on the site is real. The home page and service-page
+quotes are excerpts of the six in `src/data/reviews.ts` and repeat its
+captions verbatim — keep them in step when that file changes.
+
 - [ ] **Prune the gallery to Jan's 128.** v2 says she cut the set to 128; the
       build derives ~150 from `src/assets/images/` minus `EXCLUDE` in
       `src/data/gallery.ts`. The bundle ships no asset list, so which 22 came
       out is unknown — get the list from Jan and add them to `EXCLUDE`.
-- [ ] **Curate the provisional photos** — the slots marked `provisional` in
-      `src/data/images.ts` were filled from the camera roll, not chosen. Jan
-      should pick the hero, the five service headers and the gallery features.
 - [ ] Replace the home closing-block photo (`jan-plating`) — client is choosing one
-- [ ] Resolve the three duplicated hero photos: `gal-lamb` (Menus + Wine
-      Dinners), `svc-celebrations` (Reviews + Celebrations), `jan-halibut`
-      (GF Consulting hero + About's colour pair)
+- [ ] Resolve the two duplicated hero photos: `gal-lamb` (Menus + Wine
+      Dinners) and `jan-halibut` (GF Consulting hero + About's colour pair)
 - [ ] Rewrite the generic gallery alt text (`GENERIC` in `src/data/gallery.ts`)
-- [ ] Real per-head rates — currently `[per-head rates — to confirm with Jan]`
-      in `src/components/FAQ.astro`
+- [ ] Per-head rates, once they are set. The site states no prices at all now:
+      the FAQ answer in `src/components/FAQ.astro` explains how pricing works
+      and promises a written quote, and the consulting page lists engagement
+      models without rates. Nothing needs deleting first — just add numbers.
+- [ ] Swap the Reviews page's "Leave a Google review" button for the
+      `g.page/r/…/review` link once the Business Profile finishes verifying.
+      It uses a `#lrd=…,3` search URL until then — works, but it leans on
+      Google's internal URL format.
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
-- [ ] Consulting case study and day rates on `/gluten-free-consulting`
-- [ ] Google Business Profile URL for the Reviews page button
-- [ ] Replace the placeholder `public/favicon.svg`
 - [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link
 - [ ] Add a `src/pages/404.astro` and set `not_found_handling` in `wrangler.jsonc`
 - [ ] `LocalBusiness` + `Service` structured data

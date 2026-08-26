@@ -37,26 +37,43 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </p>
         <div class="ask-actions">
           <a class="btn btn-primary" href={`${base}/contact`.replace(/\/+/g, '/')}>Send me a review</a>
-          {/* The #lrd fragment opens Google's rate-and-review box directly: the
-              listing's feature id, then `,3` for the write-review panel. Tested
-              signed in — it works. Deliberately not the URL Google leaves in the
-              address bar afterwards, which carries authuser and session tokens.
-              Swap for the g.page/r/…/review link once the profile finishes
-              verification; the plain profile is https://maps.google.com/?cid=11488159639631320576 */}
-          <a class="btn btn-secondary" href="https://www.google.com/search?q=West+Coast+Culinary+Creations#lrd=0x1de33033abe7d4d:0x9f6e24534b345600,3,,,," target="_blank" rel="noopener">Leave a Google review</a>
+          {/* Google's own write-a-review endpoint. The place id is just the two
+              halves of the Maps feature id (0x1de33033abe7d4d, 0x9f6e24534b345600)
+              packed little-endian and base64url'd — same listing as
+              https://maps.google.com/?cid=11488159639631320576. Verified it
+              resolves. Works while the profile is still unverified; signed-out
+              visitors get a Google sign-in first, then the star box. */}
+          <a class="btn btn-secondary" href="https://search.google.com/local/writereview?placeid=ChIJTX2-OgMz3gERAFY0S1Mkbp8" target="_blank" rel="noopener">Leave a Google review</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="wrap cards divider-top" data-reveal-stagger="80">
-    {catering.map(([quote, who]) => (
-      <figure data-reveal>
-        <p class="stars" role="img" aria-label="Rated five out of five">★★★★★</p>
-        <blockquote>{quote}</blockquote>
-        <figcaption>{who}</figcaption>
-      </figure>
-    ))}
+  <section class="divider-top">
+    <div class="wrap archive-head" data-reveal>
+      <div>
+        <p class="kicker">Catering and private dining</p>
+        <h2>The work I do now.</h2>
+      </div>
+      <div>
+        <p class="body-copy">
+          These came from the events themselves — a wedding at a winery, a
+          memorial, a school Christmas party — sent to me afterwards, mostly
+          by email.
+        </p>
+        <p class="archive-count">Some notes from dozens of events</p>
+      </div>
+    </div>
+
+    <div class="wrap cards catering-cards" data-reveal-stagger="80">
+      {catering.map(([quote, who]) => (
+        <figure data-reveal>
+          <p class="stars" role="img" aria-label="Rated five out of five">★★★★★</p>
+          <blockquote>{quote}</blockquote>
+          <figcaption>{who}</figcaption>
+        </figure>
+      ))}
+    </div>
   </section>
 
   <section class="divider-top">
@@ -166,7 +183,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     color: var(--color-neutral-500);
   }
 
-  .archive-cards { padding-top: 56px; }
+  .archive-cards,
+  .catering-cards { padding-top: 56px; }
 
   /* ponytail: the restaurant list runs to several hundred cards, all on the
      page at once. This is what makes them cost nothing until you scroll to

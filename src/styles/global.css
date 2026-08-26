@@ -163,15 +163,19 @@ img { display: block; max-width: 100%; }
 
 /* --- Photo heroes ---
    Every photo hero needs BOTH scrims. The Gallery hero shipped with only the
-   bottom-up one and its kicker failed contrast over the bright part of the photo. */
+   bottom-up one and its kicker failed contrast over the bright part of the photo.
+
+   The stops are weighted to the left and the bottom, where the copy sits. Those
+   ends stay as dark as they have always been; the lift is taken out of the open
+   side of the frame, so the photograph carries without costing text contrast. */
 .scrim-lr {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    color-mix(in srgb, var(--color-bg) 92%, transparent) 0%,
-    color-mix(in srgb, var(--color-bg) 70%, transparent) 44%,
-    color-mix(in srgb, var(--color-bg) 20%, transparent) 100%
+    color-mix(in srgb, var(--color-bg) 90%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 60%, transparent) 44%,
+    color-mix(in srgb, var(--color-bg) 12%, transparent) 100%
   );
 }
 .scrim-bt {
@@ -180,8 +184,8 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(
     to top,
     var(--color-bg) 2%,
-    color-mix(in srgb, var(--color-bg) 55%, transparent) 50%,
-    color-mix(in srgb, var(--color-bg) 70%, transparent) 100%
+    color-mix(in srgb, var(--color-bg) 40%, transparent) 50%,
+    color-mix(in srgb, var(--color-bg) 45%, transparent) 100%
   );
 }
 

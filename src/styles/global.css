@@ -165,17 +165,18 @@ img { display: block; max-width: 100%; }
    Every photo hero needs BOTH scrims. The Gallery hero shipped with only the
    bottom-up one and its kicker failed contrast over the bright part of the photo.
 
-   The stops are weighted to the left and the bottom, where the copy sits. Those
-   ends stay as dark as they have always been; the lift is taken out of the open
-   side of the frame, so the photograph carries without costing text contrast. */
+   The stops are weighted to the left and the bottom, where the copy sits: the
+   lift is taken mostly out of the open side of the frame, so the photograph
+   carries. Checked against the worst case — the end of a long h1 line over a
+   blown-out highlight — which still clears AA on body-sized text. */
 .scrim-lr {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    color-mix(in srgb, var(--color-bg) 90%, transparent) 0%,
-    color-mix(in srgb, var(--color-bg) 60%, transparent) 44%,
-    color-mix(in srgb, var(--color-bg) 12%, transparent) 100%
+    color-mix(in srgb, var(--color-bg) 86%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 50%, transparent) 44%,
+    color-mix(in srgb, var(--color-bg) 6%, transparent) 100%
   );
 }
 .scrim-bt {
@@ -184,9 +185,25 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(
     to top,
     var(--color-bg) 2%,
-    color-mix(in srgb, var(--color-bg) 40%, transparent) 50%,
-    color-mix(in srgb, var(--color-bg) 45%, transparent) 100%
+    color-mix(in srgb, var(--color-bg) 30%, transparent) 50%,
+    color-mix(in srgb, var(--color-bg) 32%, transparent) 100%
   );
+}
+
+/* The CTA and closing bands carry the left-right scrim alone, so nothing backs
+   it up the way .scrim-bt backs up the heroes. Once the layout stacks, their
+   copy runs the full width — straight across the thin end of the gradient, and
+   on the jan-plating photo that end is a white chef jacket. Body copy there
+   measured 1.4:1 before the scrims were ever lightened. This is the floor:
+   narrow widths only, so the desktop composition keeps the lighter stops. */
+@media (max-width: 900px) {
+  .scrim-lr.solo {
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-bg) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 72%, transparent) 100%
+    );
+  }
 }
 
 /* --- Hero entry ---

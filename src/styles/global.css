@@ -213,7 +213,7 @@ img { display: block; max-width: 100%; }
   from { opacity: 0; transform: translateY(26px); }
   to { opacity: 1; transform: none; }
 }
-.hero-rise { animation: wccHeroRise 1s var(--ease) both; }
+.hero-rise { animation: wccHeroRise 1.5s var(--ease) both; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

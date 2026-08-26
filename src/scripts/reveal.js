@@ -30,7 +30,7 @@
     seen.add(el);
     el.style.opacity = '0';
     el.style.transform = 'translateY(22px)';
-    el.style.transition = 'opacity .9s ' + EASE + ' ' + delay + 'ms, transform .9s ' + EASE + ' ' + delay + 'ms';
+    el.style.transition = 'opacity 1.35s ' + EASE + ' ' + delay + 'ms, transform 1.35s ' + EASE + ' ' + delay + 'ms';
     io.observe(el);
   }
 

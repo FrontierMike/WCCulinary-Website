@@ -117,6 +117,7 @@ const strip = [
   <div class="wrap">
     <!-- Five alternating feature blocks -->
     {features.map((f, i) => (
+      <>
       <section class:list={['feature', { flip: i % 2 === 1, first: i === 0 }]} data-reveal>
         <div class="feature-img" style={f.ratio && `--img-ratio: ${f.ratio}`}>
           <Image src={img(f.slot)} alt={f.alt} widths={[520, 800]} sizes="(max-width: 900px) 100vw, 50vw" />
@@ -135,6 +136,27 @@ const strip = [
           <a class="link-accent" href={href(f.link[1])}>{f.link[0]}</a>
         </div>
       </section>
+
+      {/* The gallery breaks the run of feature blocks after Corporate. At the
+          foot of the page it sat below three other sections and most visitors
+          never reached it — and the photographs are the strongest argument on
+          the site. */}
+      {f.kicker === 'Corporate' && (
+        <section class="plates divider-top">
+          <div class="plates-head" data-reveal>
+            <h2>Recent plates</h2>
+            <a class="btn btn-secondary push-right" href={href('gallery')}>View the full gallery →</a>
+          </div>
+          <div class="strip" data-reveal-stagger="80">
+            {strip.map(([slot, alt]) => (
+              <a href={href('gallery')} data-reveal>
+                <Image src={img(slot)} alt={alt} widths={[260, 420]} sizes="20vw" loading="lazy" />
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+      </>
     ))}
 
     <!-- Reviews row — the sixth quote -->
@@ -166,21 +188,6 @@ const strip = [
           <span class="learn">Learn more →</span>
         </a>
       ))}
-    </section>
-
-    <!-- Recent plates -->
-    <section class="plates">
-      <div class="plates-head" data-reveal>
-        <h2>Recent plates</h2>
-        <a class="btn btn-secondary push-right" href={href('gallery')}>View the full gallery →</a>
-      </div>
-      <div class="strip" data-reveal-stagger="80">
-        {strip.map(([slot, alt]) => (
-          <a href={href('gallery')} data-reveal>
-            <Image src={img(slot)} alt={alt} widths={[260, 420]} sizes="20vw" loading="lazy" />
-          </a>
-        ))}
-      </div>
     </section>
   </div>
 
@@ -374,7 +381,7 @@ const strip = [
   }
 
   /* --- Recent plates --- */
-  .plates { padding: calc(16px * var(--section-gap)) 0 calc(112px * var(--section-gap)); }
+  .plates { padding: calc(96px * var(--section-gap)) 0; }
 
   .plates-head {
     display: flex;

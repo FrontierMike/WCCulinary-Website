@@ -219,6 +219,17 @@ img { display: block; max-width: 100%; }
 }
 .hero-rise { animation: wccHeroRise 1.5s var(--ease) both; }
 
+/* --- Gallery tile rise ---
+   The scroll reveal's own rise, as a keyframe animation. reveal.js applies it
+   to gallery tiles instead of the inline transition it uses everywhere else,
+   because a transition only animates from a value the browser has already
+   committed — a tile revealed on the observer's first delivery has not, and
+   arrived fully formed. See the note in src/scripts/reveal.js. */
+@keyframes wccTileRise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-rise { animation: none; }

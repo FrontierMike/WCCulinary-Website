@@ -29,7 +29,10 @@ import photos from '../data/gallery';
       <a class="link-accent" href={href('contact')}>Enquire about a date →</a>
     </div>
 
-    <div class="grid" data-reveal-stagger="80">
+    {/* data-reveal-onscroll: every tile waits for the scroll. Without it the
+        top row, which only peeks over the fold at load, arrives already on
+        and the rows below look ragged swiping in after it. */}
+    <div class="grid" data-reveal-stagger="80" data-reveal-onscroll>
       {photos.map((photo, i) => (
         <figure data-reveal>
           <button type="button" popovertarget={`photo-${i}`} aria-label={`Enlarge: ${photo.alt}`}>

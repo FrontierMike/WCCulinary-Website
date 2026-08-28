@@ -255,7 +255,7 @@ const strip = [
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: clamp(32px, 5vw, 80px);
     align-items: center;
-    padding: 96px 0;
+    padding: calc(96px * var(--section-gap)) 0;
     border-top: 1px solid var(--color-divider);
   }
   .feature.first { border-top: 0; }
@@ -315,7 +315,7 @@ const strip = [
     align-items: flex-start;
     justify-content: space-between;
     gap: 36px;
-    padding: 44px 0 56px;
+    padding: calc(44px * var(--section-gap)) 0 calc(56px * var(--section-gap));
   }
   .reviews-line {
     max-width: 20ch;
@@ -326,7 +326,7 @@ const strip = [
   .reviews-quote { margin-top: 0; max-width: 36ch; }
 
   /* --- Everything else --- */
-  .everything { padding: 44px 0 112px; }
+  .everything { padding: calc(44px * var(--section-gap)) 0 calc(112px * var(--section-gap)); }
 
   .everything-head {
     display: flex;
@@ -377,7 +377,7 @@ const strip = [
   }
 
   /* --- Recent plates --- */
-  .plates { padding: 16px 0 112px; }
+  .plates { padding: calc(16px * var(--section-gap)) 0 calc(112px * var(--section-gap)); }
 
   .plates-head {
     display: flex;
@@ -422,7 +422,7 @@ const strip = [
     position: relative;
     max-width: var(--page-max);
     margin: 0 auto;
-    padding: clamp(96px, 12vw, 168px) var(--page-pad);
+    padding: calc(clamp(96px, 12vw, 168px) * var(--section-gap)) var(--page-pad);
   }
   .closing h2 {
     margin: 20px 0 24px;

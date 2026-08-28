@@ -71,8 +71,8 @@ const groups = services
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    padding-top: 56px;
-    padding-bottom: 56px;
+    padding-top: calc(56px * var(--section-gap));
+    padding-bottom: calc(56px * var(--section-gap));
   }
   .jump a {
     padding: 9px 16px;
@@ -86,7 +86,7 @@ const groups = services
   }
   .jump a:hover { border-color: var(--color-accent); color: var(--color-accent-300); }
 
-  .group { padding: 88px 0; scroll-margin-top: 110px; }
+  .group { padding: calc(88px * var(--section-gap)) 0; scroll-margin-top: 110px; }
 
   .head {
     display: flex;

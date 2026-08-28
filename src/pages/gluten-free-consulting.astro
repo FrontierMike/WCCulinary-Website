@@ -256,8 +256,8 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 64px;
     align-items: start;
-    padding-top: 104px;
-    padding-bottom: 120px;
+    padding-top: calc(104px * var(--section-gap));
+    padding-bottom: calc(120px * var(--section-gap));
   }
 
   .intro .kicker { margin-bottom: 18px; }

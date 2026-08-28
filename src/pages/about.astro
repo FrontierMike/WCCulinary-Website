@@ -103,7 +103,7 @@ const sections: Section[] = [
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 11px;
-    padding-bottom: 112px;
+    padding-bottom: calc(112px * var(--section-gap));
   }
   .pair :global(img) {
     width: 100%;

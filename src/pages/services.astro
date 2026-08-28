@@ -58,7 +58,7 @@ const rows = [...services, ...indexOnly];
 </Base>
 
 <style>
-  .rows { margin: 0; padding: 72px 0 96px; list-style: none; }
+  .rows { margin: 0; padding: calc(72px * var(--section-gap)) 0 calc(96px * var(--section-gap)); list-style: none; }
 
   .rows li { border-top: 1px solid var(--color-divider); }
   .rows li:last-child { border-bottom: 1px solid var(--color-divider); }

@@ -34,6 +34,10 @@
   --page-max: 1280px;
   --page-pad: 32px;
 
+  /* Vertical air between sections. 1 = the original rhythm; every
+     section-level top/bottom padding is scaled by this. */
+  --section-gap: 0.6;
+
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 

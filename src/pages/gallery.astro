@@ -74,7 +74,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     align-items: end;
     justify-content: space-between;
     gap: 32px;
-    padding: 72px 0 40px;
+    padding: calc(72px * var(--section-gap)) 0 calc(40px * var(--section-gap));
     border-bottom: 1px solid var(--color-divider);
   }
   .intro .body-copy { max-width: 56ch; }
@@ -83,7 +83,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
     gap: 10px;
-    padding: 40px 0 112px;
+    padding: calc(40px * var(--section-gap)) 0 calc(112px * var(--section-gap));
   }
 
   figure { margin: 0; border-radius: 3px; }

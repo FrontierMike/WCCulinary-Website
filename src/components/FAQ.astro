@@ -85,7 +85,7 @@ const faqJsonLd = {
   .inner {
     max-width: var(--page-max);
     margin: 0 auto;
-    padding: 104px var(--page-pad) 112px;
+    padding: calc(104px * var(--section-gap)) var(--page-pad) calc(112px * var(--section-gap));
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 64px;

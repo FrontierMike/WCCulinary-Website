@@ -29,18 +29,32 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <a class="link-accent" href={`${base}/contact`.replace(/\/+/g, '/')}>Enquire about a date →</a>
     </div>
 
-    {/* No lightbox — clicking a tile does nothing, by request. */}
     <div class="grid" data-reveal-stagger="80">
-      {photos.map((photo) => (
+      {photos.map((photo, i) => (
         <figure data-reveal>
-          <Image
-            src={photo.src}
-            alt={photo.alt}
-            widths={[480]}
-            sizes="(max-width: 700px) 45vw, 218px"
-            loading="lazy"
-            decoding="async"
-          />
+          <button type="button" popovertarget={`photo-${i}`} aria-label={`Enlarge: ${photo.alt}`}>
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              widths={[480]}
+              sizes="(max-width: 700px) 45vw, 218px"
+              loading="lazy"
+              decoding="async"
+            />
+          </button>
+          {/* Native popover: light dismiss and Esc for free, no lightbox script. */}
+          <div class="pop" id={`photo-${i}`} popover>
+            <button type="button" popovertarget={`photo-${i}`} popovertargetaction="hide" aria-label="Close">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                widths={[960]}
+                sizes="min(88vw, 480px)"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+          </div>
         </figure>
       ))}
     </div>
@@ -72,15 +86,53 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     padding: 40px 0 112px;
   }
 
-  figure { margin: 0; overflow: hidden; border-radius: 3px; }
+  figure { margin: 0; border-radius: 3px; }
 
-  figure :global(img) {
+  figure > button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: hidden;
+    border-radius: 3px;
+    cursor: zoom-in;
+  }
+
+  figure > button :global(img) {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
     transition: transform .9s var(--ease);
   }
-  figure:hover :global(img) { transform: scale(1.06); }
+  figure > button:hover :global(img) { transform: scale(1.06); }
+
+  /* Popped-out view: roughly double the tile, uncropped, capped to the viewport. */
+  .pop {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: visible;
+    cursor: zoom-out;
+  }
+  .pop::backdrop { background: rgb(0 0 0 / .72); }
+  .pop button {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-out;
+  }
+  .pop :global(img) {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(88vw, 480px);
+    max-height: 86vh;
+    border-radius: 3px;
+    box-shadow: 0 24px 64px rgb(0 0 0 / .45);
+  }
 
   @media (max-width: 700px) {
     .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }

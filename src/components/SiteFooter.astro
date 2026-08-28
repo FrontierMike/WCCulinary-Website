@@ -1,38 +1,20 @@
 ---
+import { href } from '../lib/href';
+import { eventServiceLinks, glutenFreeLinks } from '../lib/nav';
 import { Image } from 'astro:assets';
 import logo from '../assets/images/wccc-logo-circle.png';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
-
-const columns = [
-  {
-    label: 'Services',
-    links: [
-      ['Private dining', 'private-dining'],
-      ['Weddings', 'weddings'],
-      ['Corporate', 'corporate'],
-      ['Celebrations', 'celebrations'],
-      ['Wine pairing dinners', 'wine-dinners'],
-    ],
-  },
+const columns: { label: string; links: [string, string][] }[] = [
+  { label: 'Services', links: eventServiceLinks },
   {
     label: 'Explore',
     links: [
-      ['All services', 'services'],
-      ['Example menus', 'menus'],
       ['Gallery', 'gallery'],
       ['Reviews', 'reviews'],
       ['About Jan', 'about'],
     ],
   },
-  {
-    label: 'Gluten-free',
-    links: [
-      ['Gluten-free catering', 'gluten-free-catering'],
-      ['Gluten-free consulting', 'gluten-free-consulting'],
-    ],
-  },
+  { label: 'Gluten-free', links: glutenFreeLinks },
 ];
 ---
 <footer>

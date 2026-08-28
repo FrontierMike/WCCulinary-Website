@@ -1,7 +1,7 @@
 // Run: npm test
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { validate } from './index.js';
+import worker, { validate } from './index.js';
 
 test('rejects missing required fields', () => {
   assert.ok(validate({}).error);
@@ -50,4 +50,33 @@ test('carries attribution through, blank when absent', () => {
   assert.equal(bare.heardFrom, '');
   assert.equal(bare.landing, '');
   assert.equal(bare.referrer, '');
+});
+
+// --- Retired paths -----------------------------------------------------
+// /services, /menus and /wine-dinners were folded into other pages when the
+// navigation was flattened. A stub ASSETS binding stands in for the static
+// site, so a passthrough is visible as the sentinel body.
+const stubEnv = { ASSETS: { fetch: () => new Response('ASSETS', { status: 200 }) } };
+const get = (path) => worker.fetch(new Request(`https://wcculinary.com${path}`), stubEnv);
+
+test('301s the retired paths to where their content went', async () => {
+  for (const [from, to] of [
+    ['/services', 'https://wcculinary.com/'],
+    ['/menus', 'https://wcculinary.com/private-dining#menus'],
+    ['/wine-dinners', 'https://wcculinary.com/private-dining#wine-dinners'],
+    // Trailing slash is the form Astro's own links take, so it must match too.
+    ['/menus/', 'https://wcculinary.com/private-dining#menus'],
+  ]) {
+    const res = await get(from);
+    assert.equal(res.status, 301, `${from} should redirect`);
+    assert.equal(res.headers.get('location'), to);
+  }
+});
+
+test('leaves live pages alone', async () => {
+  for (const path of ['/', '/private-dining', '/weddings', '/menus-of-the-day']) {
+    const res = await get(path);
+    assert.equal(res.status, 200, `${path} should be served, not redirected`);
+    assert.equal(await res.text(), 'ASSETS');
+  }
 });

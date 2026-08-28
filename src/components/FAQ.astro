@@ -1,14 +1,14 @@
 ---
-// Shared FAQ accordion. `variant` splices one service-specific question in at
-// position 3. Appears on all seven service pages and the Services index.
+// Shared FAQ accordion. `variant` splices its service-specific question(s) in
+// at position 3. Appears on every service page.
 //
 // ponytail: <details name="faq"> is the native exclusive accordion — opening
 // one closes the others with no JS and no state. That is the whole "one panel
 // open at a time" requirement from the handoff.
+import { href } from '../lib/href';
+
 interface Props { variant?: string; heading?: string }
 const { variant = '', heading = 'Questions people actually ask.' } = Astro.props;
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const shared: [string, string][] = [
   ['Where do you cook?',
@@ -25,23 +25,26 @@ const shared: [string, string][] = [
    'I bring my own knives, pans and small equipment, cook, serve and leave the kitchen clean. Plates, glassware, linen and extra service staff are quoted separately if you need them rented — many clients use what they already own. Dietary restrictions and allergies are handled properly, not worked around.'],
 ];
 
-const variants: Record<string, [string, string]> = {
-  weddings: ['Do you do the cake and late-night food?',
-    'Cake is usually a separate baker and I am happy to work alongside one. Late-night food, canapés during photos and a plate for the couple who never get to eat are all things I plan for as a matter of course.'],
-  corporate: ['Can you invoice us, and do you hold a standing account?',
-    'Yes. Corporate work is invoiced on standard terms and repeat clients keep a standing account with agreed menus and delivery windows, so booking a lunch takes one email.'],
-  celebrations: ['Can you just drop the food off?',
-    'Yes. Celebrations run from drop-off — food arrives ready, with heating and serving notes — through to me cooking and serving the whole evening. Most people land somewhere in the middle.'],
-  'private-dining': ['What do you need from our kitchen?',
-    'Less than people expect: an oven, a few burners, counter space and a sink. I shop, arrive with everything else, cook each course, serve it and leave the kitchen the way I found it.'],
-  'wine-dinners': ['Do we need to know anything about wine?',
-    'No. Bring out the bottles you have been saving and I write the courses around them. If you would rather I chose, tell me roughly what you like and the budget.'],
-  gf: ['How do you keep it genuinely gluten-free?',
-    'Separate boards, pans, oil and service utensils, and gluten-free menus written as their own dishes rather than substitutions. I will walk you through the handling before the event so you can answer your guests confidently.'],
+const variants: Record<string, [string, string][]> = {
+  weddings: [['Do you do the cake and late-night food?',
+    'Cake is usually a separate baker and I am happy to work alongside one. Late-night food, canapés during photos and a plate for the couple who never get to eat are all things I plan for as a matter of course.']],
+  corporate: [['Can you invoice us, and do you hold a standing account?',
+    'Yes. Corporate work is invoiced on standard terms and repeat clients keep a standing account with agreed menus and delivery windows, so booking a lunch takes one email.']],
+  celebrations: [['Can you just drop the food off?',
+    'Yes. Celebrations run from drop-off — food arrives ready, with heating and serving notes — through to me cooking and serving the whole evening. Most people land somewhere in the middle.']],
+  // Two questions: wine pairing dinners merged onto the private-dining page.
+  'private-dining': [
+    ['What do you need from our kitchen?',
+      'Less than people expect: an oven, a few burners, counter space and a sink. I shop, arrive with everything else, cook each course, serve it and leave the kitchen the way I found it.'],
+    ['Do we need to know anything about wine?',
+      'No. Bring out the bottles you have been saving and I write the courses around them. If you would rather I chose, tell me roughly what you like and the budget.'],
+  ],
+  gf: [['How do you keep it genuinely gluten-free?',
+    'Separate boards, pans, oil and service utensils, and gluten-free menus written as their own dishes rather than substitutions. I will walk you through the handling before the event so you can answer your guests confidently.']],
 };
 
 const items = [...shared];
-if (variants[variant]) items.splice(2, 0, variants[variant]);
+if (variants[variant]) items.splice(2, 0, ...variants[variant]);
 
 // Unique per instance so two accordions on one page don't fight over the name.
 const group = `faq-${variant || 'default'}`;
@@ -64,7 +67,7 @@ const faqJsonLd = {
       <p class="kicker">Before you ask</p>
       <h2>{heading}</h2>
       <p class="support">Anything not covered here, ask directly — I answer my own enquiries.</p>
-      <a class="ask" href={`${base}/contact`.replace(/\/+/g, '/')}>Send an enquiry →</a>
+      <a class="ask" href={href('contact')}>Send an enquiry →</a>
     </div>
 
     <div class="accordion" data-reveal data-reveal-delay="90">

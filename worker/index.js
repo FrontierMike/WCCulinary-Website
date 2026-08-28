@@ -8,6 +8,16 @@
 
 const RESEND_API = "https://api.resend.com/emails";
 
+// Pages that were folded into others when the nav was flattened. Nothing had
+// been indexed yet — the site was still preview-only — so these are for
+// bookmarks and tidiness rather than rescued ranking. The table is the place
+// to add the old WordPress paths at the apex cutover.
+const REDIRECTS = new Map([
+  ["/services", "/"],
+  ["/menus", "/private-dining#menus"],
+  ["/wine-dinners", "/private-dining#wine-dinners"],
+]);
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -18,6 +28,13 @@ export default {
         return json({ ok: false, error: "Method not allowed." }, 405);
       }
       return handleContact(request, env);
+    }
+
+    // Retired paths. Trailing slash trimmed so /menus and /menus/ both land.
+    const path = url.pathname.replace(/\/+$/, "") || "/";
+    const moved = REDIRECTS.get(path);
+    if (moved) {
+      return Response.redirect(new URL(moved, url).toString(), 301);
     }
 
     // Everything else: serve the static site (and its own 404 handling).

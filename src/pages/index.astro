@@ -2,9 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { img } from '../data/images';
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
+import { href } from '../lib/href';
 
 // The four quotes on this page (three below, one in the reviews row) are
 // deliberately EXCERPTS, not the full reviews: one sharp line each, on the
@@ -37,7 +35,7 @@ const features = [
     kicker: 'The food',
     heading: 'Main dishes made from scratch, with what is currently in season',
     body: 'Every main dish is cooked from raw ingredients, with nearly all the stocks, sauces, dressings and cures made from scratch. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
-    link: ['See example menus →', 'menus'],
+    link: ['See an example menu →', 'private-dining#menus'],
     slot: 'plating',
     alt: 'Seared scallops on a herb purée and red pepper sauce, finished with crisp cured ham',
     // The scallop plate is shot upright on a 520px-wide phone frame. A 4:3 box
@@ -68,7 +66,7 @@ const features = [
 // The four services that are not one of the five blocks above.
 const everythingElse = [
   ['Celebrations', 'Milestone birthdays, anniversaries and parties, at home or at a venue — drop-off through to full service.', 'celebrations'],
-  ['Wine pairing dinners', 'Bring out the bottles you have been saving and I write the courses around them.', 'wine-dinners'],
+  ['Wine pairing dinners', 'Bring out the bottles you have been saving and I write the courses around them.', 'private-dining#wine-dinners'],
   ['Gluten-free catering', 'Menus written as gluten-free dishes in their own right, not substitutions, with separate boards and pans.', 'gluten-free-catering'],
   ['Gluten-free consulting', 'For restaurants and kitchens — menu review, kitchen handling and a written protocol your staff will follow.', 'gluten-free-consulting'],
 ];
@@ -160,7 +158,6 @@ const strip = [
           <p class="kicker">Everything else</p>
           <h2>Four more ways I cook</h2>
         </div>
-        <a class="btn btn-secondary push-right" href={href('services')}>See all the ways I cook →</a>
       </div>
       {everythingElse.map(([title, desc, path]) => (
         <a class="svc-row" href={href(path)}>

@@ -1,10 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import { href } from '../lib/href';
 import PageHero from '../components/PageHero.astro';
 import CTA from '../components/CTA.astro';
 import { catering, restaurant, restaurantTotal } from '../data/reviews';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base
   active="reviews"
@@ -36,7 +36,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           What you ate and how the night went. It takes two minutes and I read every one.
         </p>
         <div class="ask-actions">
-          <a class="btn btn-primary" href={`${base}/contact`.replace(/\/+/g, '/')}>Send me a review</a>
+          <a class="btn btn-primary" href={href('contact')}>Send me a review</a>
           {/* Google's own write-a-review endpoint. The place id is just the two
               halves of the Maps feature id (0x1de33033abe7d4d, 0x9f6e24534b345600)
               packed little-endian and base64url'd — same listing as

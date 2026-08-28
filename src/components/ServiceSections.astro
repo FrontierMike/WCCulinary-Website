@@ -3,15 +3,15 @@
 // shape — hero, several of these, FAQ, CTA — so the pages are content in
 // src/data/services.ts rather than seven copies of this markup.
 import type { Section } from '../data/services';
+import { href } from '../lib/href';
 
 interface Props { sections: Section[] }
 const { sections } = Astro.props;
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const reviews = `${base}/reviews`.replace(/\/+/g, '/');
+const reviews = href('reviews');
 ---
 {sections.map((s) => (
-  <section class:list={['block', 'divider-top', { testimonial: s.type === 'quote' }]} data-reveal>
+  <section id={s.id} class:list={['block', 'divider-top', { testimonial: s.type === 'quote' }]} data-reveal>
     <div class="wrap">
       {s.kicker && <p class="kicker">{s.kicker}</p>}
       {s.heading && <h2>{s.heading}</h2>}
@@ -88,7 +88,7 @@ const reviews = `${base}/reviews`.replace(/\/+/g, '/');
 ))}
 
 <style>
-  .block { padding: calc(104px * var(--section-gap)) 0; }
+  .block { padding: calc(104px * var(--section-gap)) 0; scroll-margin-top: 110px; }
 
   h2 {
     max-width: 22ch;
@@ -104,7 +104,7 @@ const reviews = `${base}/reviews`.replace(/\/+/g, '/');
     margin-top: 46px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    align-items: start;   /* menu cards vary in length — see menus.astro */
+    align-items: start;   /* menu cards vary in length */
     gap: 28px;
   }
 

@@ -5,6 +5,9 @@
 // client's permission.
 
 export type Section = {
+  /** Renders as the section's DOM id, so it can be linked into from the nav
+   *  (e.g. /private-dining#wine-dinners). Only set it where something links. */
+  id?: string;
   kicker?: string;
   /** Optional only for `quote` — the testimonial band carries no heading. */
   heading?: string;
@@ -21,16 +24,16 @@ export type Section = {
 
 export interface Service {
   slug: string;
-  /** Row order and label on the Services index. */
+  /** Nav label, and the order services appear in — see src/lib/nav.ts. */
   title: string;
-  /** 46ch description on the Services index. */
+  /** One-line description of the service. Written for the Services index,
+   *  which no longer exists; nothing renders it today. Kept because it is the
+   *  only short-form copy for each service. */
   summary: string;
   imageSlot: string;
   imageAlt: string;
   /** FAQ variant key; '' uses the shared six questions only. */
   faqVariant: string;
-  /** Hidden from the header nav — footer and Services index only. */
-  hiddenFromNav?: boolean;
   hero: { kicker: string; heading: string; lead: string };
   seo: { title: string; description: string };
   sections: Section[];
@@ -54,7 +57,7 @@ export const services: Service[] = [
     },
     seo: {
       title: 'Private chef — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'A Red Seal chef cooks three, four or five courses in your own kitchen, for two to thirty-two people. Private chef dinners across White Rock, South Surrey and the Lower Mainland.',
+      description: 'A Red Seal chef cooks three, four or five courses in your own kitchen, for two to thirty-two people. Private chef dinners and wine pairing dinners across White Rock, South Surrey and the Lower Mainland.',
     },
     sections: [
       {
@@ -79,10 +82,11 @@ export const services: Service[] = [
         ],
       },
       {
+        id: 'menus',
         type: 'menus',
         kicker: 'Recent menus',
         heading: 'Menus I have cooked in someone’s kitchen.',
-        note: 'Want it built around specific bottles? That is a wine pairing dinner.',
+        note: 'Want it built around specific bottles? That is a wine pairing dinner — the menus are further down this page.',
         menus: [
           {
             tag: 'Three courses',
@@ -155,6 +159,48 @@ export const services: Service[] = [
               'Coeliac guests get dedicated equipment and separated prep',
             ],
           },
+        ],
+      },
+      {
+        id: 'wine-dinners',
+        type: 'menus',
+        kicker: 'Wine pairing dinners',
+        heading: 'What a wine dinner actually looks like.',
+        note: 'More past menus are added as they are collected — they are the proof the format runs on.',
+        menus: [
+          {
+            tag: 'Okanagan whites',
+            title: 'Five courses',
+            items: [
+              'Steamed clams, white wine, garlic, herbs · dry Riesling',
+              'Seared scallop, pesto, crisp pancetta · Chardonnay',
+              'Halibut, pepper relish, new potato · Pinot Gris',
+              'Aged cheeses, quince, walnut · late-harvest Viognier',
+              'Almond and olive oil cake, roasted plums · Muscat',
+            ],
+          },
+          {
+            tag: 'Big reds, November',
+            title: 'Five courses',
+            items: [
+              'Beef carpaccio, aioli, parmesan · Gamay',
+              'Wild mushroom and thyme tart · Pinot Noir',
+              'Duck breast, wild rice, cherry · Syrah',
+              'Braised short rib, celeriac, gremolata · Cabernet blend',
+              'Dark chocolate pâté, crème fraîche · fortified red',
+            ],
+          },
+        ],
+      },
+      {
+        type: 'narrative',
+        kicker: 'Book a private wine dinner',
+        heading: 'The same format, for your table.',
+        note: `I am not licensed to sell alcohol — for private dinners the wine is yours, or bought by you on my recommendation. ${DIETARY}`,
+        paras: [
+          'Bring bottles you have been saving and I will write the courses around them, or tell me a region and a budget and I will handle the wine too.',
+          'Eight to twenty guests, at your house or a venue. Five or six courses, poured and served in sequence.',
+          'Wine dinners are the natural first step if you are considering me for something larger — most of my wedding clients started at one.',
         ],
       },
       {
@@ -571,76 +617,6 @@ export const services: Service[] = [
       body: 'The date, the headcount and where — that is enough for a quote inside two business days.',
     },
   },
-
-  {
-    slug: 'wine-dinners',
-    title: 'Wine pairing dinners',
-    summary: 'Five or six courses written around the bottles, for eight to twenty guests at your own table.',
-    imageSlot: 'gal-lamb',
-    imageAlt: 'Pan-seared halibut with pepper relish, plated for service',
-    faqVariant: 'wine-dinners',
-    hero: {
-      kicker: 'Wine pairing dinners',
-      heading: 'Six courses, built around the bottles.',
-      lead: 'Bring out bottles you have been saving and I will write the courses around them. Eight to twenty guests, five or six courses, poured and served in sequence at your own table.',
-    },
-    seo: {
-      title: 'Wine pairing dinners — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Private wine pairing dinners for eight to twenty guests. Five or six courses written around your bottles by Red Seal chef Janet Wait.',
-    },
-    sections: [
-      {
-        type: 'menus',
-        kicker: 'Past dinners',
-        heading: 'What these evenings actually look like.',
-        note: 'More past menus are added as they are collected — they are the proof this page runs on.',
-        menus: [
-          {
-            tag: 'Okanagan whites',
-            title: 'Five courses',
-            items: [
-              'Steamed clams, white wine, garlic, herbs · dry Riesling',
-              'Seared scallop, pesto, crisp pancetta · Chardonnay',
-              'Halibut, pepper relish, new potato · Pinot Gris',
-              'Aged cheeses, quince, walnut · late-harvest Viognier',
-              'Almond and olive oil cake, roasted plums · Muscat',
-            ],
-          },
-          {
-            tag: 'Big reds, November',
-            title: 'Five courses',
-            items: [
-              'Beef carpaccio, aioli, parmesan · Gamay',
-              'Wild mushroom and thyme tart · Pinot Noir',
-              'Duck breast, wild rice, cherry · Syrah',
-              'Braised short rib, celeriac, gremolata · Cabernet blend',
-              'Dark chocolate pâté, crème fraîche · fortified red',
-            ],
-          },
-        ],
-      },
-      {
-        type: 'narrative',
-        kicker: 'Book a private wine dinner',
-        heading: 'The same format, for your table.',
-        note: `I am not licensed to sell alcohol — for private dinners the wine is yours, or bought by you on my recommendation. ${DIETARY}`,
-        paras: [
-          'Bring bottles you have been saving and I will write the courses around them, or tell me a region and a budget and I will handle the wine too.',
-          'Eight to twenty guests, at your house or a venue. Five or six courses, poured and served in sequence.',
-          'Wine dinners are the natural first step if you are considering me for something larger — most of my wedding clients started at one.',
-        ],
-      },
-      {
-        type: 'quote',
-        text: 'I want to thank you so much for your spectacular catering!! Everyone was certainly raving!',
-        attribution: 'Rooftop wedding, appetizer dinner · Danielle',
-      },
-    ],
-    cta: {
-      heading: 'Bring out the bottles and I will write the courses.',
-      body: 'Eight to twenty guests. Tell me the date and roughly what is in the cellar.',
-    },
-  },
 ];
 
 services.push({
@@ -650,7 +626,6 @@ services.push({
   imageSlot: 'svc-gluten-free',
   imageAlt: 'A platter of steamed clams with basil and chilli',
   faqVariant: 'gf',
-  hiddenFromNav: true,
   hero: {
     kicker: 'Gluten-free catering',
     heading: 'Coeliac guests get the same dinner as everyone else.',
@@ -791,10 +766,16 @@ export const bySlug = (slug: string) => services.find((s) => s.slug === slug);
  *
  *  "Not sure yet" is first so an untouched form reports honestly rather than
  *  silently attributing every direct visit to whatever happened to be first. */
+/** Enquiry types with no page of their own. Wine pairing dinners live on the
+ *  private-dining page now, but people still book them by name and the
+ *  conversion split is worth keeping — the thank-you route comes from here. */
+const extraEnquiryOptions: [string, string][] = [['Wine pairing dinners', 'wine-dinners']];
+
 export const enquiryOptions: [string, string][] = [
   ['Not sure yet', 'not-sure'],
   ...services.map((s): [string, string] => [s.title, s.slug]),
   ...indexOnly.map((s): [string, string] => [s.title, s.slug]),
+  ...extraEnquiryOptions,
 ];
 
 // A duplicate slug would collapse two services onto one thank-you route and

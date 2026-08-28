@@ -15,6 +15,9 @@
     // Astro's static build output. `npm run build` produces this.
     "directory": "./dist",
     // Exposes env.ASSETS so the Worker can serve static files.
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    // Serve the branded 404 (src/pages/404.astro) for unmatched paths instead
+    // of Cloudflare's bare default, which carries no nav to recover from.
+    "not_found_handling": "404-page"
   }
 }

@@ -32,9 +32,10 @@ Astro builds to `./dist`. The Worker serves those files through the `ASSETS` bin
 ├── src/
 │   ├── layouts/Base.astro  # <html> shell, <head>, global wiring
 │   ├── styles/global.css   # Tailwind entry + theme tokens
-│   ├── components/
-│   │   └── Contact.astro   # contact form + client fetch to /api/contact
-│   └── pages/index.astro
+│   ├── components/         # SiteHeader, SiteFooter, PageHero, FAQ, CTA, …
+│   ├── data/services.ts    # every service page, as content
+│   ├── lib/nav.ts          # the Services menu — header and footer read it
+│   └── pages/              # file-based routes
 ├── worker/
 │   ├── index.js            # Worker: serves assets + handles /api/contact
 │   └── index.test.mjs      # validation tests (node --test)
@@ -113,6 +114,43 @@ cannot drop them. Copy all three into `booking-log.xlsx` (gitignored), whose
 should actually decide marketing spend, and the one analytics can never produce
 because it never learns which enquiries closed.
 
+## Navigation
+
+The header is four items — **Services · Gallery · Reviews · About** — plus the
+phone number and the Enquire button. Every service hangs off the Services
+dropdown, so the header names destinations instead of pointing at an index
+page, and no service page is more than one click from anywhere on the site.
+
+`src/lib/nav.ts` is the single source of truth. Both the header dropdown and
+the footer's Services and Gluten-free columns read `serviceLinks` from it, and
+it **fails the build** if a service exists in `src/data/services.ts` but is in
+no menu — an unlinked page is reachable only by search, which is a mistake
+every time.
+
+Three pages were removed to get here:
+
+| Removed | Why | Where the content went |
+|---|---|---|
+| `/services` | A wrapper whose only job was to list the other pages, and the home page already lists them all | Nothing to move — the Services dropdown replaces it |
+| `/menus` | Derived every menu from `services[].sections`, so it duplicated the service pages verbatim | Already on each service page; anchored at `#menus` |
+| `/wine-dinners` | The thinnest service page; the plan doc always allowed it to sit under private dining | Two sections of `/private-dining`, anchored at `#wine-dinners` |
+
+Wine pairing dinners keeps its Service dropdown option and its
+`/contact/thank-you/wine-dinners` route — people book it by name, and the
+conversion split is worth keeping. That comes from `extraEnquiryOptions` in
+`src/data/services.ts`.
+
+`worker/index.js` 301s the three retired paths. Nothing had been indexed when
+they were removed (the site was preview-only and `noindex`), so that table is
+for bookmarks — and it is the place to add the old WordPress paths at cutover.
+
+The Services dropdown uses no JavaScript: it opens on `:hover` and
+`:focus-within`, so clicking the button focuses it and clicking away dismisses
+it. Below 1280px the whole nav collapses into the existing `<details>` panel,
+where the services are listed inline with no second toggle.
+
+---
+
 ## Deployment
 
 Cloudflare Workers Builds is connected to this repo:
@@ -149,8 +187,11 @@ Cloudflare Workers Builds is connected to this repo:
 
 **Design + content**
 
-All fourteen pages are built to **handoff v2** (`design_handoff_wcculinary_site_v2`,
+All eleven pages are built to **handoff v2** (`design_handoff_wcculinary_site_v2`,
 in the zip at the repo root). What is left is real content, not layout.
+
+The handoff shipped fourteen. `/services`, `/menus` and `/wine-dinners` were
+removed afterwards to flatten the navigation — see *Navigation* below.
 
 Every review and menu on the site is real. The home page and service-page
 quotes are excerpts of the six in `src/data/reviews.ts` and repeat its
@@ -173,5 +214,4 @@ captions verbatim — keep them in step when that file changes.
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
 - [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link
-- [ ] Add a `src/pages/404.astro` and set `not_found_handling` in `wrangler.jsonc`
 - [ ] `LocalBusiness` + `Service` structured data

@@ -1,0 +1,83 @@
+---
+// Served by Cloudflare for any unmatched path — see `not_found_handling` in
+// wrangler.jsonc. It matters most at the WordPress cutover, when links to the
+// old site's pages start arriving at this one.
+//
+// The page's job is to put the visitor back into the nav, so it lists the
+// services rather than apologising at length.
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/href';
+import { serviceLinks } from '../lib/nav';
+---
+<Base
+  noindex
+  title="Page not found — West Coast Culinary Creations"
+  description="That page does not exist. Private dining, weddings, corporate catering and celebrations by Red Seal chef Janet Wait, in White Rock and South Surrey."
+>
+  <section class="wrap missing">
+    <p class="kicker">404</p>
+    <h1>That page is not here.</h1>
+
+    <p class="lead">
+      It has either moved or never existed. Nothing is lost — everything I cook
+      is one link away.
+    </p>
+
+    <div class="next">
+      <p class="next-label">What I cook</p>
+      <div class="rows">
+        {serviceLinks.map(([label, path]) => (
+          <a class="row" href={href(path)}>{label} <span aria-hidden="true">→</span></a>
+        ))}
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href={href('contact')}>Request a quote</a>
+        <a class="btn btn-secondary" href={href('gallery')}>Gallery →</a>
+        <a class="btn btn-secondary" href={href('')}>Home →</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .missing { padding: calc(128px * var(--section-gap)) 0 calc(112px * var(--section-gap)); max-width: 68ch; }
+
+  .missing h1 {
+    margin: 22px 0 28px;
+    max-width: 18ch;
+    font-size: clamp(38px, 5.4vw, 68px);
+    line-height: 1.04;
+  }
+
+  .lead { max-width: 52ch; }
+
+  .next {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .next-label {
+    margin-bottom: 20px;
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+
+  .rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px 28px; }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-divider);
+    color: var(--color-neutral-200);
+    transition: color .25s var(--ease);
+  }
+  .row:hover { color: var(--color-accent-300); }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+</style>

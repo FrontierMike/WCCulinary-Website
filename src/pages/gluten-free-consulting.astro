@@ -3,9 +3,9 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceSections from '../components/ServiceSections.astro';
 import { heardFrom, type Section } from '../data/services';
+import { href } from '../lib/href';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
 
 const sections: Section[] = [
   {
@@ -127,7 +127,7 @@ const handling = ['Not at all — we turn those guests away', 'Informally, and w
 const timelines = ['As soon as possible', 'Next one to three months', 'This year', 'Researching for now'];
 ---
 <Base
-  active="services"
+  active="gluten-free-consulting"
   title="Gluten-free consulting for restaurants & food operators | West Coast Culinary Creations"
   description="Gluten-free menu development, kitchen protocol audits and staff training for restaurants, commercial kitchens, care facilities and food manufacturers. Remote or on-site."
 >

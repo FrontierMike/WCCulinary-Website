@@ -1,19 +1,21 @@
 ---
-// Sticky header. `active` highlights the current nav item.
+// Sticky header. `active` is a page key or a service slug; it highlights the
+// matching nav item, and any service slug also lights up the Services parent.
+import { href } from '../lib/href';
+import { serviceLinks, serviceSlugs } from '../lib/nav';
+
 interface Props { active?: string }
 const { active = '' } = Astro.props;
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const href = (p: string) => `${base}/${p}`.replace(/\/+/g, '/');
-
+// Top level is four items. Everything Jan sells hangs off Services, so the
+// header names destinations rather than pointing at an index page.
 const nav = [
-  { key: 'services', label: 'Services', path: 'services' },
-  { key: 'menus',    label: 'Menus',    path: 'menus' },
-  { key: 'gluten-free', label: 'Gluten-free', path: 'gluten-free-catering' },
-  { key: 'gallery',  label: 'Gallery',  path: 'gallery' },
-  { key: 'reviews',  label: 'Reviews',  path: 'reviews' },
-  { key: 'about',    label: 'About',    path: 'about' },
+  { key: 'gallery', label: 'Gallery', path: 'gallery' },
+  { key: 'reviews', label: 'Reviews', path: 'reviews' },
+  { key: 'about',   label: 'About',   path: 'about' },
 ];
+
+const inServices = serviceSlugs.has(active);
 ---
 <header>
   <div class="inner">
@@ -23,6 +25,22 @@ const nav = [
     </a>
 
     <nav class="nav-desktop">
+      {/* No JS: the submenu opens on hover, and on focus-within for keyboard
+          and click — clicking the button focuses it, tabbing out or clicking
+          away blurs it, so it light-dismisses on its own. */}
+      <div class="has-sub">
+        <button type="button" class:list={['nav-link', 'nav-parent', { on: inServices }]} aria-haspopup="true">
+          Services<span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="sub">
+          <div class="sub-inner" role="group" aria-label="Services">
+            {serviceLinks.map(([label, path]) => (
+              <a href={href(path)} class:list={['sub-link', { on: active === path }]}>{label}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {nav.map((item) => (
         <a href={href(item.path)} class:list={['nav-link', { on: active === item.key }]}>{item.label}</a>
       ))}
@@ -30,11 +48,17 @@ const nav = [
       <a href={href('contact')} class="enquire">Enquire</a>
     </nav>
 
-    {/* Below ~1050px the 40px wordmark leaves no room for a nav row, so it
-        collapses into this menu. <details> gives us the toggle with no JS. */}
+    {/* Below ~1280px the 40px wordmark leaves no room for a nav row, so it
+        collapses into this menu. <details> gives us the toggle with no JS.
+        The services are listed inline here — one panel, no second toggle. */}
     <details class="nav-mobile">
       <summary aria-label="Menu"><span></span><span></span><span></span></summary>
       <div class="panel">
+        <p class="group-label">Services</p>
+        {serviceLinks.map(([label, path]) => (
+          <a href={href(path)} class:list={['nav-link', 'indent', { on: active === path }]}>{label}</a>
+        ))}
+        <hr />
         {nav.map((item) => (
           <a href={href(item.path)} class:list={['nav-link', { on: active === item.key }]}>{item.label}</a>
         ))}
@@ -115,6 +139,70 @@ const nav = [
   }
   .enquire:hover { background: color-mix(in srgb, var(--color-accent) 16%, transparent); }
 
+  /* --- Services submenu (desktop) --- */
+  .has-sub { position: relative; }
+
+  .nav-parent {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .chev {
+    width: 5px;
+    height: 5px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: translateY(-1px) rotate(45deg);
+    transition: transform .25s var(--ease);
+  }
+  .has-sub:hover .chev,
+  .has-sub:focus-within .chev { transform: translateY(1px) rotate(225deg); }
+
+  .sub {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    translate: -50% 0;
+    /* Transparent padding, not a gap — it bridges the button to the panel so
+       the pointer never crosses dead space and closes the menu. */
+    padding-top: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s var(--ease), visibility .2s var(--ease);
+  }
+  .has-sub:hover .sub,
+  .has-sub:focus-within .sub { opacity: 1; visibility: visible; }
+
+  .sub-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 216px;
+    padding: 20px 22px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+  }
+
+  .sub-link {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-neutral-400);
+    transition: color .25s var(--ease);
+  }
+  .sub-link:hover { color: var(--color-accent-300); }
+  .sub-link.on { color: var(--color-accent-300); }
+
   /* --- Mobile menu --- */
   .nav-mobile { display: none; position: relative; }
 
@@ -147,14 +235,42 @@ const nav = [
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
-    min-width: 190px;
+    /* Sized to the longest service name rather than a magic number — the
+       services are listed in here now, and a wrapped label reads as two
+       entries. Capped so it cannot push the page sideways. */
+    width: max-content;
+    min-width: 210px;
+    max-width: calc(100vw - 32px);
     padding: 22px 24px;
     background: var(--color-bg);
     border: 1px solid var(--color-divider);
     border-radius: var(--radius-md);
+    /* Thirteen rows now the services are listed inline — scroll rather than
+       run off the bottom on a short phone in landscape. */
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
-  /* Raised from 1050 when the phone number and Gluten-free joined the row. */
+  .panel .group-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+  @media (max-width: 640px) { .panel .group-label { font-size: 11.5px; } }
+
+  .panel .indent { padding-left: 14px; }
+
+  .panel hr {
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: var(--color-divider);
+    margin: 2px 0;
+  }
+
+  /* Raised from 1050 when the phone number joined the row. */
   @media (max-width: 1279.98px) {
     .nav-desktop { display: none; }
     .nav-mobile { display: block; }

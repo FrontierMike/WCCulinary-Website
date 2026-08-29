@@ -48,8 +48,10 @@ const reviews = href('reviews');
         </ol>
       )}
 
+      {/* `solo`: one short list stretched to the full 1200px reads as a stranded
+          banner. A long one (consulting's engagement model) needs the width. */}
       {s.type === 'lists' && (
-        <div class="cards" data-reveal-stagger="70">
+        <div class:list={['cards', s.lists.length === 1 && s.lists[0].items.length < 3 && 'solo']} data-reveal-stagger="70">
           {s.lists.map((l) => (
             <div class="card" data-reveal>
               <h3>{l.title}</h3>
@@ -107,6 +109,8 @@ const reviews = href('reviews');
     align-items: start;   /* menu cards vary in length */
     gap: 28px;
   }
+  /* Class, not :has() — lightningcss strips :has() at our browser targets. */
+  .cards.solo { grid-template-columns: minmax(280px, 520px); }
 
   .card {
     padding: 30px 28px 32px;

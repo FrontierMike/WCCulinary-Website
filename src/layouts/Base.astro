@@ -2,6 +2,9 @@
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { getImage } from 'astro:assets';
+import { img } from '../data/images';
+import { graph, businessNode, chefNode, websiteNode, breadcrumbNode } from '../lib/seo';
 
 interface Props {
   title?: string;
@@ -11,52 +14,59 @@ interface Props {
    *  would otherwise get indexed and have crawler hits inflate the enquiry
    *  count they exist to measure. */
   noindex?: boolean;
+  /** Crumb trail below Home, as [label, path] pairs. Renders as BreadcrumbList
+   *  JSON-LD only — Google reads it there and shows it in place of the raw URL
+   *  in results, so the page needs no visible breadcrumb bar. */
+  breadcrumbs?: [string, string][];
+  /** Extra JSON-LD nodes for this page — a Service, an FAQPage — merged into
+   *  the one graph below rather than emitted as a second detached script. */
+  schema?: object[];
+  /** Design slot in src/data/images.ts, rendered at 1200x630 for social cards.
+   *  Falls back to the site-wide og.jpg. */
+  ogImage?: string;
+  /** Alt text for that card. Required whenever ogImage is set — the default
+   *  describes og.jpg and would be a lie over any other photo. */
+  ogImageAlt?: string;
 }
 
 const {
-  title = 'Private chef & catering — White Rock & South Surrey | West Coast Culinary Creations',
-  description = 'Restaurant cooking in your venue or your kitchen. Red Seal chef Janet Wait caters weddings, private dinners and corporate events in South Surrey, White Rock and the Lower Mainland.',
+  title = 'Private Chef & Catering — White Rock, Surrey & Metro Vancouver | West Coast Culinary Creations',
+  description = 'Restaurant cooking in your venue or your kitchen. Red Seal chef Janet Wait caters weddings, private dinners and corporate events across White Rock, South Surrey, Langley, Vancouver and the Lower Mainland.',
   active = '',
   noindex = false,
+  breadcrumbs,
+  schema = [],
+  ogImage: ogSlot,
+  ogImageAlt = 'Chef Janet Wait finishing a line of plated courses during service',
 } = Astro.props;
 
 // Absolute URLs for canonical/social tags — Astro.site is set in astro.config.mjs.
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL('og.jpg', Astro.site);
+
+// Per-page social card, cropped to the 1.91:1 box every platform expects. A
+// page that names no slot keeps the site-wide og.jpg.
+const og = ogSlot
+  ? await getImage({ src: img(ogSlot), width: 1200, height: 630, format: 'jpg' })
+  : null;
+const ogImage = new URL(og ? og.src : 'og.jpg', Astro.site);
 
 // Structured data: the same facts the pages state in prose, in the shape
-// Google reads. Only verifiable claims belong here — no hours, no price
-// range, no ratings until they are real.
-const businessJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': 'https://wcculinary.com/#business',
-  name: 'West Coast Culinary Creations',
-  description,
-  url: 'https://wcculinary.com',
-  telephone: '+1-604-626-6527',
-  email: 'jan@wcculinary.com',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'White Rock',
-    addressRegion: 'BC',
-    addressCountry: 'CA',
-  },
-  areaServed: ['South Surrey', 'White Rock', 'Lower Mainland', 'Metro Vancouver'],
-  founder: {
-    '@type': 'Person',
-    name: 'Janet Wait',
-    jobTitle: 'Red Seal Chef',
-  },
-  sameAs: [
-    'https://www.instagram.com/west_coast_culinary_creations/',
-    'https://www.facebook.com/profile.php?id=61556583523585',
-    'https://maps.google.com/?cid=11488159639631320576',
-  ],
-};
+// Google reads. The site's nodes go out as one @graph, so a page's Service and
+// breadcrumbs resolve their @id references to the business in a single parse
+// instead of repeating it. (FAQ.astro adds its own FAQPage script — it is a
+// component and cannot reach these props. Several JSON-LD blocks per page is
+// valid and Google merges them.) Only verifiable claims belong here — no
+// hours, no price range, no ratings until they are real. See src/lib/seo.ts.
+const jsonLd = graph([
+  businessNode(description),
+  chefNode(),
+  websiteNode(),
+  ...(breadcrumbs ? [breadcrumbNode(breadcrumbs)] : []),
+  ...schema,
+]);
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,7 +75,7 @@ const businessJsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    <script type="application/ld+json" set:html={JSON.stringify(businessJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -73,7 +83,7 @@ const businessJsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Chef Janet Wait finishing a line of plated courses during service" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1a1a1a" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />

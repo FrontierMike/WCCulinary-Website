@@ -166,7 +166,6 @@ export const services: Service[] = [
         type: 'menus',
         kicker: 'Wine pairing dinners',
         heading: 'What a wine dinner actually looks like.',
-        note: 'More past menus are added as they are collected — they are the proof the format runs on.',
         menus: [
           {
             tag: 'Okanagan whites',

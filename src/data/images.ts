@@ -55,7 +55,8 @@ const SLOTS: Record<string, string> = {
 
   // --- Photos inside the service pages' narrative sections ---
   'sec-private': 'img-7212',                     // scallop amuse spoons
-  'sec-weddings': 'img-4916',                    // prosciutto-wrapped scallops
+  // Not the scallop plate — that is already the homepage's `plating`.
+  'sec-weddings': 'img-4612',                    // the seafood platter
   'sec-corporate': 'camerazoom-20131116140336064',  // crudite and cheese platters
   'sec-celebrations': 'img-8062',                // a party cocktail
   'sec-gluten-free': 'dsc-0293-01',              // caprese

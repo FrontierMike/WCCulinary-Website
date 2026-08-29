@@ -237,7 +237,7 @@ export const services: Service[] = [
       {
         type: 'narrative',
         kicker: 'Why smaller is better food',
-        photo: { slot: 'sec-weddings', alt: 'Prosciutto-wrapped scallops plated with romesco and pesto', ratio: '1 / 1' },
+        photo: { slot: 'sec-weddings', alt: 'A seafood platter of crab, mussels, prawns, scallops and salmon', ratio: '3 / 4' },
         heading: 'Seventy-five plates can leave a real kitchen properly. Three hundred cannot.',
         paras: [
           'A banquet kitchen cooking for three hundred has to hold food at temperature for an hour before it reaches a table. Everything is chosen for how well it survives that wait, which is why catered food has the reputation it does.',

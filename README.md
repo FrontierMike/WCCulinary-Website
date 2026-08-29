@@ -98,6 +98,12 @@ are the enquiry count, split by service.
   group by Path for the service mix, and compare against `/contact` page views
   for a form completion rate.
 
+The beacon is not in this repo. Web Analytics is set to automatic injection on
+the `wcculinary.com` hostname, so Cloudflare adds the script at the edge —
+nothing to build, and no `PUBLIC_CF_BEACON_TOKEN`. Adding a second beacon in the
+markup would double-count every page view. `www` 301s to the apex before a page
+renders, and `preview` is left uncounted on purpose.
+
 Channel attribution does **not** come from analytics. It comes from the enquiry
 email, which carries three fields the Worker adds:
 
@@ -162,19 +168,9 @@ Cloudflare Workers Builds is connected to this repo:
 
 ## TODO
 
-**Infrastructure**
-- [ ] Create the Worker in Cloudflare and connect this repo (see *Cloudflare setup* above)
-- [ ] Confirm the first `main` push deploys and the site loads on `*.workers.dev`
-- [ ] Enable Cloudflare Web Analytics: create a site in the dashboard (Analytics →
-      Web Analytics), then set its token as a `PUBLIC_CF_BEACON_TOKEN` build
-      variable. The beacon script in `src/layouts/Base.astro` renders nothing
-      until the variable is set.
-
-**Domain / DNS** — not configured yet
-- [ ] Pick and register the domain
-- [ ] Point it at Cloudflare, add a custom domain/route for the Worker
-- [ ] SSL/TLS mode → **Full** or **Full (strict)** (Flexible causes redirect loops)
-- [ ] Update the `og:url` meta in `src/layouts/Base.astro`
+**Domain / DNS** — live on `wcculinary.com`; the Worker, the custom domains and
+Web Analytics are all done.
+- [ ] Confirm SSL/TLS mode is **Full** or **Full (strict)** (Flexible causes redirect loops)
 
 **Contact form**
 - [ ] Verify the sending domain in Resend, add its SPF/DKIM records + DMARC

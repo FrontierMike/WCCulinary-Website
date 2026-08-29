@@ -24,10 +24,6 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('og.jpg', Astro.site);
 
-// Cloudflare Web Analytics. Renders nothing until the token is set as a
-// PUBLIC_CF_BEACON_TOKEN build variable (see README).
-const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
-
 // Structured data: the same facts the pages state in prose, in the shape
 // Google reads. Only verifiable claims belong here — no hours, no price
 // range, no ratings until they are real.
@@ -97,12 +93,5 @@ const businessJsonLd = {
       import { capture } from '../scripts/attribution.js';
       capture();
     </script>
-    {beaconToken && (
-      <script
-        defer
-        src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon={JSON.stringify({ token: beaconToken })}
-      />
-    )}
   </body>
 </html>

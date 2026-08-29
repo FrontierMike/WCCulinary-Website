@@ -52,6 +52,13 @@ const SLOTS: Record<string, string> = {
   'gal-pasta': 'img-4740',
   'gal-soup': 'img-5603',
   'gal-tacos': 'img-1479-edit',
+
+  // --- Photos inside the service pages' narrative sections ---
+  'sec-private': 'img-7212',                     // scallop amuse spoons
+  'sec-weddings': 'img-4916',                    // prosciutto-wrapped scallops
+  'sec-corporate': 'camerazoom-20131116140336064',  // crudite and cheese platters
+  'sec-celebrations': 'img-8062',                // a party cocktail
+  'sec-gluten-free': 'dsc-0293-01',              // caprese
 };
 
 /** Look up a design slot. Throws at build time on a typo rather than

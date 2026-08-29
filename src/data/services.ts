@@ -14,7 +14,9 @@ export type Section = {
   lead?: string;
   note?: string;
 } & (
-  | { type: 'narrative'; paras: string[] }
+  /** `photo` sets the narrative beside a picture instead of running full width.
+   *  `slot` is a key in src/data/images.ts; `ratio` overrides the 4/3 box. */
+  | { type: 'narrative'; paras: string[]; photo?: { slot: string; alt: string; ratio?: string } }
   | { type: 'cards'; cards: { title: string; body: string }[] }
   | { type: 'steps'; steps: { title: string; body: string }[] }
   | { type: 'lists'; lists: { title: string; items: string[] }[] }
@@ -63,6 +65,7 @@ export const services: Service[] = [
       {
         type: 'narrative',
         kicker: 'The evening',
+        photo: { slot: 'sec-private', alt: 'Seared scallops on tasting spoons, plated for a private dinner', ratio: '3 / 4' },
         heading: 'What actually happens when I cook at your house.',
         paras: [
           'I arrive about two hours before you sit down, with everything already shopped and most of the prep done. I work quietly — you should be pouring wine, not hosting me.',
@@ -234,6 +237,7 @@ export const services: Service[] = [
       {
         type: 'narrative',
         kicker: 'Why smaller is better food',
+        photo: { slot: 'sec-weddings', alt: 'Prosciutto-wrapped scallops plated with romesco and pesto', ratio: '1 / 1' },
         heading: 'Seventy-five plates can leave a real kitchen properly. Three hundred cannot.',
         paras: [
           'A banquet kitchen cooking for three hundred has to hold food at temperature for an hour before it reaches a table. Everything is chosen for how well it survives that wait, which is why catered food has the reputation it does.',
@@ -442,6 +446,7 @@ export const services: Service[] = [
       {
         type: 'narrative',
         kicker: 'Dietary accommodation, handled by name',
+        photo: { slot: 'sec-corporate', alt: 'Crudite and cheese platters laid out for an office lunch' },
         heading: 'One wrong plate is the thing people remember.',
         paras: [
           'You are ordering for a room you do not control. Send me the restrictions with the headcount and every affected portion arrives labelled with the guest’s name.',
@@ -557,6 +562,7 @@ export const services: Service[] = [
       {
         type: 'narrative',
         kicker: 'At home, or at a venue',
+        photo: { slot: 'sec-celebrations', alt: 'A cocktail garnished for a celebration', ratio: '4 / 5' },
         heading: 'A home kitchen goes further than people expect.',
         paras: [
           'At home is warmer and cheaper, and a domestic kitchen is enough for far more than people expect — I have cooked forty covers out of a galley kitchen with one oven. What a home cannot absorb is rentals and standing room, so past about forty the venue starts to pay for itself.',
@@ -651,6 +657,7 @@ services.push({
     {
       type: 'narrative',
       kicker: 'The restaurant years',
+      photo: { slot: 'sec-gluten-free', alt: 'Heirloom tomato and bocconcini salad on a blue plate' },
       heading: 'People drove from Vancouver for it, week after week.',
       paras: [
         "Jan's on the Beach ran a real gluten-free program — not two token items, but a menu where most dishes could be made properly gluten free, cooked in a kitchen with the equipment and the discipline to do it.",

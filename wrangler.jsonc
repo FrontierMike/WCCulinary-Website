@@ -24,6 +24,11 @@
     "binding": "ASSETS",
     // Serve the branded 404 (src/pages/404.astro) for unmatched paths instead
     // of Cloudflare's bare default, which carries no nav to recover from.
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // Without this, a request matching a built file is served straight off the
+    // edge and worker/index.js never runs — so the www-to-apex bounce and the
+    // preview noindex header silently applied to missing pages only. The
+    // Worker still hands every real page to env.ASSETS; it just sees it first.
+    "run_worker_first": true
   }
 }

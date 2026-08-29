@@ -157,6 +157,91 @@ where the services are listed inline with no second toggle.
 
 ---
 
+## Search (SEO)
+
+The site targets the Lower Mainland: White Rock and South Surrey first, then
+Surrey, Langley, Delta, Richmond, Vancouver and outward. It does that from the
+eleven pages it already has — there are deliberately no per-city landing pages,
+because a dozen near-identical pages with the town name swapped is the doorway
+page pattern Google filters out, and it would triple the size of an eleven-page
+site to chase it.
+
+### Where the geography lives
+
+Four places, and they have to agree:
+
+| File | What it holds |
+| :--- | :--- |
+| `src/lib/seo.ts` | `SERVICE_AREA` — the list. Everything below reads from it or mirrors it. |
+| `src/components/SiteFooter.astro` | The footer line. Imports `SERVICE_AREA` directly, so it cannot drift. |
+| `src/components/FAQ.astro` | The "Where do you cook?" answer. Prose, written by hand — **update it when the list changes.** |
+| `src/data/services.ts` | Per-page `seo.title` / `seo.description`. |
+
+Adding a town means editing `SERVICE_AREA` and the FAQ answer. Removing one
+means the same. The footer and the `areaServed` markup follow automatically.
+
+### Structured data
+
+`src/lib/seo.ts` builds one `@graph` per page: `LocalBusiness`, `Person`
+(Janet, with both certifications and their issuing bodies), `WebSite`, plus a
+`BreadcrumbList` and a `Service` on the pages that have one. Nodes reference
+each other by `@id` rather than repeating themselves.
+
+**The rule in that file: a claim goes in the markup only once the site states
+it in prose.** That is why there are no opening hours, no `priceRange` and no
+`aggregateRating` — none of them are published anywhere on the site, and
+markup that contradicts the page is a manual-action risk for the whole domain.
+When per-head rates land (see TODO), `priceRange` becomes fair game.
+
+Check changes with the [Rich Results Test](https://search.google.com/test/rich-results)
+and [Schema Markup Validator](https://validator.schema.org/) against a built page.
+
+### The part that is not in this repo
+
+For a local catering business, the website is the smaller half. In rough order
+of what actually produces enquiries:
+
+- [ ] **Google Business Profile.** Set up as a *service-area business* — no
+      street address shown, service areas listed instead. Primary category
+      `Caterer`; add `Personal chef` and `Wedding caterer` as secondaries. Keep
+      the name, phone and White Rock locality identical to what the site
+      publishes. This outranks everything below it.
+- [ ] **Reviews on Google, not just on the site.** The six real notes in
+      `src/data/reviews.ts` are on this site only, where they help conversion
+      and do nothing for ranking. Review count and recency are among the
+      strongest local ranking factors there are. The Reviews page already has
+      the ask and the button — the work is asking every client, every time.
+- [ ] **Identical name, phone and locality everywhere** — Business Profile,
+      Facebook, Instagram, any directory. Mismatches split the entity.
+- [ ] **A handful of good citations, not fifty bad ones.** Apple Business
+      Connect (feeds Maps and Siri, usually missed), Bing Places, the wedding
+      verticals, the White Rock / South Surrey chamber. The BC Celiac
+      Association connection is real — see the restaurant reviews — and that
+      kind of link is worth more than any directory.
+- [ ] **Vendor links.** Venues, planners and photographers she has actually
+      worked with. Reciprocal vendor listings are the natural link profile for
+      a caterer and the only link building worth the time.
+- [ ] **Search Console.** Submit `https://wcculinary.com/sitemap-index.xml` and
+      watch the query report. It is the only way to know whether any of this
+      worked.
+
+### What to expect
+
+Local map results weight distance from the searcher heavily. White Rock, South
+Surrey and Surrey are genuinely winnable in the map pack; Langley and Delta are
+plausible. **Vancouver and the North Shore realistically are not** — a White
+Rock business does not appear in a Vancouver map pack whatever the site says.
+What the pages above can win there is ordinary organic results for longer
+queries, which is worth having but is a different and slower thing.
+
+The strongest keyword on this site is not geographic. Gluten-free and
+coeliac-safe catering is low-competition, high-intent, and backed by twelve
+years of running the program in a working restaurant — and people with coeliac
+disease will drive across the region. It pulls from a far wider radius than
+anything else here.
+
+---
+
 ## Deployment
 
 Cloudflare Workers Builds is connected to this repo:
@@ -209,5 +294,7 @@ captions verbatim — keep them in step when that file changes.
       Google's internal URL format.
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
-- [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link
-- [ ] `LocalBusiness` + `Service` structured data
+- [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link. It is a
+      render-blocking stylesheet on a third-party origin, so it costs a DNS
+      lookup and a TLS handshake before any text paints — the one Core Web
+      Vitals item left on the site.

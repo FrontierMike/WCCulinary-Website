@@ -73,8 +73,46 @@ test('301s the retired paths to where their content went', async () => {
   }
 });
 
+test('301s the old WordPress URLs into the new site', async () => {
+  for (const [from, to] of [
+    ['/news', 'https://wcculinary.com/'],
+    ['/gluten-free-bagels-part-1', 'https://wcculinary.com/gluten-free-catering'],
+    ['/category/takeout/', 'https://wcculinary.com/'],
+    // Emoji slug, percent-encoded the way a browser sends it. Lower and upper
+    // case escapes both have to land — clients differ.
+    ['/%f0%9f%8e%84-christmas-dinner-takeaway-feast/', 'https://wcculinary.com/celebrations'],
+    ['/%F0%9F%8E%84-christmas-dinner-takeaway-feast', 'https://wcculinary.com/celebrations'],
+  ]) {
+    const res = await get(from);
+    assert.equal(res.status, 301, `${from} should redirect`);
+    assert.equal(res.headers.get('location'), to);
+  }
+});
+
+test('301s www to the apex, keeping the path and query', async () => {
+  for (const [from, to] of [
+    ['https://www.wcculinary.com/', 'https://wcculinary.com/'],
+    ['https://www.wcculinary.com/weddings', 'https://wcculinary.com/weddings'],
+    ['https://www.wcculinary.com/weddings?utm_source=ig',
+     'https://wcculinary.com/weddings?utm_source=ig'],
+    // Old WordPress path on www: one hop to the apex, then the table sends it
+    // on. Two redirects, but each is a 301 and the chain is short.
+    ['https://www.wcculinary.com/news', 'https://wcculinary.com/news'],
+  ]) {
+    const res = await worker.fetch(new Request(from), stubEnv);
+    assert.equal(res.status, 301, `${from} should redirect`);
+    assert.equal(res.headers.get('location'), to);
+  }
+});
+
+test('leaves the apex host alone', async () => {
+  const res = await get('/weddings');
+  assert.equal(res.status, 200);
+  assert.equal(await res.text(), 'ASSETS');
+});
+
 test('leaves live pages alone', async () => {
-  for (const path of ['/', '/private-dining', '/weddings', '/menus-of-the-day']) {
+  for (const path of ['/', '/private-dining', '/weddings', '/menus-of-the-day', '/contact', '/gallery']) {
     const res = await get(path);
     assert.equal(res.status, 200, `${path} should be served, not redirected`);
     assert.equal(await res.text(), 'ASSETS');

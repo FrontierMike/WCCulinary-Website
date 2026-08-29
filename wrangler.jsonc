@@ -5,10 +5,16 @@
   "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
   // Deploys into Jan's Cloudflare account, which holds the wcculinary.com
-  // zone. Preview subdomain for now; the live site is still WordPress at the
-  // apex. At cutover, add { "pattern": "wcculinary.com", "custom_domain": true }
-  // alongside this one.
+  // zone. The apex and www are the live site; preview stays for checking a
+  // build before it goes out, and worker/index.js serves it noindex so it
+  // never competes with the apex for its own copy.
+  //
+  // A custom_domain makes Cloudflare own that hostname's DNS record. The apex
+  // and www still pointed at the WordPress host, so those records have to be
+  // deleted in the dashboard before this deploys — see the cutover notes.
   "routes": [
+    { "pattern": "wcculinary.com", "custom_domain": true },
+    { "pattern": "www.wcculinary.com", "custom_domain": true },
     { "pattern": "preview.wcculinary.com", "custom_domain": true }
   ],
   "assets": {

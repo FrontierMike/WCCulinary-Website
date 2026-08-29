@@ -3,6 +3,14 @@ import { href } from '../lib/href';
 import { eventServiceLinks, glutenFreeLinks } from '../lib/nav';
 import { Image } from 'astro:assets';
 import logo from '../assets/images/wccc-logo-circle.png';
+import { SERVICE_AREA } from '../lib/seo';
+
+// Two uses of a no-break space, so this list wraps tidily at every width:
+// inside a name, so "West Vancouver" never splits across two lines; and before
+// each separator, so a wrap never strands a "· " at the start of one. What is
+// left is an ordinary space after each separator — the only place a break can
+// land, which is exactly where it should.
+const areas = SERVICE_AREA.map((a) => a.replace(/ /g, '\u00A0')).join('\u00A0· ');
 
 const columns: { label: string; links: [string, string][] }[] = [
   { label: 'Services', links: eventServiceLinks },
@@ -25,7 +33,7 @@ const columns: { label: string; links: [string, string][] }[] = [
       <Image src={logo} alt="West Coast Culinary Creations — chef designed, chef made" width={318} height={318} />
       <p>
         Restaurant cooking, in your venue or your kitchen. A Red Seal chef and a small
-        number of events a year — South Surrey, White Rock and the Lower Mainland.
+        number of events a year — South Surrey, White Rock and across the Lower Mainland.
       </p>
     </div>
 
@@ -48,7 +56,11 @@ const columns: { label: string; links: [string, string][] }[] = [
 
     <div class="meta">
       <p>© {new Date().getFullYear()} West Coast Culinary Creations. Chef Janet Wait, Red Seal.</p>
-      <p>South Surrey · White Rock · Lower Mainland</p>
+      {/* Named one by one rather than as "the Lower Mainland", because this
+          line sits on every page and is the site's broadest statement of where
+          the work happens. Straight from SERVICE_AREA, which is also what the
+          areaServed markup publishes — one list, so they cannot disagree. */}
+      <p class="areas">{areas}</p>
     </div>
   </div>
 </footer>
@@ -99,6 +111,16 @@ const columns: { label: string; links: [string, string][] }[] = [
     padding-top: 24px;
   }
   .meta p { font-size: 0.75rem; color: var(--color-neutral-500); }
+
+  /* .meta is a two-item space-between row, and the area list will not sit
+     opposite the copyright line. width:100% takes a row of its own — not
+     flex-basis, which a max-width would then cap, leaving it back on the
+     first row. Second in the DOM, so it lands underneath. */
+  .areas {
+    width: 100%;
+    line-height: 1.85;
+    color: var(--color-neutral-600);
+  }
 
   @media (max-width: 560px) {
     .brand :global(img) { width: 200px; height: 200px; }

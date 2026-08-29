@@ -28,6 +28,11 @@ export interface Service {
   slug: string;
   /** Nav label, and the order services appear in — see src/lib/nav.ts. */
   title: string;
+  /** What the service is called in the Service markup. The nav label is a
+   *  menu word — "Weddings", "Corporate" — and naming a schema.org Service
+   *  that tells a crawler nothing. This is the same thing as a person would
+   *  search for. Defaults to `title`. */
+  serviceName?: string;
   /** One-line description of the service. Written for the Services index,
    *  which no longer exists; nothing renders it today. Kept because it is the
    *  only short-form copy for each service. */
@@ -48,6 +53,7 @@ export const services: Service[] = [
   {
     slug: 'private-dining',
     title: 'Private dining',
+    serviceName: 'Private chef and private dining',
     summary: 'Two to thirty-two people, three, four or five courses, cooked in your kitchen and served to your table.',
     imageSlot: 'private-dining-tacos',
     imageAlt: 'A plated course served at a private dinner',
@@ -58,8 +64,8 @@ export const services: Service[] = [
       lead: 'Two to thirty-two people, three, four or five courses, served to your table. It is the easiest way to eat my food, and the way I most like to cook it.',
     },
     seo: {
-      title: 'Private chef — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'A Red Seal chef cooks three, four or five courses in your own kitchen, for two to thirty-two people. Private chef dinners and wine pairing dinners across White Rock, South Surrey and the Lower Mainland.',
+      title: 'Private chef at home — White Rock to Vancouver | West Coast Culinary Creations',
+      description: 'A Red Seal chef cooks three, four or five courses in your own kitchen, for two to thirty-two people. Private chef dinners and wine pairing dinners across White Rock, South Surrey, Langley, Vancouver and the Lower Mainland.',
     },
     sections: [
       {
@@ -220,6 +226,7 @@ export const services: Service[] = [
   {
     slug: 'weddings',
     title: 'Weddings',
+    serviceName: 'Wedding catering',
     summary: 'Intimate weddings up to seventy-five guests, with one consultation and the chef you hired on the line.',
     imageSlot: 'svc-weddings',
     imageAlt: 'A chocolate pâté dessert plated with raspberry coulis and cream',
@@ -230,8 +237,8 @@ export const services: Service[] = [
       lead: 'Intimate weddings — up to about seventy-five guests. One menu consultation, and I am the person on the line on the day. Not a name on your contract.',
     },
     seo: {
-      title: 'Small wedding catering — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Intimate wedding catering up to seventy-five guests by Red Seal chef Janet Wait. One consultation, and the chef you hired cooking on the day.',
+      title: 'Small wedding catering — White Rock to Vancouver | West Coast Culinary Creations',
+      description: 'Intimate wedding catering up to seventy-five guests by Red Seal chef Janet Wait, across White Rock, Surrey, Langley and Metro Vancouver. One consultation, and the chef you hired cooking on the day.',
     },
     sections: [
       {
@@ -356,6 +363,7 @@ export const services: Service[] = [
   {
     slug: 'corporate',
     title: 'Corporate',
+    serviceName: 'Corporate and office lunch catering',
     summary: 'Office lunches, board dinners and client entertaining on fixed delivery windows and plain per-head pricing.',
     imageSlot: 'svc-corporate',
     imageAlt: 'A buffet line of chafing dishes with guests serving themselves',
@@ -366,8 +374,8 @@ export const services: Service[] = [
       lead: 'Fixed delivery windows, plain per-head pricing, itemised invoices and repeat accounts. Restaurant food, run on office logistics.',
     },
     seo: {
-      title: 'Corporate & office lunch catering — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Office lunch and board dinner catering with fixed delivery windows, per-head pricing, PO numbers and itemised invoices. South Surrey, White Rock and the Lower Mainland.',
+      title: 'Corporate & office lunch catering — White Rock to Vancouver | West Coast Culinary Creations',
+      description: 'Office lunch and board dinner catering with fixed delivery windows, per-head pricing, PO numbers and itemised invoices. Surrey, White Rock, Langley, Burnaby, Richmond and Vancouver.',
     },
     sections: [
       {
@@ -480,6 +488,7 @@ export const services: Service[] = [
   {
     slug: 'celebrations',
     title: 'Celebrations',
+    serviceName: 'Birthday, anniversary and celebration catering',
     summary: 'Birthdays, milestones, anniversaries and parties — drop-off trays through to full service with staff.',
     imageSlot: 'svc-celebrations',
     imageAlt: 'Plated chicken on arugula with pineapple salsa and an orchid garnish',
@@ -490,8 +499,8 @@ export const services: Service[] = [
       lead: 'Fiftieths, sixtieths, engagement parties, retirements, a good excuse in general. At home or at a venue, from drop-off trays to full service with staff.',
     },
     seo: {
-      title: 'Birthday & anniversary party catering — White Rock & South Surrey | West Coast Culinary Creations',
-      description: 'Birthday, milestone and anniversary catering by a Red Seal chef. Drop-off trays through to full service, at home or at a venue, across the Lower Mainland.',
+      title: 'Birthday & anniversary catering — White Rock to Vancouver | West Coast Culinary Creations',
+      description: 'Birthday, milestone and anniversary catering by a Red Seal chef. Drop-off trays through to full service, at home or at a venue, across Surrey, White Rock, Langley, Delta and Metro Vancouver.',
     },
     sections: [
       {
@@ -627,6 +636,7 @@ export const services: Service[] = [
 services.push({
   slug: 'gluten-free-catering',
   title: 'Gluten-free catering',
+  serviceName: 'Gluten-free and coeliac-safe catering',
   summary: 'Coeliac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
   imageSlot: 'svc-gluten-free',
   imageAlt: 'A platter of steamed clams with basil and chilli',
@@ -637,8 +647,8 @@ services.push({
     lead: 'Not a substitute plate carried out after the others. A menu written so that the gluten-free version is the version — cooked with dedicated equipment, on separated surfaces, by a chef who ran a gluten-free program in a working restaurant for twelve years.',
   },
   seo: {
-    title: 'Gluten-free & coeliac-safe catering — White Rock & South Surrey | West Coast Culinary Creations',
-    description: 'Coeliac-safe catering with dedicated equipment, separated prep and verified sourcing, by a Red Seal chef who ran a gluten-free restaurant program for twelve years.',
+    title: 'Gluten-free & coeliac-safe catering — Lower Mainland BC | West Coast Culinary Creations',
+    description: 'Coeliac-safe catering across Metro Vancouver and the Fraser Valley — dedicated equipment, separated prep and verified sourcing, by a Red Seal chef who ran a gluten-free restaurant program for twelve years.',
   },
   sections: [
     {

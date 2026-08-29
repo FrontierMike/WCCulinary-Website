@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import ServiceSections from '../components/ServiceSections.astro';
 import { heardFrom, type Section } from '../data/services';
 import { href } from '../lib/href';
+import { serviceNode } from '../lib/seo';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -130,6 +131,15 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
   active="gluten-free-consulting"
   title="Gluten-free consulting for restaurants & food operators | West Coast Culinary Creations"
   description="Gluten-free menu development, kitchen protocol audits and staff training for restaurants, commercial kitchens, care facilities and food manufacturers. Remote or on-site."
+  breadcrumbs={[['Gluten-free consulting', '/gluten-free-consulting']]}
+  schema={[
+    serviceNode({
+      name: 'Gluten-free consulting',
+      description:
+        'Menu development, kitchen protocol and staff training for restaurants, care facilities and food manufacturers.',
+      path: '/gluten-free-consulting',
+    }),
+  ]}
 >
   <PageHero
     kicker="Gluten-free consulting"

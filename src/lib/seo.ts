@@ -56,6 +56,16 @@ export const SERVICE_AREA = [
   'Abbotsford',
 ];
 
+/** Astro builds to directories, so every canonical on this site ends in a
+ *  slash. A node pointing at "/weddings" while the canonical says
+ *  "/weddings/" hands Google two URLs for one page — so normalise here, in
+ *  the one place that builds absolute URLs. */
+const abs = (path: string) => {
+  const u = new URL(path, SITE);
+  if (!u.pathname.endsWith('/')) u.pathname += '/';
+  return u.toString();
+};
+
 const city = (name: string) => ({
   '@type': 'City',
   name,
@@ -168,7 +178,7 @@ export const breadcrumbNode = (trail: [string, string][]) => ({
     '@type': 'ListItem',
     position: i + 1,
     name,
-    item: new URL(path, SITE).toString(),
+    item: abs(path),
   })),
 });
 
@@ -180,12 +190,12 @@ export const serviceNode = (opts: { name: string; description: string; path: str
   serviceType: opts.name,
   name: opts.name,
   description: opts.description,
-  url: new URL(opts.path, SITE).toString(),
+  url: abs(opts.path),
   provider: { '@id': ID.business },
   areaServed: SERVICE_AREA.map(city),
   availableChannel: {
     '@type': 'ServiceChannel',
-    serviceUrl: `${SITE}/contact`,
+    serviceUrl: abs('/contact'),
     servicePhone: { '@type': 'ContactPoint', telephone: PHONE },
   },
 });

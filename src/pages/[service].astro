@@ -10,6 +10,7 @@ import ServiceSections from '../components/ServiceSections.astro';
 import FAQ from '../components/FAQ.astro';
 import CTA from '../components/CTA.astro';
 import { services, type Service } from '../data/services';
+import { serviceNode } from '../lib/seo';
 
 export function getStaticPaths() {
   return services.map((service) => ({
@@ -19,8 +20,27 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props as { service: Service };
+
+// The page's own node: this service, offered by the business, across the whole
+// service area. Without it a service page is just a page that mentions
+// catering — the offering itself is never named.
+const schema = [
+  serviceNode({
+    name: service.serviceName ?? service.title,
+    description: service.summary,
+    path: `/${service.slug}`,
+  }),
+];
 ---
-<Base active={service.slug} title={service.seo.title} description={service.seo.description}>
+<Base
+  active={service.slug}
+  title={service.seo.title}
+  description={service.seo.description}
+  breadcrumbs={[[service.title, `/${service.slug}`]]}
+  schema={schema}
+  ogImage={service.imageSlot}
+  ogImageAlt={service.imageAlt}
+>
   <PageHero
     kicker={service.hero.kicker}
     heading={service.hero.heading}

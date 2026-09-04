@@ -275,6 +275,12 @@ const strip = [
   /* Blocks 2 and 4 put the image on the right. */
   .feature.flip .feature-img { order: 2; }
 
+  /* Below ~740px the grid is one column, where alternating order reads as a
+     before/after pair. Photo leads every block instead. */
+  @media (max-width: 760px) {
+    .feature.flip .feature-img { order: 0; }
+  }
+
   .feature h3 {
     margin: 18px 0 20px;
     max-width: 22ch;
@@ -299,7 +305,7 @@ const strip = [
   .quote {
     font-family: var(--font-serif);
     font-style: italic; /* the only italic in the system — it marks a different voice */
-    font-size: 1.2188rem;
+    font-size: 1.0625rem;
     line-height: 1.48;
     color: var(--color-neutral-200);
   }

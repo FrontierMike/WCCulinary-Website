@@ -14,7 +14,7 @@ const features = [
   {
     kicker: 'Weddings',
     heading: 'Intimate weddings, up to seventy-five guests',
-    body: 'One menu consultation, and I am the chef on the day — not a name on the contract. Seventy-five guests is the ceiling on purpose: past that, the food stops being cooked and starts being reheated.',
+    body: 'One menu consultation, and I am the chef on the day — not a name on the contract. Seventy-five is the ceiling on purpose: past that, food gets reheated, not cooked.',
     link: ['See how weddings work →', 'weddings'],
     slot: 'svc-weddings',
     alt: 'A chocolate pâté dessert plated for a wedding dinner',
@@ -24,7 +24,7 @@ const features = [
   {
     kicker: 'Private dining',
     heading: 'Two to thirty-two people, in your own kitchen',
-    body: 'I shop, arrive with my own knives and pans, cook each course, serve it, and leave the kitchen the way I found it. All you do is sit down. It is the easiest way to try my food, and the way most clients meet me before booking something larger.',
+    body: 'I shop, arrive with my own knives and pans, cook each course, serve it, and leave the kitchen as I found it. All you do is sit down. It is how most clients meet me before booking something larger.',
     link: ['How private dining works →', 'private-dining'],
     slot: 'private-dining-tacos',
     alt: 'A plated course from a private dinner',
@@ -33,8 +33,8 @@ const features = [
   },
   {
     kicker: 'The food',
-    heading: 'Main dishes made from scratch, with what is currently in season',
-    body: 'Every main dish is cooked from raw ingredients, with nearly all the stocks, sauces, dressings and cures made from scratch. Menus are written to the season and to the coast — local seafood, produce from the valley — then adjusted to what you like and what your guests can eat.',
+    heading: 'Main dishes from scratch, with what is in season',
+    body: 'Every main dish starts from raw ingredients, with nearly all the stocks, sauces, dressings and cures made from scratch. Menus follow the season and the coast — local seafood, produce from the valley — adjusted to what you like and what your guests can eat.',
     link: ['See an example menu →', 'private-dining#menus'],
     slot: 'plating',
     alt: 'Seared scallops on a herb purée and red pepper sauce, finished with crisp cured ham',
@@ -55,8 +55,8 @@ const features = [
   },
   {
     kicker: 'The chef',
-    heading: 'Twelve years running my own restaurant, now bringing that cooking to your event',
-    body: "I am Red Seal certified, and my restaurant — Jan's on the Beach in White Rock — was an award-winning gourmet bistro for twelve years. Everything I serve is cooked by me, either in my commissary kitchen or on your own stove. No chef turns up on the day whom you have not already met.",
+    heading: 'Twelve years running my own restaurant',
+    body: "Jan's on the Beach, in White Rock, was an award-winning gourmet bistro. I cook everything myself, in my commissary kitchen or on your own stove.",
     link: ['Read my story →', 'about'],
     slot: 'jan-whites',
     alt: "Chef Janet Wait in her chef's whites outside Jan's on the Beach",
@@ -66,9 +66,9 @@ const features = [
 // The four services that are not one of the five blocks above.
 const everythingElse = [
   ['Celebrations', 'Milestone birthdays, anniversaries and parties, at home or at a venue — drop-off through to full service.', 'celebrations'],
-  ['Wine pairing dinners', 'Bring out the bottles you have been saving and I write the courses around them.', 'private-dining#wine-dinners'],
-  ['Gluten-free catering', 'Menus written as gluten-free dishes in their own right, not substitutions, with separate boards and pans.', 'gluten-free-catering'],
-  ['Gluten-free consulting', 'For restaurants and kitchens — menu review, kitchen handling and a written protocol your staff will follow.', 'gluten-free-consulting'],
+  ['Wine pairing dinners', 'Bring out the bottles you have been saving; I write the courses around them.', 'private-dining#wine-dinners'],
+  ['Gluten-free catering', 'Gluten-free dishes in their own right, not substitutions, with separate boards and pans.', 'gluten-free-catering'],
+  ['Gluten-free consulting', 'For restaurants — menu review, kitchen handling and a written protocol your staff will follow.', 'gluten-free-consulting'],
 ];
 
 // Ten plates, two rows of five. Narrow screens drop to two rows of three.
@@ -102,10 +102,9 @@ const strip = [
       <p class="kicker">Boutique private chef &amp; catering · From South Surrey and White Rock to the Lower Mainland</p>
       <h1>Twelve years running an award-winning restaurant. Now cooking at your table.</h1>
       <p class="lead">
-        I am Janet Wait, a Red Seal certified chef, and I still cook to a restaurant
-        standard — everything from scratch, the same suppliers and the same passion I
-        had at my own place, Jan's on the Beach. Cooked by me, in your kitchen or at
-        your venue, for a handful of events each year.
+        I am Janet Wait, a Red Seal certified chef. Everything from scratch, the same
+        suppliers and the same standard I kept at Jan's on the Beach — cooked by me,
+        in your kitchen or at your venue, for a handful of events a year.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href={href('contact')}>Enquire about a date</a>
@@ -203,7 +202,7 @@ const strip = [
     <div class="scrim-lr solo"></div>
     <div class="closing-content" data-reveal>
       <p class="kicker">A small number of events a year</p>
-      <h2>Tell me the date and we will decide together what I will cook.</h2>
+      <h2>Tell me the date and we will decide what I cook.</h2>
       <p class="body-copy closing-body">
         I answer every enquiry myself, with a written quote before anything is booked.
         Two to three weeks' notice for a dinner; two to three months for a wedding.

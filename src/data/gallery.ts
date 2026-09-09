@@ -38,6 +38,7 @@ const NAMED: Record<string, string> = {
   'chicken-parm': 'Chicken parmesan, plated for service',
   'chocolate-pate': 'Chocolate pâté with cream',
   'eggs-benny': 'Eggs benedict plated for a brunch service',
+  'lamb-barley-risotto': 'Lamb chops over barley risotto with glazed carrots',
   'lamchops': 'Rack of lamb, carved and plated with jus',
   'salmononseafoodrisotto': 'Salmon over seafood risotto',
   'seafood': 'A seafood course, plated',

@@ -25,7 +25,7 @@ const sections: Section[] = [
     kicker: 'Who it is for',
     heading: 'Operators, not event hosts.',
     cards: [
-      { title: 'Restaurants', body: 'Independent operators who keep turning away coeliac guests, or who are serving them without being confident about it.' },
+      { title: 'Restaurants', body: 'Independent operators who keep turning away celiac guests, or who are serving them without being confident about it.' },
       { title: 'Commercial kitchens', body: 'Production and ghost kitchens adding a gluten-free line without contaminating the rest of the operation.' },
       { title: 'Care facilities', body: 'Long-term care, retirement residences and hospitals, where the resident cannot advocate for themselves and the stakes are medical.' },
       { title: 'Food manufacturers', body: 'Small producers converting recipes and preparing for a certification audit.' },
@@ -67,7 +67,7 @@ const sections: Section[] = [
     lists: [
       { title: 'The problem', items: ['A full-service beach restaurant turning away or under-serving a group of guests who ate out constantly and travelled to do it — and who tell each other everything.'] },
       { title: 'What was built', items: ['Most of the menu made convertible, dedicated equipment and prep zones, a written protocol the whole line worked to, and front-of-house trained to answer without guessing.'] },
-      { title: 'The result', items: ['Regulars driving in from Vancouver and the Valley, coeliac families booking their celebrations there, and a reputation in that community that outlasted the restaurant itself.'] },
+      { title: 'The result', items: ['Regulars driving in from Vancouver and the Valley, celiac families booking their celebrations there, and a reputation in that community that outlasted the restaurant itself.'] },
     ],
   },
   {
@@ -108,7 +108,7 @@ const sections: Section[] = [
         items: [
           'Staff resist policies handed down without reason, not a chef who has run the line showing them why the tongs matter',
           'It is a revenue exercise that also reduces liability',
-          'Coeliac diners eat out in groups, choose the venue for the whole table, and come back weekly when they trust you',
+          'Celiac diners eat out in groups, choose the venue for the whole table, and come back weekly when they trust you',
         ],
       },
       {
@@ -129,8 +129,9 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
 ---
 <Base
   active="gluten-free-consulting"
-  title="Gluten-free consulting for restaurants & food operators | West Coast Culinary Creations"
-  description="Gluten-free menu development, kitchen protocol audits and staff training for restaurants, commercial kitchens, care facilities and food manufacturers. Remote or on-site."
+  quoteHref="#enquire"
+  title="Gluten-free consulting for restaurants — Red Seal chef"
+  description="Gluten-free menu development, kitchen protocol audits and staff training for restaurants, care facilities and food manufacturers. Remote or on-site."
   breadcrumbs={[['Gluten-free consulting', '/gluten-free-consulting']]}
   schema={[
     serviceNode({
@@ -143,23 +144,29 @@ const timelines = ['As soon as possible', 'Next one to three months', 'This year
 >
   <PageHero
     kicker="Gluten-free consulting"
+    kickerInHeading
     heading="A Red Seal chef who ran a gluten-free program that people drove hours for."
     lead="Menu development, kitchen protocol and staff training for restaurants and food operators. Twelve years of running the program in a working kitchen, not a certification course and a binder."
     photo="jan-halibut"
     alt="Chef Janet Wait plating a course in her whites"
     height="min(58vh, 500px)"
-  />
+  >
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#enquire">Tell me about your kitchen</a>
+      <a class="btn btn-secondary" href="tel:+16046266527">Call 604 626 6527</a>
+    </div>
+  </PageHero>
 
   <ServiceSections sections={sections} />
 
-  <section class="divider-top" data-reveal>
+  <section id="enquire" class="divider-top" data-reveal>
     <div class="wrap form-section">
       <div class="intro">
         <p class="kicker">Enquiries</p>
         <h2>Tell me about your kitchen.</h2>
         <p class="body-copy">
           No event dates or guest counts here — this is for operators. I read these
-          myself and answer within two business days.
+          myself and answer within one business day.
         </p>
         <p class="alt">
           Catering a private event instead? <a href={href('gluten-free-catering')}>That is this page.</a>

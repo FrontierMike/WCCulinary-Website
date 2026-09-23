@@ -51,6 +51,10 @@ const inServices = serviceSlugs.has(active);
     {/* Below ~1280px the 40px wordmark leaves no room for a nav row, so it
         collapses into this menu. <details> gives us the toggle with no JS.
         The services are listed inline here — one panel, no second toggle. */}
+    {/* Tablets: the nav is folded away but there is room beside the wordmark
+        for this. Phones get MobileActions at the bottom of the screen instead. */}
+    <a href={href('contact')} class="enquire enquire-tablet">Enquire</a>
+
     <details class="nav-mobile">
       <summary aria-label="Menu"><span></span><span></span><span></span></summary>
       <div class="panel">
@@ -274,5 +278,10 @@ const inServices = serviceSlugs.has(active);
   @media (max-width: 1279.98px) {
     .nav-desktop { display: none; }
     .nav-mobile { display: block; }
+  }
+
+  .enquire-tablet { display: none; margin-left: auto; white-space: nowrap; }
+  @media (min-width: 761px) and (max-width: 1279.98px) {
+    .enquire-tablet { display: block; }
   }
 </style>

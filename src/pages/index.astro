@@ -99,12 +99,16 @@ const strip = [
     <div class="scrim-lr"></div>
     <div class="scrim-bt"></div>
     <div class="hero-content hero-rise">
-      <p class="kicker">Boutique private chef &amp; catering · From South Surrey and White Rock to the Lower Mainland</p>
-      <h1>Twelve years running an award-winning restaurant. Now cooking at your table.</h1>
+      {/* The kicker is the h1's first line: it is the only part of the hero that
+          says what and where, and the h1 is what search engines weigh most. */}
+      <h1>
+        <span class="kicker">Boutique private chef &amp; catering · From South Surrey and White Rock to the Lower Mainland</span>
+        Twelve years running an award-winning restaurant. Now cooking at your table.
+      </h1>
       <p class="lead">
         I am Janet Wait, a Red Seal certified chef. Everything from scratch, the same
         suppliers and the same standard I kept at Jan's on the Beach — cooked by me,
-        in your kitchen or at your venue, for a handful of events a year.
+        in your kitchen or at your venue.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href={href('contact')}>Enquire about a date</a>
@@ -123,7 +127,7 @@ const strip = [
         </div>
         <div>
           <p class="kicker">{f.kicker}</p>
-          <h3>{f.heading}</h3>
+          <h2>{f.heading}</h2>
           <p class="body-copy">{f.body}</p>
           {f.quote && (
             <div class="woven">
@@ -201,10 +205,10 @@ const strip = [
     />
     <div class="scrim-lr solo"></div>
     <div class="closing-content" data-reveal>
-      <p class="kicker">A small number of events a year</p>
+      <p class="kicker">Every enquiry answered personally</p>
       <h2>Tell me the date and we will decide what I cook.</h2>
       <p class="body-copy closing-body">
-        I answer every enquiry myself, with a written quote before anything is booked.
+        I answer every enquiry myself within one business day, with a written quote before anything is booked.
         Two to three weeks' notice for a dinner; two to three months for a wedding.
       </p>
       <a class="btn btn-primary" href={href('contact')}>Request a quote</a>
@@ -237,9 +241,17 @@ const strip = [
     padding: 160px var(--page-pad) 96px;
   }
 
-  .hero .kicker { font-weight: 600; }
+  .hero .kicker {
+    display: block;
+    margin-bottom: 22px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.26em;
+    text-wrap: wrap;
+  }
   .hero h1 {
-    margin: 22px 0 26px;
+    margin: 0 0 26px;
     max-width: 17ch;
     font-size: clamp(42px, 6.2vw, 88px);
     line-height: 1.02;
@@ -280,7 +292,7 @@ const strip = [
     .feature.flip .feature-img { order: 0; }
   }
 
-  .feature h3 {
+  .feature h2 {
     margin: 18px 0 20px;
     max-width: 22ch;
     font-size: clamp(28px, 3.2vw, 42px);

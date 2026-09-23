@@ -11,6 +11,7 @@ import FAQ from '../components/FAQ.astro';
 import CTA from '../components/CTA.astro';
 import { services, type Service } from '../data/services';
 import { serviceNode } from '../lib/seo';
+import { href } from '../lib/href';
 
 export function getStaticPaths() {
   return services.map((service) => ({
@@ -20,6 +21,9 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props as { service: Service };
+
+// Prefills the form's Service select, like the CTA at the foot of the page.
+const quoteHref = `${href('contact')}?service=${encodeURIComponent(service.title)}`;
 
 // The page's own node: this service, offered by the business, across the whole
 // service area. Without it a service page is just a page that mentions
@@ -40,18 +44,27 @@ const schema = [
   schema={schema}
   ogImage={service.imageSlot}
   ogImageAlt={service.imageAlt}
+  quoteHref={quoteHref}
 >
   <PageHero
     kicker={service.hero.kicker}
+    kickerInHeading
     heading={service.hero.heading}
     lead={service.hero.lead}
     photo={service.imageSlot}
     alt={service.imageAlt}
-  />
+  >
+    {/* Until this, the first button on a service page was the CTA below the
+        FAQ — a long scroll on a phone. */}
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={quoteHref}>Request a quote</a>
+      <a class="btn btn-secondary" href="tel:+16046266527">Call 604 626 6527</a>
+    </div>
+  </PageHero>
 
   <ServiceSections sections={service.sections} />
 
   <FAQ variant={service.faqVariant} />
 
-  <CTA heading={service.cta.heading} body={service.cta.body} service={service.title} />
+  <CTA kicker={service.cta.kicker} heading={service.cta.heading} body={service.cta.body} service={service.title} />
 </Base>

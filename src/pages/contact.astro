@@ -1,7 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { Image } from 'astro:assets';
 import { enquiryOptions, heardFrom } from '../data/services';
+import { img } from '../data/images';
+import { href } from '../lib/href';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -21,7 +24,8 @@ const budgets = [
 ];
 ---
 <Base
-  title="Request a catering quote — White Rock to Vancouver | West Coast Culinary Creations"
+  actionBar={false}
+  title="Request a catering quote — White Rock to Vancouver"
   description="Tell Chef Janet Wait about your event anywhere in the Lower Mainland. Every enquiry is answered personally, with a written quote before anything is booked."
   breadcrumbs={[['Enquire', '/contact']]}
   ogImage="gal-torte"
@@ -37,6 +41,7 @@ const budgets = [
   />
 
   <section class="wrap form-section">
+    <div class="layout">
     <form id="contact-form" novalidate data-slugs={JSON.stringify(serviceSlugs)} data-base={base}>
       <div class="grid">
         <label>
@@ -105,12 +110,39 @@ const budgets = [
         <button class="btn btn-primary" type="submit">Send enquiry</button>
         <p id="contact-status" role="status" aria-live="polite"></p>
       </div>
+      <p class="reassure">No obligation. Nothing is booked until you approve a written quote.</p>
     </form>
 
-    <p class="direct">
-      Prefer to talk? Call <a href="tel:+16046266527">604 626 6527</a> or email
-      <a href="mailto:jan@wcculinary.com">jan@wcculinary.com</a>.
-    </p>
+    {/* What a visitor weighs while filling the form in: what happens after
+        they press Send, and whether anyone like them was happy. Beside the
+        form on a wide screen, after it on a phone, so the form stays first. */}
+    <aside class="next">
+      <p class="kicker">What happens next</p>
+      <ol>
+        <li><span>01</span>I reply myself, within one business day.</li>
+        <li><span>02</span>We talk it through — what you like, who is coming, and what they cannot eat.</li>
+        <li><span>03</span>You get a written quote. Nothing is booked until you approve it.</li>
+      </ol>
+
+      <figure>
+        <blockquote>
+          We are incredibly grateful for the care, effort and thoughtfulness you
+          showed. The food was delicious.
+        </blockquote>
+        <figcaption><a href={href('reviews')}>School parent Christmas party · E &amp; S →</a></figcaption>
+      </figure>
+
+      <div class="chef">
+        <Image src={img('jan-whites')} alt="Chef Janet Wait in her chef's whites" widths={[120, 240]} sizes="64px" loading="lazy" />
+        <p>Chef Janet Wait<br /><span>Red Seal · twelve years at Jan's on the Beach</span></p>
+      </div>
+
+      <p class="direct">
+        Prefer to talk? Call <a href="tel:+16046266527">604 626 6527</a> or email
+        <a href="mailto:jan@wcculinary.com">jan@wcculinary.com</a>.
+      </p>
+    </aside>
+    </div>
   </section>
 </Base>
 
@@ -173,6 +205,51 @@ const budgets = [
 
   form { max-width: 780px; }
 
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 780px) minmax(260px, 340px);
+    gap: 72px;
+    align-items: start;
+  }
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  }
+
+  .reassure { margin-top: 16px; font-size: 0.8125rem; color: var(--color-neutral-500); }
+
+  .next {
+    display: grid;
+    gap: 30px;
+    padding-top: 26px;
+    border-top: 1px solid var(--color-divider);
+  }
+  .next ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .next li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--color-neutral-300);
+  }
+  .next li span { font-size: 0.6875rem; letter-spacing: 0.12em; color: var(--color-accent-300); padding-top: 4px; }
+
+  figure { margin: 0; display: grid; gap: 10px; }
+  blockquote {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.0625rem;
+    line-height: 1.48;
+    color: var(--color-neutral-200);
+  }
+  figcaption a { font-size: 0.7813rem; color: var(--color-neutral-500); }
+  figcaption a:hover { color: var(--color-accent-300); }
+
+  .chef { display: flex; align-items: center; gap: 14px; }
+  .chef :global(img) { width: 64px; height: 64px; object-fit: cover; object-position: center 20%; border-radius: 50%; }
+  .chef p { font-size: 0.875rem; line-height: 1.5; color: var(--color-neutral-200); }
+  .chef p span { font-size: 0.8125rem; color: var(--color-neutral-500); }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -209,7 +286,7 @@ const budgets = [
 
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
 
-  .direct { margin-top: 34px; font-size: 0.875rem; color: var(--color-neutral-400); }
+  .direct { font-size: 0.875rem; color: var(--color-neutral-400); }
   .direct a { color: var(--color-accent-300); border-bottom: 1px solid var(--color-accent-700); }
 
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 38px; }

@@ -150,6 +150,13 @@ conversion split is worth keeping. That comes from `extraEnquiryOptions` in
 they were removed (the site was preview-only and `noindex`), so that table is
 for bookmarks — and it is the place to add the old WordPress paths at cutover.
 
+Below 1280px the phone number and Enquire button fold into the menu, so two
+things stand in for them: on tablets (761–1279px) the Enquire button stays in
+the header beside the menu toggle, and on phones `MobileActions.astro` pins a
+**Call · Get a quote** bar to the bottom of the screen. `Base` leaves the bar
+off the contact and thank-you pages; service pages point it at the form with
+their service prefilled.
+
 The Services dropdown uses no JavaScript: it opens on `:hover` and
 `:focus-within`, so clicking the button focuses it and clicking away dismisses
 it. Below 1280px the whole nav collapses into the existing `<details>` panel,
@@ -179,6 +186,19 @@ Four places, and they have to agree:
 
 Adding a town means editing `SERVICE_AREA` and the FAQ answer. Removing one
 means the same. The footer and the `areaServed` markup follow automatically.
+
+### Titles, headlines and spelling
+
+- **Titles** are keyword first, town second, and at most 60 characters — about
+  what Google shows before cutting off. Most carry no brand suffix: Google
+  shows the site name from the `WebSite` node above the result anyway, and a
+  32-character suffix was what got truncated.
+- **Descriptions** stay under about 155 characters for the same reason.
+- **Service page h1s carry their kicker** (`kickerInHeading` on `PageHero`,
+  and by hand on the home page). The headlines are in Jan's voice and name no
+  service or town; the kicker names both, and it looks the same either way.
+- **"Celiac", not "coeliac".** Canadians search the North American spelling,
+  and the Canadian Celiac Association uses it.
 
 ### Structured data
 
@@ -235,8 +255,8 @@ What the pages above can win there is ordinary organic results for longer
 queries, which is worth having but is a different and slower thing.
 
 The strongest keyword on this site is not geographic. Gluten-free and
-coeliac-safe catering is low-competition, high-intent, and backed by twelve
-years of running the program in a working restaurant — and people with coeliac
+celiac-safe catering is low-competition, high-intent, and backed by twelve
+years of running the program in a working restaurant — and people with celiac
 disease will drive across the region. It pulls from a far wider radius than
 anything else here.
 
@@ -294,7 +314,3 @@ captions verbatim — keep them in step when that file changes.
       Google's internal URL format.
 - [ ] Credentials block on About: every line needs an awarding body and a year
 - [ ] Community organisations named on About
-- [ ] Self-host Instrument Sans/Serif instead of the Google Fonts link. It is a
-      render-blocking stylesheet on a third-party origin, so it costs a DNS
-      lookup and a TLS handshake before any text paints — the one Core Web
-      Vitals item left on the site.

@@ -93,6 +93,10 @@ img { display: block; max-width: 100%; }
 
 .divider-top { border-top: 1px solid var(--color-divider); }
 
+/* In-page links (#menus, #wine-dinners, #enquire) would otherwise land with
+   the target under the sticky header. */
+[id] { scroll-margin-top: 90px; }
+
 /* --- Recurring type --- */
 .kicker {
   font-size: 0.6563rem;

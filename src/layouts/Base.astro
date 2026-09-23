@@ -1,7 +1,18 @@
 ---
+// Self-hosted fonts, the same four faces the Google Fonts link used to load.
+// Served from this origin, they skip the extra DNS lookup and TLS handshake
+// a third-party stylesheet costs before any text can paint.
+import '@fontsource/instrument-sans/400.css';
+import '@fontsource/instrument-sans/500.css';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
 import '../styles/global.css';
+// Every hero headline is set in this one; preloading it lets the h1 paint in
+// the real face instead of swapping from Georgia after load.
+import serifLatin from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import MobileActions from '../components/MobileActions.astro';
 import { getImage } from 'astro:assets';
 import { img } from '../data/images';
 import { graph, businessNode, chefNode, websiteNode, breadcrumbNode } from '../lib/seo';
@@ -27,17 +38,24 @@ interface Props {
   /** Alt text for that card. Required whenever ogImage is set — the default
    *  describes og.jpg and would be a lie over any other photo. */
   ogImageAlt?: string;
+  /** The phone-only Call / Get a quote bar. Off on the contact and thank-you
+   *  pages, where it would link to the page you are on. */
+  actionBar?: boolean;
+  /** Where that bar's "Get a quote" goes, when not the plain contact form. */
+  quoteHref?: string;
 }
 
 const {
-  title = 'Private chef & catering — White Rock to Vancouver | West Coast Culinary Creations',
-  description = 'Restaurant cooking in your venue or your kitchen. Red Seal chef Janet Wait caters weddings, private dinners and corporate events across White Rock, South Surrey, Langley, Vancouver and the Lower Mainland.',
+  title = 'Private chef & catering in White Rock & South Surrey',
+  description = 'Red Seal chef Janet Wait cooks private dinners, weddings and corporate events in your home or venue. White Rock, South Surrey, Surrey, Langley and Vancouver.',
   active = '',
   noindex = false,
   breadcrumbs,
   schema = [],
   ogImage: ogSlot,
   ogImageAlt = 'Chef Janet Wait finishing a line of plated courses during service',
+  actionBar = true,
+  quoteHref,
 } = Astro.props;
 
 // Absolute URLs for canonical/social tags — Astro.site is set in astro.config.mjs.
@@ -87,17 +105,13 @@ const jsonLd = graph([
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1a1a1a" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
-    />
+    <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <SiteHeader active={active} />
     <slot />
     <SiteFooter />
+    {actionBar && <MobileActions quoteHref={quoteHref} />}
     <script>
       import '../scripts/reveal.js';
       import { capture } from '../scripts/attribution.js';

@@ -18,6 +18,10 @@ interface Props {
   objectPosition?: string;
   /** About's portrait is a monochrome original. Nothing else uses this. */
   grayscale?: boolean;
+  /** Renders the kicker inside the h1, as its first line. The headlines are
+   *  written in Jan's voice and name no service or town; the kicker does, and
+   *  the h1 is the heading search engines weigh most. Looks the same. */
+  kickerInHeading?: boolean;
 }
 
 const {
@@ -30,6 +34,7 @@ const {
   height = 'min(62vh, 540px)',
   objectPosition = 'center 46%',
   grayscale = false,
+  kickerInHeading = false,
 } = Astro.props;
 ---
 <section class:list={['hero', size]} style={`min-height:${height}`}>
@@ -47,8 +52,14 @@ const {
   <div class="scrim-lr"></div>
   <div class="scrim-bt"></div>
   <div class="content hero-rise">
-    {kicker && <p class="kicker">{kicker}</p>}
-    <h1>{heading}</h1>
+    {kickerInHeading && kicker ? (
+      <h1><span class="kicker">{kicker}</span>{" "}{heading}</h1>
+    ) : (
+      <>
+        {kicker && <p class="kicker">{kicker}</p>}
+        <h1>{heading}</h1>
+      </>
+    )}
     {lead && <p class="lead">{lead}</p>}
     <slot />
   </div>
@@ -86,7 +97,21 @@ const {
   }
 
   .kicker { font-size: 0.7188rem; }
+  /* Inside the h1 it has to look like the <p> version: a block in the sans,
+     not the serif, with the same 20px down to the headline. */
+  h1 .kicker {
+    display: block;
+    margin-bottom: 20px;
+    font-family: var(--font-sans);
+    line-height: normal;
+    letter-spacing: 0.26em;
+    text-wrap: wrap;
+  }
   .lead { font-size: 1.0938rem; line-height: 1.64; max-width: 56ch; }
+
+  /* Buttons passed in through the slot. Slotted markup belongs to the page
+     that passes it, so this has to reach it with :global. */
+  .content :global(.hero-actions) { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 
   .gallery h1 {
     max-width: 18ch;

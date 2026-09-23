@@ -90,7 +90,9 @@ export const businessNode = (description: string) => ({
   telephone: PHONE,
   email: EMAIL,
   image: `${SITE}/og.jpg`,
-  logo: { '@type': 'ImageObject', url: `${SITE}/og.jpg` },
+  // The round logo, square as Google asks for logos — not the social card,
+  // which is a photograph. public/logo.png is a 512px copy of the footer logo.
+  logo: { '@type': 'ImageObject', url: `${SITE}/logo.png`, width: 512, height: 512 },
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'White Rock',
@@ -114,7 +116,7 @@ export const businessNode = (description: string) => ({
     'Wedding catering',
     'Corporate catering',
     'Wine pairing dinners',
-    'Gluten-free and coeliac-safe catering',
+    'Gluten-free and celiac-safe catering',
     'Seasonal West Coast cuisine',
   ],
   sameAs: PROFILES,
@@ -155,7 +157,7 @@ export const chefNode = () => ({
   ],
   knowsAbout: [
     'Gluten-free kitchen protocol',
-    'Coeliac-safe food service',
+    'Celiac-safe food service',
     'West Coast seasonal cooking',
   ],
   sameAs: PROFILES,

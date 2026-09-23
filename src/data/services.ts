@@ -44,7 +44,9 @@ export interface Service {
   hero: { kicker: string; heading: string; lead: string };
   seo: { title: string; description: string };
   sections: Section[];
-  cta: { heading: string; body: string };
+  /** `kicker` overrides the CTA's default. Only weddings sets one: scarcity
+   *  helps a couple choose a date, and puts off an office booking lunch. */
+  cta: { kicker?: string; heading: string; body: string };
 }
 
 const DIETARY = 'Dietary restrictions are handled within the main menu rather than as a separate plate.';
@@ -59,13 +61,13 @@ export const services: Service[] = [
     imageAlt: 'A plated course served at a private dinner',
     faqVariant: 'private-dining',
     hero: {
-      kicker: 'Private dining',
+      kicker: 'Private chef · White Rock, Surrey & Vancouver',
       heading: 'I cook in your kitchen. You do not get up.',
       lead: 'Two to thirty-two people, three, four or five courses, served to your table. It is the easiest way to eat my food, and the way I most like to cook it.',
     },
     seo: {
-      title: 'Private chef at home — White Rock to Vancouver | West Coast Culinary Creations',
-      description: 'A Red Seal chef cooks three, four or five courses in your own kitchen, for two to thirty-two people. Private chef dinners and wine pairing dinners across White Rock, South Surrey, Langley, Vancouver and the Lower Mainland.',
+      title: 'Private chef at home — White Rock, Surrey & Vancouver',
+      description: 'A Red Seal chef cooks three to five courses in your kitchen for 2 to 32 guests, then cleans up. Private chef and wine dinners, White Rock to Vancouver.',
     },
     sections: [
       {
@@ -165,7 +167,7 @@ export const services: Service[] = [
               'Two weeks is comfortable; ask about a nearer date anyway',
               'A private dinner is far easier to slot in than an event',
               DIETARY,
-              'Coeliac guests get dedicated equipment and separated prep',
+              'Celiac guests get dedicated equipment and separated prep',
             ],
           },
         ],
@@ -232,13 +234,13 @@ export const services: Service[] = [
     imageAlt: 'A chocolate pâté dessert plated with raspberry coulis and cream',
     faqVariant: 'weddings',
     hero: {
-      kicker: 'Weddings',
+      kicker: 'Wedding catering · White Rock, Surrey & Langley',
       heading: 'Small weddings, cooked by the chef you hired.',
       lead: 'Intimate weddings — up to about seventy-five guests. One menu consultation, and I am the person on the line on the day. Not a name on your contract.',
     },
     seo: {
-      title: 'Small wedding catering — White Rock to Vancouver | West Coast Culinary Creations',
-      description: 'Intimate wedding catering up to seventy-five guests by Red Seal chef Janet Wait, across White Rock, Surrey, Langley and Metro Vancouver. One consultation, and the chef you hired cooking on the day.',
+      title: 'Small wedding catering — White Rock, Surrey & Langley',
+      description: 'Intimate wedding catering for up to 75 guests, cooked on the day by Red Seal chef Janet Wait. White Rock, South Surrey, Surrey, Langley and Vancouver.',
     },
     sections: [
       {
@@ -257,7 +259,7 @@ export const services: Service[] = [
         kicker: 'How the year runs',
         heading: 'From first email to the last plate.',
         steps: [
-          { title: 'Inquiry', body: 'Your date, venue, guest count and budget range. I answer within two business days and tell you plainly whether the venue can support the service you want.' },
+          { title: 'Inquiry', body: 'Your date, venue, guest count and budget range. I answer within one business day and tell you plainly whether the venue can support the service you want.' },
           { title: 'Menu consultation', body: 'An hour, in person where possible. What you both actually like to eat, what is in season on your date, and every dietary need at the table — built into the menu, not added to it. We edit until the menu is right.' },
           { title: 'The day', body: 'We arrive early and set the kitchen. A timed service plan goes to your photographer and MC. You eat a hot plate at your own wedding — I take that personally.' },
         ],
@@ -355,8 +357,9 @@ export const services: Service[] = [
       },
     ],
     cta: {
+      kicker: 'A small number of weddings a year',
       heading: 'Tell me your date and I will tell you honestly if it works.',
-      body: 'Date, venue, guest count and budget range. I answer within two business days.',
+      body: 'Date, venue, guest count and budget range. I answer within one business day.',
     },
   },
 
@@ -369,13 +372,13 @@ export const services: Service[] = [
     imageAlt: 'A buffet line of chafing dishes with guests serving themselves',
     faqVariant: 'corporate',
     hero: {
-      kicker: 'Corporate catering',
+      kicker: 'Corporate catering · Surrey & Vancouver',
       heading: 'Office lunches and client dinners, delivered when we said.',
       lead: 'Fixed delivery windows, plain per-head pricing, itemised invoices and repeat accounts. Restaurant food, run on office logistics.',
     },
     seo: {
-      title: 'Corporate & office lunch catering — White Rock to Vancouver | West Coast Culinary Creations',
-      description: 'Office lunch and board dinner catering with fixed delivery windows, per-head pricing, PO numbers and itemised invoices. Surrey, White Rock, Langley, Burnaby, Richmond and Vancouver.',
+      title: 'Corporate & office lunch catering — Surrey & Vancouver',
+      description: 'Office lunches and board dinners with fixed delivery windows, per-head pricing and itemised invoices. Surrey, White Rock, Langley, Burnaby and Vancouver.',
     },
     sections: [
       {
@@ -459,7 +462,7 @@ export const services: Service[] = [
         paras: [
           'You are ordering for a room you do not control. Send me the restrictions with the headcount and every affected portion arrives labelled with the guest’s name.',
           `${DIETARY} Vegetarian, vegan, dairy-free and nut-free are routine — no surcharge.`,
-          'Coeliac guests are cooked with dedicated equipment and separated prep. Full ingredient lists are available on request for anyone who needs to check a label.',
+          'Celiac guests are cooked with dedicated equipment and separated prep. Full ingredient lists are available on request for anyone who needs to check a label.',
         ],
       },
       {
@@ -494,13 +497,13 @@ export const services: Service[] = [
     imageAlt: 'Plated chicken on arugula with pineapple salsa and an orchid garnish',
     faqVariant: 'celebrations',
     hero: {
-      kicker: 'Celebrations',
+      kicker: 'Celebration catering · White Rock & Surrey',
       heading: 'Birthdays, milestones, anniversaries, and the parties in between.',
       lead: 'Fiftieths, sixtieths, engagement parties, retirements, a good excuse in general. At home or at a venue, from drop-off trays to full service with staff.',
     },
     seo: {
-      title: 'Birthday & anniversary catering — White Rock to Vancouver | West Coast Culinary Creations',
-      description: 'Birthday, milestone and anniversary catering by a Red Seal chef. Drop-off trays through to full service, at home or at a venue, across Surrey, White Rock, Langley, Delta and Metro Vancouver.',
+      title: 'Birthday & anniversary catering — White Rock & Surrey',
+      description: 'Birthday, milestone and anniversary catering by a Red Seal chef, from drop-off to full service, at home or a venue. White Rock, Surrey, Langley and Delta.',
     },
     sections: [
       {
@@ -628,7 +631,7 @@ export const services: Service[] = [
     ],
     cta: {
       heading: 'Tell me what we are celebrating.',
-      body: 'The date, the headcount and where — that is enough for a quote inside two business days.',
+      body: 'The date, the headcount and where — that is enough for a reply inside one business day.',
     },
   },
 ];
@@ -636,19 +639,19 @@ export const services: Service[] = [
 services.push({
   slug: 'gluten-free-catering',
   title: 'Gluten-free catering',
-  serviceName: 'Gluten-free and coeliac-safe catering',
-  summary: 'Coeliac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
+  serviceName: 'Gluten-free and celiac-safe catering',
+  summary: 'Celiac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
   imageSlot: 'svc-gluten-free',
   imageAlt: 'A platter of steamed clams with basil and chilli',
   faqVariant: 'gf',
   hero: {
-    kicker: 'Gluten-free catering',
-    heading: 'Coeliac guests get the same dinner as everyone else.',
+    kicker: 'Gluten-free & celiac-safe catering',
+    heading: 'Celiac guests get the same dinner as everyone else.',
     lead: 'Not a substitute plate carried out after the others. A menu written so that the gluten-free version is the version — cooked with dedicated equipment, on separated surfaces, by a chef who ran a gluten-free program in a working restaurant for twelve years.',
   },
   seo: {
-    title: 'Gluten-free & coeliac-safe catering — Lower Mainland BC | West Coast Culinary Creations',
-    description: 'Coeliac-safe catering across Metro Vancouver and the Fraser Valley — dedicated equipment, separated prep and verified sourcing, by a Red Seal chef who ran a gluten-free restaurant program for twelve years.',
+    title: 'Gluten-free & celiac-safe catering — Vancouver & Surrey',
+    description: 'Celiac-safe catering with dedicated equipment, separated prep and checked sourcing, by a chef who ran a gluten-free restaurant program for 12 years.',
   },
   sections: [
     {
@@ -660,7 +663,7 @@ services.push({
         { title: 'Separated prep, before anything else starts', body: 'Gluten-free work is prepped first, on cleaned and sanitised surfaces, before any flour is opened that day. Dedicated boards, knives, pans, tongs and utensils — colour coded, stored separately, never in the shared rotation.' },
         { title: 'Sourcing checked to the label', body: 'Every ingredient is verified — including stocks, soy and fish sauces, mustards, spice blends, baking powder and anything processed on shared lines. Suppliers are asked directly about their own facilities.' },
         { title: 'On-site process', body: 'No shared fryer oil, ever. Separate service utensils and a covered holding area. Where there is a buffet, gluten-free items are placed first in the line and physically separated so nobody drags a serving spoon across them.' },
-        { title: 'Guests logged by seat', body: 'Coeliac guests are recorded by name and seat number and the plate is carried by a server who has been told which one it is. Nothing depends on a guest having to ask at the table.' },
+        { title: 'Guests logged by seat', body: 'Celiac guests are recorded by name and seat number and the plate is carried by a server who has been told which one it is. Nothing depends on a guest having to ask at the table.' },
         { title: 'What I do not claim', body: 'I am not a third-party certified gluten-free facility, and I will not say I am. What I have is documented protocol and twelve years of practice. If you need certification, ask and I will tell you honestly where the line is.' },
       ],
     },
@@ -671,7 +674,7 @@ services.push({
       heading: 'People drove from Vancouver for it, week after week.',
       paras: [
         "Jan's on the Beach ran a real gluten-free program — not two token items, but a menu where most dishes could be made properly gluten free, cooked in a kitchen with the equipment and the discipline to do it.",
-        'People drove from Vancouver and out of the Valley for it, week after week, for years. Coeliac families booked their birthdays with us because it was the one place a kid could order what everybody else was ordering.',
+        'People drove from Vancouver and out of the Valley for it, week after week, for years. Celiac families booked their birthdays with us because it was the one place a kid could order what everybody else was ordering.',
         'That is the whole credential. It is also why I take this seriously enough to write it out rather than put a leaf icon on the menu.',
       ],
     },
@@ -717,7 +720,7 @@ services.push({
     {
       type: 'lists',
       kicker: 'Straight answers',
-      heading: 'The questions coeliac clients actually ask.',
+      heading: 'The questions celiac clients actually ask.',
       lists: [
         {
           title: 'Certification and mixed menus',

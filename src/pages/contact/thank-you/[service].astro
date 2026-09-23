@@ -29,8 +29,9 @@ const serviceHref = named ? href(servicePaths[slug] ?? slug) : null;
 ---
 <Base
   noindex
+  actionBar={false}
   title="Thank you — West Coast Culinary Creations"
-  description="Your enquiry has been received. Chef Janet Wait answers every enquiry personally, within two business days."
+  description="Your enquiry has been received. Chef Janet Wait answers every enquiry personally, within one business day."
 >
   <section class="wrap thanks">
     <p class="kicker">Enquiry received</p>
@@ -40,7 +41,7 @@ const serviceHref = named ? href(servicePaths[slug] ?? slug) : null;
       {named
         ? `Your enquiry about ${label.toLowerCase()} has come straight to my inbox.`
         : 'Your enquiry has come straight to my inbox.'}
-      {' '}I read and answer every one myself, usually within two business days,
+      {' '}I read and answer every one myself, within one business day,
       and nothing gets booked before you have a written quote.
     </p>
 

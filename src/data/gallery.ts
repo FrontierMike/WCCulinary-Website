@@ -47,7 +47,26 @@ const NAMED: Record<string, string> = {
   'img-1033-collage': 'A set of dishes from one event',
   'camerazoom-20140603190224595': 'Charcuterie boards being built along the pass',
   'plating-line-romesco': 'Plates finished with green beans and romesco',
+  '808158309-122311522034219450-342153254283530929-n': 'Rows of seafood salads on greens, each with an orange twist',
+  'dsc-6439': 'Janet searing prawns at her station',
+  'dsc-6453': 'Prawns lifted onto tasting spoons with tongs',
+  'dsc-6455': 'Glazed prawns on tasting spoons, close up',
+  'dsc-6467': 'Prawn tasting spoons beside marigolds and nasturtiums',
+  'dsc-6470': 'Four prawn tasting spoons on a glass platter',
+  'dsc-6476': 'Janet holding out a tasting spoon at her station',
+  'dsc-6482': 'Rows of tasting cups, each with a bamboo pick',
+  'dsc-6483': 'Tasting cups set out beside the flowers',
+  'ignite-a-dream-2026-screen-final-new-2048x1152':
+    'Poster for Ignite a Dream 2026, the Surrey Fire Fighters charity evening',
 };
+
+/** Hover titles. A photo not listed here shows no title. */
+const TITLES: Record<string, string> = Object.fromEntries(
+  [
+    'ignite-a-dream-2026-screen-final-new-2048x1152',
+    'dsc-6439', 'dsc-6453', 'dsc-6455', 'dsc-6467', 'dsc-6470', 'dsc-6476', 'dsc-6482', 'dsc-6483',
+  ].map((name) => [name, 'Ignite a Dream Charity Event']),
+);
 
 const GENERIC = [
   'A plated course from a recent event',
@@ -72,13 +91,18 @@ function mulberry32(seed: number) {
 export interface Photo {
   src: ImageMetadata;
   alt: string;
+  title?: string;
 }
 
 const photos: Photo[] = Object.entries(files)
   .map(([path, mod]) => ({ name: path.match(/([^/]+)\.jpg$/)![1], src: mod.default }))
   .filter((p) => !EXCLUDE.has(p.name))
   .sort((a, b) => a.name.localeCompare(b.name)) // stable input order before shuffling
-  .map((p, i) => ({ src: p.src, alt: NAMED[p.name] ?? GENERIC[i % GENERIC.length] }));
+  .map((p, i) => ({
+    src: p.src,
+    alt: NAMED[p.name] ?? GENERIC[i % GENERIC.length],
+    title: TITLES[p.name],
+  }));
 
 // Fisher-Yates with the seeded PRNG.
 const rnd = mulberry32(20260815);

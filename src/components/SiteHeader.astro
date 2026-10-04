@@ -143,6 +143,9 @@ const inServices = serviceSlugs.has(active);
   }
   .enquire:hover { background: color-mix(in srgb, var(--color-accent) 16%, transparent); }
 
+  /* The desktop bar runs 50% larger than the header's other small caps. */
+  .nav-desktop :is(.nav-link, .enquire) { font-size: 0.9375rem; }
+
   /* --- Services submenu (desktop) --- */
   .has-sub { position: relative; }
 

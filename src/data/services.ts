@@ -640,18 +640,18 @@ services.push({
   slug: 'gluten-free-catering',
   title: 'Gluten-free catering',
   serviceName: 'Gluten-free and celiac-safe catering',
-  summary: 'Celiac guests get the same dinner as everyone else — dedicated equipment, separated prep, documented protocol.',
+  summary: 'Celiac guests get the same dinner as everyone else — written gluten free from the start, with documented protocol.',
   imageSlot: 'svc-gluten-free',
   imageAlt: 'A platter of steamed clams with basil and chilli',
   faqVariant: 'gf',
   hero: {
     kicker: 'Gluten-free & celiac-safe catering',
     heading: 'Celiac guests get the same dinner as everyone else.',
-    lead: 'Not a substitute plate carried out after the others. A menu written so that the gluten-free version is the version — cooked with dedicated equipment, on separated surfaces, by a chef who ran a gluten-free program in a working restaurant for twelve years.',
+    lead: 'Not a substitute plate carried out after the others. A menu written so that the gluten-free version is the version — by a chef who ran a gluten-free program in a working restaurant for twelve years.',
   },
   seo: {
     title: 'Gluten-free & celiac-safe catering — Vancouver & Surrey',
-    description: 'Celiac-safe catering with dedicated equipment, separated prep and checked sourcing, by a chef who ran a gluten-free restaurant program for 12 years.',
+    description: 'Celiac-safe catering with every ingredient checked to the label, by a chef who ran a gluten-free restaurant program for 12 years.',
   },
   sections: [
     {
@@ -660,9 +660,8 @@ services.push({
       heading: 'Exactly how it is handled, so you can judge it yourself.',
       lead: 'Anyone can say "we can do gluten free." The community has heard it and been made ill by it. So here is the actual process, in enough detail that you can decide whether it is good enough for the person you are worried about.',
       cards: [
-        { title: 'Separated prep, before anything else starts', body: 'Gluten-free work is prepped first, on cleaned and sanitised surfaces, before any flour is opened that day. Dedicated boards, knives, pans, tongs and utensils — colour coded, stored separately, never in the shared rotation.' },
+        { title: 'Gluten free from the first draft', body: 'Dishes are chosen because they are naturally gluten free or made properly so — polenta, buckwheat, almond flour — not regular recipes with the bread taken away. Nothing on the plate is a substitute.' },
         { title: 'Sourcing checked to the label', body: 'Every ingredient is verified — including stocks, soy and fish sauces, mustards, spice blends, baking powder and anything processed on shared lines. Suppliers are asked directly about their own facilities.' },
-        { title: 'On-site process', body: 'No shared fryer oil, ever. Separate service utensils and a covered holding area. Where there is a buffet, gluten-free items are placed first in the line and physically separated so nobody drags a serving spoon across them.' },
         { title: 'Guests logged by seat', body: 'Celiac guests are recorded by name and seat number and the plate is carried by a server who has been told which one it is. Nothing depends on a guest having to ask at the table.' },
         { title: 'What I do not claim', body: 'I am not a third-party certified gluten-free facility, and I will not say I am. What I have is documented protocol and twelve years of practice. If you need certification, ask and I will tell you honestly where the line is.' },
       ],
@@ -723,19 +722,16 @@ services.push({
       heading: 'The questions celiac clients actually ask.',
       lists: [
         {
-          title: 'Certification and mixed menus',
+          title: 'Certification',
           items: [
             'The kitchen is not certified gluten free, and I will not claim otherwise',
             'Documented protocols in a kitchen that also handles gluten',
             'If you need a certified facility I will say so rather than take the booking',
-            'Mixed menus are most of what I do — GF portions prepped first, plated separately, covered',
           ],
         },
         {
-          title: 'Equipment and staff',
+          title: 'Staff',
           items: [
-            'Nothing gluten free ever goes through shared oil',
-            'Dedicated oil, or the dish is cooked another way',
             'Every person on the team is briefed on cross-contamination before service',
             'Serving staff are told by seat, not by tray',
           ],

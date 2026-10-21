@@ -88,6 +88,15 @@ const jsonLd = graph([
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Analytics (GA4 property wcculinary.com). is:inline keeps Astro
+         from bundling it, so it stays the exact snippet Google checks for. -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-41K7DKQ4E7"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-41K7DKQ4E7');
+    </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />

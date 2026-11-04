@@ -124,7 +124,9 @@ const jsonLd = graph([
     <script>
       import '../scripts/reveal.js';
       import { capture } from '../scripts/attribution.js';
+      import { trackPhoneClicks } from '../scripts/phone-clicks.js';
       capture();
+      trackPhoneClicks();
     </script>
   </body>
 </html>

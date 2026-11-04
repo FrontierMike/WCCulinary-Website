@@ -96,6 +96,9 @@ const jsonLd = graph([
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-41K7DKQ4E7');
+      // Google Ads, on the same gtag.js load. Lets the Ads account count
+      // enquiries and phone taps itself instead of waiting on GA4 imports.
+      gtag('config', 'AW-18528083329');
     </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>

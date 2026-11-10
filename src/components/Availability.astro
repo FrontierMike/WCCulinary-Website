@@ -1,0 +1,31 @@
+---
+// The "booked two months ahead" note. Sits beside the buttons that lead to the
+// contact form, so a visitor has the right date in mind before they get there
+// rather than asking for one that is already gone.
+import { bookingFrom } from '../scripts/availability.js';
+---
+<p class="availability">
+  <span class="dot" aria-hidden="true"></span>
+  <span>Usually booked two months ahead. Now taking dates from <span data-booking-from>{bookingFrom()}</span>.</span>
+</p>
+
+<style>
+  .availability {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 22px;
+    max-width: 44ch;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-neutral-200);
+  }
+  .dot {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    translate: 0 -1px;
+  }
+</style>

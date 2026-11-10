@@ -164,7 +164,7 @@ export const services: Service[] = [
           {
             title: 'Good to know',
             items: [
-              'Two weeks is comfortable; ask about a nearer date anyway',
+              'I am usually booked about two months ahead; ask about a nearer date anyway',
               'A private dinner is far easier to slot in than an event',
               DIETARY,
               'Celiac guests get dedicated equipment and separated prep',
@@ -605,7 +605,7 @@ export const services: Service[] = [
           {
             title: 'Timing and bar',
             items: [
-              'Two to four weeks for most parties; December fills by mid-October',
+              'About two months ahead for most parties; December fills by mid-October',
               'No liquor licence, so bar service is yours or a licensed provider’s',
               'I build the food around what you are pouring',
               DIETARY,

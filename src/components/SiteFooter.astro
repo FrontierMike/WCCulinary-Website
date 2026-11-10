@@ -125,4 +125,12 @@ const columns: { label: string; links: [string, string][] }[] = [
   @media (max-width: 560px) {
     .brand :global(img) { width: 200px; height: 200px; }
   }
+
+  /* Footer links were 22px tall on an 11px gap. Same spacing to the eye, but
+     the gap is now part of each link, so a thumb lands on one of them. */
+  @media (pointer: coarse) {
+    .col { gap: 0; }
+    .col a { padding: 9px 0; }
+    .label { margin-bottom: 8px; }
+  }
 </style>

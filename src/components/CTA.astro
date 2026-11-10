@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
 import { href } from '../lib/href';
+import Availability from './Availability.astro';
 
 interface Props {
   kicker?: string;
@@ -13,6 +14,8 @@ interface Props {
   alt?: string;
   /** Prefills the contact form's Service select — must match one of its options. */
   service?: string;
+  /** The booked-two-months-ahead note. Off where the lead time is different. */
+  availability?: boolean;
 }
 
 const {
@@ -23,6 +26,7 @@ const {
   photo = 'jan-plating',
   alt = 'Jan in the kitchen, finishing a plate',
   service,
+  availability = true,
 } = Astro.props;
 
 const contactHref =
@@ -35,6 +39,7 @@ const contactHref =
     <p class="kicker">{kicker}</p>
     <h2>{heading}</h2>
     {body && <p class="body-copy cta-body">{body}</p>}
+    {availability && <Availability />}
     <a class="btn btn-primary" href={contactHref}>{label}</a>
   </div>
 </section>
@@ -65,5 +70,6 @@ const contactHref =
   }
 
   .cta-body { max-width: 48ch; }
-  .btn { margin-top: 36px; }
+  .btn { margin-top: 30px; }
+  @media (max-width: 640px) { .btn { width: 100%; justify-content: center; } }
 </style>

@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { img } from '../data/images';
 import { href } from '../lib/href';
+import Availability from '../components/Availability.astro';
 
 // The four quotes on this page (three below, one in the reviews row) are
 // deliberately EXCERPTS, not the full reviews: one sharp line each, on the
@@ -110,6 +111,10 @@ const strip = [
         suppliers and the same standard I kept at Jan's on the Beach — cooked by me,
         in your kitchen or at your venue.
       </p>
+      {/* Above the buttons, not under them: under, it fell below the first
+          screen on phone and desktop alike, and it is the line that tells a
+          visitor which date to ask for. */}
+      <Availability />
       <div class="hero-actions">
         <a class="btn btn-primary" href={href('contact')}>Enquire about a date</a>
         <a class="btn btn-secondary" href={href('gallery')}>See the food</a>
@@ -133,7 +138,7 @@ const strip = [
             <div class="woven">
               <span class="mark"></span>
               <p class="quote">{f.quote}</p>
-              <a class="attribution" href={href('reviews')}>{f.attribution} →</a>
+              <a class="attribution tap" href={href('reviews')}>{f.attribution} →</a>
             </div>
           )}
           <a class="link-accent" href={href(f.link[1])}>{f.link[0]}</a>
@@ -171,7 +176,7 @@ const strip = [
           We are incredibly grateful for the care, effort and thoughtfulness you
           showed. The food was delicious.
         </p>
-        <a class="attribution" href={href('reviews')}>School parent Christmas party · E &amp; S →</a>
+        <a class="attribution tap" href={href('reviews')}>School parent Christmas party · E &amp; S →</a>
       </div>
       <a class="btn btn-secondary push-right" href={href('reviews')}>Read all reviews →</a>
     </section>
@@ -209,8 +214,8 @@ const strip = [
       <h2>Tell me the date and we will decide what I cook.</h2>
       <p class="body-copy closing-body">
         I answer every enquiry myself within one business day, with a written quote before anything is booked.
-        Two to three weeks' notice for a dinner; two to three months for a wedding.
       </p>
+      <Availability />
       <a class="btn btn-primary" href={href('contact')}>Request a quote</a>
     </div>
   </section>
@@ -258,7 +263,22 @@ const strip = [
     letter-spacing: 0.002em;
   }
 
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+
+  /* Phone: the same hero with less air and slightly smaller type, so the
+     Enquire button lands on the first screen instead of the second. svh, not
+     vh — vh is measured with Safari's toolbar hidden, which made the hero
+     taller than the screen it was meant to fill. */
+  @media (max-width: 640px) {
+    .hero { min-height: min(86svh, 880px); }
+    .hero-content { padding: 64px var(--page-pad) 40px; }
+    .hero .kicker { margin-bottom: 16px; }
+    .hero h1 { margin-bottom: 18px; font-size: 38px; }
+    .hero .lead { font-size: 1rem; }
+    .hero-actions { margin-top: 22px; }
+    .hero-actions .btn { flex: 1 1 100%; justify-content: center; }
+    .closing .btn, .plates-head .btn, .reviews-row .btn { width: 100%; justify-content: center; }
+  }
 
   /* space-between only right-aligns the last item while both children share a
      line; once the button wraps to its own row it falls back to flex-start.
@@ -453,5 +473,5 @@ const strip = [
     line-height: 1.05;
   }
   .closing-body { max-width: 48ch; }
-  .closing .btn { margin-top: 36px; }
+  .closing .btn { margin-top: 30px; }
 </style>

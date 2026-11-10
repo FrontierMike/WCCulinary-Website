@@ -68,7 +68,11 @@ const serviceHref = named ? href(servicePaths[slug] ?? slug) : null;
 </Base>
 
 <style>
-  .thanks { padding: calc(128px * var(--section-gap)) 0 calc(112px * var(--section-gap)); max-width: 68ch; }
+  /* padding-block, not the shorthand — see the same note in 404.astro. */
+  .thanks {
+    padding-block: calc(128px * var(--section-gap)) calc(112px * var(--section-gap));
+    max-width: calc(68ch + 2 * var(--page-pad));
+  }
 
   .thanks h1 {
     margin: 22px 0 28px;

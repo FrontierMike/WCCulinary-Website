@@ -54,6 +54,16 @@ html { scroll-behavior: smooth; }
    16px root. SiteHeader holds .nav-link back, which would otherwise land at 10px. */
 @media (max-width: 640px) { html { font-size: 16.524px; } }
 
+/* Phones are most of the traffic. A 32px gutter each side costs a 390px screen
+   a sixth of its width; 20px gives the copy two or three more words a line. */
+@media (max-width: 640px) { :root { --page-pad: 20px; } }
+
+/* Stops iOS inflating text in landscape, and drops the 300ms double-tap wait
+   and the grey flash on every link and button. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+a, button, summary, label, input, select, textarea { touch-action: manipulation; }
+a, button, summary { -webkit-tap-highlight-color: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+
 body {
   margin: 0;
   background: var(--color-bg);
@@ -168,6 +178,14 @@ img { display: block; max-width: 100%; }
   transition: color .3s var(--ease), border-color .3s var(--ease);
 }
 .link-accent:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+/* Small text links are 20-odd pixels tall, half what a thumb needs. On touch
+   screens this pads the tap area out without moving anything: the padding is
+   cancelled by an equal negative margin. */
+@media (pointer: coarse) {
+  .tap, .link-accent { position: relative; }
+  .tap::after, .link-accent::after { content: ''; position: absolute; inset: -11px -8px; }
+}
 
 /* --- Photo heroes ---
    Every photo hero needs BOTH scrims. The Gallery hero shipped with only the

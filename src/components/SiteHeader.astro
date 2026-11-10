@@ -283,6 +283,23 @@ const inServices = serviceSlugs.has(active);
     .nav-mobile { display: block; }
   }
 
+  /* Phones. The menu rows were 25px tall on an 18px gap — the smallest tap
+     targets on the site, in the one place every visitor taps. Rows go to 44px
+     and the gap closes up, so the panel is no longer than it was. */
+  @media (max-width: 760px) {
+    .inner { padding-inline: var(--page-pad); }
+    .nav-mobile summary { width: 44px; height: 44px; }
+    .panel { gap: 0; padding: 14px 24px 20px; }
+    .panel .nav-link { display: flex; align-items: center; align-self: stretch; min-height: 44px; }
+    .panel .group-label { padding: 8px 0 4px; }
+    .panel hr { margin: 8px 0; }
+    .panel .enquire { align-self: stretch; margin-top: 10px; padding: 14px 17px; text-align: center; }
+    /* dvh, and less the Call / Get a quote bar: at 100vh the last rows sat
+       underneath it (and under Safari's toolbar) where they could not be
+       tapped. The vh line stays for browsers without dvh. */
+    .panel { max-height: calc(100vh - 170px); max-height: calc(100dvh - 160px); }
+  }
+
   .enquire-tablet { display: none; margin-left: auto; white-space: nowrap; }
   @media (min-width: 761px) and (max-width: 1279.98px) {
     .enquire-tablet { display: block; }

@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 import { enquiryOptions, heardFrom } from '../data/services';
 import { img } from '../data/images';
 import { href } from '../lib/href';
+import { bookingFrom } from '../scripts/availability.js';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -51,18 +52,27 @@ const budgets = [
 
         <label>
           <span>Email <i>*</i></span>
-          <input name="email" type="email" required autocomplete="email" />
+          <input name="email" type="email" inputmode="email" autocapitalize="off" required autocomplete="email" />
         </label>
 
         <label>
           <span>Phone</span>
-          <input name="phone" type="tel" autocomplete="tel" />
+          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" />
         </label>
 
-        <label>
-          <span>Event date</span>
-          <input name="event-date" type="date" />
-        </label>
+        {/* The hint is outside the <label> so it is not read out as part of the
+            field's name; aria-describedby ties it back. The script below swaps
+            its text when the chosen date falls inside the booked window. */}
+        <div class="field">
+          <label>
+            <span>Event date</span>
+            <input name="event-date" type="date" aria-describedby="date-hint" />
+          </label>
+          <p class="hint" id="date-hint" aria-live="polite">
+            I am usually booked two months ahead. Dates from
+            <span data-booking-from>{bookingFrom()}</span> onward have the best chance.
+          </p>
+        </div>
 
         <label>
           <span>Guests</span>
@@ -148,6 +158,7 @@ const budgets = [
 
 <script>
   import { attribution } from '../scripts/attribution.js';
+  import { firstOpenDate, bookingFrom } from '../scripts/availability.js';
 
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const status = document.getElementById('contact-status') as HTMLParagraphElement;
@@ -163,6 +174,23 @@ const budgets = [
     const match = select && [...select.options].find((o) => o.value.toLowerCase() === wanted.toLowerCase());
     if (select && match) select.value = match.value;
   }
+
+  // A date inside the booked window is not refused — cancellations happen and
+  // a weekday lunch can sometimes be fitted in — but the visitor is told before
+  // they send it, and asked for a second date, which saves a round of email.
+  const dateInput = form.elements.namedItem('event-date') as HTMLInputElement;
+  const dateHint = document.getElementById('date-hint') as HTMLParagraphElement;
+  const usualHint = `I am usually booked two months ahead. Dates from ${bookingFrom()} onward have the best chance.`;
+  dateInput.addEventListener('change', () => {
+    // Parsed as local midnight; `new Date('2027-01-10')` alone would be UTC
+    // and land on the 9th in BC.
+    const picked = dateInput.value ? new Date(`${dateInput.value}T00:00`) : null;
+    const soon = !!picked && picked < firstOpenDate();
+    dateHint.classList.toggle('soon', soon);
+    dateHint.textContent = soon
+      ? `That date is inside the two months I am usually booked. Send it anyway — dates do open up — and if you can, add a second date from ${bookingFrom()} onward in your message.`
+      : usualHint;
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -201,7 +229,10 @@ const budgets = [
 </script>
 
 <style>
-  .form-section { padding: calc(96px * var(--section-gap)) 0 calc(120px * var(--section-gap)); }
+  /* padding-block, not the shorthand: this element is also .wrap, and a
+     shorthand with a 0 inline value wiped out the page gutter — on a phone the
+     fields ran edge to edge. */
+  .form-section { padding-block: calc(96px * var(--section-gap)) calc(120px * var(--section-gap)); }
 
   form { max-width: 780px; }
 
@@ -283,6 +314,18 @@ const budgets = [
 
   /* Native date/number controls render a dark-on-dark glyph otherwise. */
   input[type='date'] { color-scheme: dark; }
+
+  /* iOS Safari zooms the whole page when a focused control's text is under
+     16px, and does not zoom back out. 0.9375rem lands at 15.5px on a phone. */
+  @media (max-width: 640px) {
+    input, select, textarea { font-size: 16px; min-height: 50px; }
+    .actions .btn { width: 100%; justify-content: center; }
+  }
+
+  /* --- Date field and its availability hint --- */
+  .field { display: grid; gap: 9px; align-content: start; }
+  .hint { font-size: 0.8125rem; line-height: 1.5; color: var(--color-neutral-400); }
+  .hint.soon { color: var(--color-accent-300); }
 
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
 

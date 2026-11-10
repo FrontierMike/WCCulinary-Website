@@ -66,5 +66,5 @@ const schema = [
 
   <FAQ variant={service.faqVariant} />
 
-  <CTA kicker={service.cta.kicker} heading={service.cta.heading} body={service.cta.body} service={service.title} />
+  <CTA kicker={service.cta.kicker} heading={service.cta.heading} body={service.cta.body} service={service.title} availability={service.slug !== 'corporate'} />
 </Base>

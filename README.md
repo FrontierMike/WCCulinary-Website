@@ -262,6 +262,18 @@ anything else here.
 
 ---
 
+## Availability note
+
+Jan is booked about two months ahead, and the site says so wherever a visitor
+is about to ask for a date: the home hero, the closing call to action on every
+page except Corporate (which has its own lead times), and under the contact
+form's date field, which also warns when the chosen date is inside the window.
+The number is `BOOKED_MONTHS` in `src/scripts/availability.js`; the month named
+in the note ("from early January") is worked out from it in the browser, so it
+never goes stale. Three lines of prose say "two months" in words and need
+changing with it: the "How far ahead" answer in `FAQ.astro`, and one bullet each
+on the private dining and celebrations pages in `src/data/services.ts`.
+
 ## Deployment
 
 Cloudflare Workers Builds is connected to this repo:

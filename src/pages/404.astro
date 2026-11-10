@@ -41,7 +41,13 @@ import { serviceLinks } from '../lib/nav';
 </Base>
 
 <style>
-  .missing { padding: calc(128px * var(--section-gap)) 0 calc(112px * var(--section-gap)); max-width: 68ch; }
+  /* padding-block, not the shorthand — a 0 inline value there wiped out the
+     .wrap gutter and the copy touched the edge of a phone screen. The gutter
+     is added back onto the measure so the column is as wide as it was. */
+  .missing {
+    padding-block: calc(128px * var(--section-gap)) calc(112px * var(--section-gap));
+    max-width: calc(68ch + 2 * var(--page-pad));
+  }
 
   .missing h1 {
     margin: 22px 0 28px;

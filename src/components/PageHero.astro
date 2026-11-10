@@ -113,6 +113,15 @@ const {
      that passes it, so this has to reach it with :global. */
   .content :global(.hero-actions) { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 
+  /* 150px of headroom is for a desktop photograph. On a phone it pushed the
+     Request a quote button below the first screen. */
+  @media (max-width: 640px) {
+    .content { padding: 88px var(--page-pad) 44px; }
+    .lead { font-size: 1rem; }
+    .content :global(.hero-actions) { margin-top: 26px; }
+    .content :global(.hero-actions .btn) { flex: 1 1 100%; justify-content: center; }
+  }
+
   .gallery h1 {
     max-width: 18ch;
     font-size: clamp(48px, 8vw, 110px);

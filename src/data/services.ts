@@ -473,7 +473,6 @@ export const services: Service[] = [
           { title: 'First order', body: 'Send it through the quote form. After that I keep your delivery details, dietary list and PO format on file, and you can order by email in two lines.' },
           { title: 'Minimum order', body: 'Ten people for drop-off, or the equivalent value. Below that, boxed individual lunches are the better option.' },
           { title: 'Staff and serviceware', body: 'Drop-off arrives ready to serve on platters, with compostable serviceware at no charge. Plated dinners are quoted with service staff; china and glassware rent at cost.' },
-          { title: 'Cancellations', body: 'Free up to three business days before a drop-off lunch, one week before a dinner and two weeks before an event over forty people. Inside that window, food already purchased is billed.' },
         ],
       },
       {

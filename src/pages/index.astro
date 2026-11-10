@@ -89,21 +89,29 @@ const strip = [
 <Base>
   <!-- Hero -->
   <section class="hero">
-    <Image
-      src={img('hero-service')}
-      alt="Chef Janet Wait finishing a line of plated courses during service"
-      widths={[900, 1400, 1900]}
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div class="scrim-lr"></div>
-    <div class="scrim-bt"></div>
+    {/* The photo and its scrims share a box so a phone can treat them as one
+        thing: a clear band of photograph above the copy, not a backdrop
+        behind it. On wider screens the box simply fills the hero. */}
+    <div class="hero-photo">
+      <Image
+        src={img('hero-service')}
+        alt="Chef Janet Wait finishing a line of plated courses during service"
+        widths={[900, 1400, 1900]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="scrim-lr"></div>
+      <div class="scrim-bt"></div>
+    </div>
     <div class="hero-content hero-rise">
       {/* The kicker is the h1's first line: it is the only part of the hero that
           says what and where, and the h1 is what search engines weigh most. */}
       <h1>
-        <span class="kicker">Boutique private chef &amp; catering · From South Surrey and White Rock to the Lower Mainland</span>
+        {/* One sentence, with the parts a phone can spare marked .wide. In full
+            it wrapped to three ragged lines there, the second starting on the
+            dot. A phone gets two: the service, then the two towns. */}
+        <span class="kicker"><span class="wide">Boutique </span>private chef &amp; catering<span class="wide"> · From</span><br class="narrow" /> South Surrey and White Rock<span class="wide"> to the Lower Mainland</span></span>
         Twelve years running an award-winning restaurant. Now cooking at your table.
       </h1>
       <p class="lead">
@@ -158,7 +166,7 @@ const strip = [
           <div class="strip" data-reveal-stagger="80">
             {strip.map(([slot, alt]) => (
               <a href={href('gallery')} data-reveal>
-                <Image src={img(slot)} alt={alt} widths={[260, 420]} sizes="20vw" loading="lazy" />
+                <Image src={img(slot)} alt={alt} widths={[260, 420, 640]} sizes="(max-width: 600px) 72vw, 20vw" loading="lazy" />
               </a>
             ))}
           </div>
@@ -229,6 +237,7 @@ const strip = [
     display: flex;
     align-items: flex-end;
   }
+  .hero-photo { position: absolute; inset: 0; overflow: hidden; }
   .hero :global(img) {
     position: absolute;
     inset: 0;
@@ -236,6 +245,10 @@ const strip = [
     height: 100%;
     object-fit: cover;
     object-position: center 46%;
+    /* The original has a white frame printed around it. Unscaled, the frame
+       showed as a pale strip down each side of the hero (and across the top
+       on a phone). 12% over crops it off; .hero-photo clips the overhang. */
+    transform: scale(1.12);
   }
 
   .hero-content {
@@ -246,6 +259,7 @@ const strip = [
     padding: 160px var(--page-pad) 96px;
   }
 
+  .hero .kicker .narrow { display: none; }
   .hero .kicker {
     display: block;
     margin-bottom: 22px;
@@ -270,9 +284,22 @@ const strip = [
      vh — vh is measured with Safari's toolbar hidden, which made the hero
      taller than the screen it was meant to fill. */
   @media (max-width: 640px) {
-    .hero { min-height: min(86svh, 880px); }
-    .hero-content { padding: 64px var(--page-pad) 40px; }
-    .hero .kicker { margin-bottom: 16px; }
+    /* The photo stops being a backdrop. Behind four lines of headline and a
+       paragraph it needed so much scrim that the food — the reason for the
+       photo — was a dark blur. Here it is a clear band above the copy, cropped
+       to the plates and the pepper mill, fading into the page where the copy
+       begins. */
+    .hero { display: block; min-height: 0; }
+    .hero-photo { position: relative; inset: auto; height: min(36svh, 300px); }
+    .hero :global(img) { object-position: center 42%; }
+    .hero .scrim-lr { display: none; }
+    .hero .scrim-bt {
+      background: linear-gradient(to top, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 55%, transparent) 16%, transparent 42%);
+    }
+    .hero-content { margin-top: -26px; padding: 0 var(--page-pad) 40px; }
+    .hero .kicker { margin-bottom: 14px; }
+    .hero .kicker .wide { display: none; }
+    .hero .kicker .narrow { display: inline; }
     .hero h1 { margin-bottom: 18px; font-size: 38px; }
     .hero .lead { font-size: 1rem; }
     .hero-actions { margin-top: 22px; }
@@ -310,6 +337,10 @@ const strip = [
      before/after pair. Photo leads every block instead. */
   @media (max-width: 760px) {
     .feature.flip .feature-img { order: 0; }
+    /* Photos run to the edges of the screen: 40px wider, and the food is the
+       argument. Square corners, since there is no longer an edge to round. */
+    .feature-img { margin-inline: calc(-1 * var(--page-pad)); }
+    .feature-img :global(img) { border-radius: 0; }
   }
 
   .feature h2 {
@@ -443,10 +474,33 @@ const strip = [
   }
   .strip a:hover :global(img) { transform: scale(1.05); }
 
-  /* Five tracks is too narrow on a phone. */
+  /* On a phone the grid becomes one row you swipe. As a grid it was six
+     110px thumbnails with four more hidden; this shows all ten at nearly the
+     width of the screen. Each tile is 72% wide so the next one always peeks
+     in from the right — that sliver is the only cue that the row moves.
+     The row runs to the screen edges; its padding puts the first tile back
+     on the page margin. */
   @media (max-width: 600px) {
-    .strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .strip a:nth-child(n + 7) { display: none; }
+    .strip {
+      display: flex;
+      margin-inline: calc(-1 * var(--page-pad));
+      padding-inline: var(--page-pad);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--page-pad);
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+    .strip::-webkit-scrollbar { display: none; }
+    .strip a {
+      flex: 0 0 72%;
+      scroll-snap-align: start;
+      border-radius: var(--radius-md);
+      /* reveal.js hides each tile until it scrolls up into view, with a
+         stagger. Sideways that made every tile fade in late as you swiped. */
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   /* --- Closing --- */

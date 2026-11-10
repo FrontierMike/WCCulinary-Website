@@ -132,6 +132,12 @@ const reviews = href('reviews');
     border-radius: var(--radius-lg);
   }
 
+  /* Edge to edge on a phone, like the home page's feature photos. */
+  @media (max-width: 700px) {
+    .photo { margin-inline: calc(-1 * var(--page-pad)); }
+    .photo :global(img) { border-radius: 0; }
+  }
+
   .cards {
     margin-top: 46px;
     display: grid;

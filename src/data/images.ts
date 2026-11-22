@@ -32,11 +32,11 @@ const SLOTS: Record<string, string> = {
   // Cropped from screenshot-2026-08-14-204208 — that frame has the video
   // player's Save/share overlay burnt into the top right corner.
   'hero-reviews': '750-2757-edit',                 // hands finishing stuffed poblanos
-  'plating': 'screenshot-2026-08-14-203255',       // scallops — chosen by Jan
+  'plating': 'nov-2026-achiote-chicken-poblano-close',  // Nov 2026 catering
 
   // --- Dishes and rooms (from the camera-roll pool, confirmed by Jan) ---
   'hero-service': 'catering',
-  'private-dining-tacos': 'tuscan-chicken',
+  'private-dining-tacos': 'nov-2026-short-rib-garlic-mash',  // Nov 2026 catering
   'svc-weddings': 'chocolate-pate',              // was the clam platter, now on gluten-free
   'svc-corporate': 'screenshot-2026-08-14-210100',  // the buffet line
   'svc-celebrations': 'img-4948',                // chicken on arugula, orchid garnish

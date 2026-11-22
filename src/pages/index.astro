@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import { img } from '../data/images';
 import { href } from '../lib/href';
 import Availability from '../components/Availability.astro';
+import FAQ from '../components/FAQ.astro';
 
 // The four quotes on this page (three below, one in the reviews row) are
 // deliberately EXCERPTS, not the full reviews: one sharp line each, on the
@@ -28,7 +29,7 @@ const features = [
     body: 'I shop, arrive with my own knives and pans, cook each course, serve it, and leave the kitchen as I found it. All you do is sit down. It is how most clients meet me before booking something larger.',
     link: ['How private dining works →', 'private-dining'],
     slot: 'private-dining-tacos',
-    alt: 'A plated course from a private dinner',
+    alt: 'Beef short rib on garlic mash, plated for a private dinner',
     quote: 'You and your server, Persayis went above and beyond! Everyone loved her too!',
     attribution: 'Evening celebration · S & L',
   },
@@ -38,10 +39,7 @@ const features = [
     body: 'Every main dish starts from raw ingredients, with nearly all the stocks, sauces, dressings and cures made from scratch. Menus follow the season and the coast — local seafood, produce from the valley — adjusted to what you like and what your guests can eat.',
     link: ['See an example menu →', 'private-dining#menus'],
     slot: 'plating',
-    alt: 'Seared scallops on a herb purée and red pepper sauce, finished with crisp cured ham',
-    // The scallop plate is shot upright on a 520px-wide phone frame. A 4:3 box
-    // crops it to the middle two scallops; 4:5 fits the whole plate.
-    ratio: '4 / 5',
+    alt: 'Achiote chicken on a rice-stuffed poblano',
     // Both sentences stay — the first is the context that makes the second land.
     quote: "We truly appreciate all the effort you're putting into creating lovely meals, accommodating dietary needs and keeping everyone safe and well fed.",
     attribution: 'Two days of gluten-free catering, memorial · C & Family',
@@ -135,7 +133,7 @@ const strip = [
     {features.map((f, i) => (
       <>
       <section class:list={['feature', { flip: i % 2 === 1, first: i === 0 }]} data-reveal>
-        <div class="feature-img" style={f.ratio && `--img-ratio: ${f.ratio}`}>
+        <div class="feature-img">
           <Image src={img(f.slot)} alt={f.alt} widths={[520, 800]} sizes="(max-width: 900px) 100vw, 50vw" />
         </div>
         <div>
@@ -206,6 +204,11 @@ const strip = [
       ))}
     </section>
   </div>
+
+  {/* The home page is the URL answer engines fetch first, so the FAQ lives
+      here too: it is where the service area, the lead times and what is
+      included are stated plainly, and it carries FAQPage markup. */}
+  <FAQ />
 
   <!-- Closing call to action -->
   <section class="closing">
@@ -325,7 +328,7 @@ const strip = [
 
   .feature-img :global(img) {
     width: 100%;
-    aspect-ratio: var(--img-ratio, 4 / 3);
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: var(--radius-lg);
   }

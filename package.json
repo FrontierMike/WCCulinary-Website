@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "images": "node scripts/prep-images.mjs",
+    "social": "node scripts/social-images.mjs",
     "test": "node --test worker/*.test.mjs"
   },
   "dependencies": {

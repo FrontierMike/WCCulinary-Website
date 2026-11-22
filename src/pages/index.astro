@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { img } from '../data/images';
+import { recentPlates } from '../data/gallery';
 import { href } from '../lib/href';
 import Availability from '../components/Availability.astro';
 import FAQ from '../components/FAQ.astro';
@@ -70,19 +71,11 @@ const everythingElse = [
   ['Gluten-free consulting', 'For restaurants — menu review, kitchen handling and a written protocol your staff will follow.', 'gluten-free-consulting'],
 ];
 
-// Ten plates, two rows of five. Narrow screens drop to two rows of three.
-const strip = [
-  ['gal-lamb', 'Rack of lamb, carved and plated with jus'],
-  ['gal-shrimp', 'Prawns plated with a bright herb sauce'],
-  ['gal-grazing', 'A grazing board of cured meats, cheeses and fruit'],
-  ['gal-torte', 'A chocolate torte finished with cream'],
-  ['gal-salad', 'A composed salad with edible flowers'],
-  ['gal-salmon', 'Salmon served on a seafood risotto'],
-  ['gal-clams', 'Clams steamed in their broth'],
-  ['gal-braised', 'A braised main course plated with vegetables'],
-  ['gal-crostini', 'Crostini topped and plated for a canape service'],
-  ['gal-pate', 'A chocolate pate, sliced and plated'],
-];
+// Ten plates under "Recent plates". Mostly random, weighted to the newest
+// batch, and minus the two plates already shown in the blocks above so the
+// page never repeats a photo. Drawn at build time: it changes per deploy.
+// Two rows of five, dropping to two rows of three on a narrow screen.
+const strip = recentPlates(10, [img('private-dining-tacos'), img('plating')]);
 ---
 <Base>
   <!-- Hero -->
@@ -162,9 +155,9 @@ const strip = [
             <a class="btn btn-secondary push-right" href={href('gallery')}>View the full gallery →</a>
           </div>
           <div class="strip" data-reveal-stagger="80">
-            {strip.map(([slot, alt]) => (
+            {strip.map((photo) => (
               <a href={href('gallery')} data-reveal>
-                <Image src={img(slot)} alt={alt} widths={[260, 420, 640]} sizes="(max-width: 600px) 72vw, 20vw" loading="lazy" />
+                <Image src={photo.src} alt={photo.alt} widths={[260, 420, 640]} sizes="(max-width: 600px) 72vw, 20vw" loading="lazy" />
               </a>
             ))}
           </div>

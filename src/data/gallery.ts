@@ -111,6 +111,18 @@ const GENERIC = [
   'A course served at a private event',
 ];
 
+/** Fisher-Yates, in place. Takes its randomness as an argument so the
+ *  gallery order can be seeded and the homepage strip cannot. */
+function shuffle<T>(xs: T[], rnd: () => number): T[] {
+  for (let i = xs.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [xs[i], xs[j]] = [xs[j], xs[i]];
+  }
+  return xs;
+}
+
+const sample = <T,>(xs: T[], n: number): T[] => shuffle([...xs], Math.random).slice(0, n);
+
 function mulberry32(seed: number) {
   return function () {
     seed |= 0;
@@ -139,12 +151,7 @@ const photos: Photo[] = Object.entries(files)
     title: TITLES[p.name],
   }));
 
-// Fisher-Yates with the seeded PRNG.
-const rnd = mulberry32(20260815);
-for (let i = photos.length - 1; i > 0; i--) {
-  const j = Math.floor(rnd() * (i + 1));
-  [photos[i], photos[j]] = [photos[j], photos[i]];
-}
+shuffle(photos, mulberry32(20260815));
 
 // Pinned photos to the front, in PINNED order. sort() is stable, so everything
 // else keeps the shuffled order above.
@@ -153,5 +160,30 @@ const rank = (name: string) => {
   return i === -1 ? PINNED.length : i;
 };
 photos.sort((a, b) => rank(a.name) - rank(b.name));
+
+/** How many of the homepage strip come from the latest batch. Three of ten
+ *  keeps “Recent plates” honest without the strip turning into one event. */
+const NEW_PER_STRIP = 3;
+
+/** A mostly-random set for the homepage strip, weighted to the newest work:
+ *  NEW_PER_STRIP of them are drawn from PINNED, the latest batch, so a recent
+ *  plate is always in shot. `exclude` drops photos used elsewhere on the page.
+ *
+ *  The randomness runs at BUILD time — a static site bakes one set into the
+ *  HTML — so the strip changes with every deploy, not with every visit.
+ */
+export function recentPlates(count: number, exclude: ImageMetadata[] = []): Photo[] {
+  const used = new Set(exclude.map((e) => e.src));
+  const pool = photos.filter((p) => !used.has(p.src.src));
+  const newest = pool.filter((p) => PINNED.includes(p.name));
+  if (newest.length === 0) {
+    throw new Error('recentPlates: no photo matches PINNED — the names have drifted');
+  }
+  const older = pool.filter((p) => !PINNED.includes(p.name));
+  return shuffle(
+    [...sample(newest, NEW_PER_STRIP), ...sample(older, count - NEW_PER_STRIP)],
+    Math.random,
+  );
+}
 
 export default photos;

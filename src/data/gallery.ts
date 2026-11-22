@@ -66,7 +66,7 @@ const NAMED: Record<string, string> = {
   'dsc-6482': 'Rows of tasting cups, each with a bamboo pick',
   'dsc-6483': 'Tasting cups set out beside the flowers',
   'nov-2026-carrot-ginger-soup': 'Carrot ginger soup, finished with microgreens',
-  'nov-2026-short-rib-garlic-mash': 'Beef short rib on garlic mash, with greens and pan gravy',
+  'nov-2026-short-rib-garlic-mash': 'Beef short rib on garlic mash, with greens and gravy',
   'nov-2026-sicilian-yellowfin-tuna': 'Sicilian yellowfin tuna with tomatoes, olives and capers',
   'nov-2026-achiote-chicken-poblano-close': 'Achiote chicken on a rice-stuffed poblano, close up',
   'nov-2026-achiote-chicken-poblano': 'Achiote chicken on rice-stuffed poblanos, plated down the pass',

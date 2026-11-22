@@ -26,6 +26,15 @@ const EXCLUDE = new Set([
   'screenshot-2026-08-14-205449',
   'burrowinowlwinedinner22sept2022',
   'wccc-logo-circle',
+  // Six Signal copies of the November plates, dropped straight in here on
+  // 19 Nov instead of through originals/. Never committed, and the same shots
+  // ship as nov-2026-* — excluded so a local build matches production.
+  'signal-2026-11-19-17-00-47-490',
+  'signal-2026-11-19-17-00-47-490-1',
+  'signal-2026-11-19-17-00-47-490-2',
+  'signal-2026-11-19-17-00-47-490-7',
+  'signal-2026-11-19-17-00-47-490-8',
+  'signal-2026-11-19-17-02-09-045',
 ]);
 
 /** Real descriptions where the source filename told us the dish. Everything

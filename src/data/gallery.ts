@@ -54,7 +54,7 @@ const NAMED: Record<string, string> = {
   'turkeydinner': 'Roast turkey dinner, carved and plated',
   'tuscan-chicken': 'Tuscan chicken, plated with sauce',
   'img-1033-collage': 'A set of dishes from one event',
-  'camerazoom-20140603190224595': 'Charcuterie boards being built along the pass',
+  'camerazoom-20140603190224595': 'Charcuterie boards being built on the kitchen counter',
   'plating-line-romesco': 'Plates finished with green beans and romesco',
   '808158309-122311522034219450-342153254283530929-n': 'Rows of seafood salads on greens, each with an orange twist',
   'dsc-6439': 'Janet searing prawns at her station',
@@ -69,7 +69,7 @@ const NAMED: Record<string, string> = {
   'nov-2026-short-rib-garlic-mash': 'Beef short rib on garlic mash, with greens and gravy',
   'nov-2026-sicilian-yellowfin-tuna': 'Sicilian yellowfin tuna with tomatoes, olives and capers',
   'nov-2026-achiote-chicken-poblano-close': 'Achiote chicken on a rice-stuffed poblano, close up',
-  'nov-2026-achiote-chicken-poblano': 'Achiote chicken on rice-stuffed poblanos, plated down the pass',
+  'nov-2026-achiote-chicken-poblano': 'Achiote chicken on rice-stuffed poblanos, lined up and ready to serve',
   'nov-2026-surf-clam-stir-fry': 'Arctic surf clam stir fry with peppers, snow peas and mushrooms',
   'ignite-a-dream-2026-screen-final-new-2048x1152':
     'Poster for Ignite a Dream 2026, the Surrey Fire Fighters charity evening',

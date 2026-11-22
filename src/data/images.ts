@@ -16,7 +16,7 @@ const files = import.meta.glob<{ default: ImageMetadata }>(
 const SLOTS: Record<string, string> = {
   // --- People (confirmed) ---
   'jan-whites': 'janattherestaurant',              // whites, outside Jan's on the Beach
-  'jan-plating': '568101',                         // at the pass, working
+  'jan-plating': '568101',                         // plating, working
   'jan-halibut': 'img-e3144',                      // portrait, Jan's on the Beach whites
   'janet-bw': 'janet-blackwhite-1024x1024',        // the B&W portrait
   'jan-award': 'janwithbiaaward',

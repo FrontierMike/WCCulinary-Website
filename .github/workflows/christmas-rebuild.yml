@@ -13,7 +13,10 @@
 #                sitemap, and nothing on the site links to it
 #
 # 08:15 UTC is 00:15 in Vancouver, so the build already sees the new day.
-# GitHub can start a scheduled job late; late is fine, early is not.
+# GitHub can start a scheduled job late, and under load it drops some
+# altogether (it dropped the first test), so each day gets five tries, three
+# hours apart. The first to run pushes; the rest find today's date already in
+# the file and stop.
 #
 # Next December: change the dates in christmas.ts. These two lines can stay
 # if the deadline is the 15th and pickup the 24th again; otherwise move them
@@ -25,14 +28,17 @@ name: Christmas takeout rebuild
 
 on:
   schedule:
-    - cron: '15 8 16 12 *'
-    - cron: '15 8 26 12 *'
+    - cron: '15 8,11,14,17,20 16 12 *'
+    - cron: '15 8,11,14,17,20 26 12 *'
     # One-off test, 23 November 2026. Remove once it has run.
-    - cron: '40 2 23 11 *'
+    - cron: '*/15 4-6 23 11 *'
   workflow_dispatch:
 
 permissions:
   contents: write
+
+# Two tries never push at once; the second waits and then finds the date.
+concurrency: christmas-rebuild
 
 jobs:
   rebuild:
@@ -41,6 +47,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Push a change so Cloudflare rebuilds the site
         run: |
+          if grep -qs "^$(date -u +%F)" .github/christmas-rebuild; then
+            echo "Already rebuilt today."; exit 0
+          fi
           date -u +%FT%TZ > .github/christmas-rebuild
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

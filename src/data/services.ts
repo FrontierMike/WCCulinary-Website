@@ -661,7 +661,7 @@ services.push({
       cards: [
         { title: 'Gluten free from the first draft', body: 'Dishes are chosen because they are naturally gluten free or made properly so — polenta, buckwheat, almond flour — not regular recipes with the bread taken away. Nothing on the plate is a substitute.' },
         { title: 'Sourcing checked to the label', body: 'Every ingredient is verified — including stocks, soy and fish sauces, mustards, spice blends, baking powder and anything processed on shared lines. Suppliers are asked directly about their own facilities.' },
-        { title: 'Guests logged by seat', body: 'Celiac guests are recorded by name and seat number and the plate is carried by a server who has been told which one it is. Nothing depends on a guest having to ask at the table.' },
+        { title: 'One menu for the whole room', body: 'When an event is gluten free, the whole menu is gluten free. Everyone eats the same food, so there is no separate plate to track and nothing to mix up at the table. Most guests never notice.' },
         { title: 'What I do not claim', body: 'I am not a third-party certified gluten-free facility, and I will not say I am. What I have is documented protocol and twelve years of practice. If you need certification, ask and I will tell you honestly where the line is.' },
       ],
     },
@@ -732,7 +732,7 @@ services.push({
           title: 'Staff',
           items: [
             'Every person on the team is briefed on cross-contamination before service',
-            'Serving staff are told by seat, not by tray',
+            'There is no separate plate to carry out. The whole menu is gluten free',
           ],
         },
         {
@@ -752,7 +752,7 @@ services.push({
     },
   ],
   cta: {
-    heading: 'Tell me who is coming and what they cannot eat.',
+    heading: 'Tell me the date and how many are coming.',
     body: 'Same enquiry form as everything else. Put the restriction in the message and I will answer that part first.',
   },
 });

@@ -1,0 +1,49 @@
+# Rebuilds the site on the days the Christmas takeout changes state, so
+# nobody has to remember to deploy. The dates themselves live in
+# src/data/christmas.ts; this only makes sure a build happens after each one.
+#
+# Cloudflare Workers Builds deploys every push to main, so the job pushes a
+# one-line change to main and that push is the deploy. It writes a real file
+# rather than an empty commit, because a build can be skipped when a push
+# changes no files.
+#
+#   16 December  orders closed the day before: the contact form drops the
+#                Christmas option and the page says orders have closed
+#   26 December  the day after pickup: the page goes noindex and leaves the
+#                sitemap, and nothing on the site links to it
+#
+# 08:15 UTC is 00:15 in Vancouver, so the build already sees the new day.
+# GitHub can start a scheduled job late; late is fine, early is not.
+#
+# Next December: change the dates in christmas.ts. These two lines can stay
+# if the deadline is the 15th and pickup the 24th again; otherwise move them
+# to the day after each.
+#
+# The push lands on main from GitHub, so pull before pushing from a laptop
+# after either date.
+name: Christmas takeout rebuild
+
+on:
+  schedule:
+    - cron: '15 8 16 12 *'
+    - cron: '15 8 26 12 *'
+    # One-off test, 23 November 2026. Remove once it has run.
+    - cron: '40 2 23 11 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push a change so Cloudflare rebuilds the site
+        run: |
+          date -u +%FT%TZ > .github/christmas-rebuild
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/christmas-rebuild
+          git commit -m "Rebuild for the Christmas takeout dates"
+          git push

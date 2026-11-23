@@ -49,10 +49,10 @@ export const ORDER_THANK_YOU = '/contact/order-received/';
  *  over at 4pm Pacific, so the strip would disappear on the afternoon of the
  *  deadline rather than at the end of it.
  *
- *  ponytail: reads the machine's own timezone instead of pinning
- *  America/Vancouver. The build machine and the customers are both here; pass
- *  { timeZone: 'America/Vancouver' } if that ever stops being true. */
-const today = () => new Date().toLocaleDateString('en-CA');
+ *  Pinned to Vancouver because production is built on Cloudflare's machines,
+ *  which run on UTC: unpinned, a deploy after 4pm on the 15th would close
+ *  orders a day early. */
+const today = () => new Date().toLocaleDateString('en-CA', { timeZone: 'America/Vancouver' });
 
 /** Still taking orders? Called at build time by the strip, the page and the
  *  contact form, and again in the browser by the strip's inline script — a

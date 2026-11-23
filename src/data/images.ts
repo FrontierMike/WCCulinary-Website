@@ -24,6 +24,7 @@ const SLOTS: Record<string, string> = {
   // --- Dishes (confirmed by filename) ---
   'gal-lamb': 'lamchops',
   'gal-turkey': 'turkeydinner',
+  'christmas-turkey': 'christmas-turkey-dinner',  // stock, for the Christmas page
   'gal-pate': 'chocolate-pate',
   'gal-benny': 'eggs-benny',
   'gal-torte': 'cheesecake',

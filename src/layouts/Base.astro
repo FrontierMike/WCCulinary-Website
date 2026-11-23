@@ -13,6 +13,7 @@ import serifLatin from '@fontsource/instrument-serif/files/instrument-serif-lati
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import MobileActions from '../components/MobileActions.astro';
+import ChristmasStrip from '../components/ChristmasStrip.astro';
 import { getImage } from 'astro:assets';
 import { img } from '../data/images';
 import { graph, businessNode, chefNode, websiteNode, breadcrumbNode } from '../lib/seo';
@@ -120,6 +121,8 @@ const jsonLd = graph([
     <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />
   </head>
   <body>
+    {/* Seasonal notice. Renders nothing once orders close — see christmas.ts. */}
+    <ChristmasStrip />
     <SiteHeader active={active} />
     <slot />
     <SiteFooter />

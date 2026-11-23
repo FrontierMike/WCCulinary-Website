@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { Image } from 'astro:assets';
 import { enquiryOptions, heardFrom } from '../data/services';
+import { ORDER_FORM_LABEL, ORDER_THANK_YOU, takingOrders } from '../data/christmas';
 import { img } from '../data/images';
 import { href } from '../lib/href';
 import { bookingFrom } from '../scripts/availability.js';
@@ -10,9 +11,19 @@ import { bookingFrom } from '../scripts/availability.js';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Service type can be prefilled from a service page: /contact?service=Weddings
-// The label→slug map rides on the form as a data attribute rather than
+// The label→path map rides on the form as a data attribute rather than
 // define:vars, which would force the script inline and break its imports.
-const serviceSlugs = Object.fromEntries(enquiryOptions);
+//
+// Label → where the form sends them once it has sent. Every catering
+// enquiry lands under /contact/thank-you/, which is both the enquiry count
+// in Cloudflare analytics and the path the GA4 key event behind the Google
+// Ads conversion matches on. The Christmas takeout order deliberately does
+// not — see ORDER_THANK_YOU in src/data/christmas.ts.
+const options: [string, string][] = [
+  ...enquiryOptions.map(([label, slug]): [string, string] => [label, `/contact/thank-you/${slug}/`]),
+  ...(takingOrders() ? [[ORDER_FORM_LABEL, ORDER_THANK_YOU] as [string, string]] : []),
+];
+const servicePaths = Object.fromEntries(options);
 
 // "Not sure yet" leads, so an untouched form does not invent a budget.
 const budgets = [
@@ -43,7 +54,7 @@ const budgets = [
 
   <section class="wrap form-section">
     <div class="layout">
-    <form id="contact-form" novalidate data-slugs={JSON.stringify(serviceSlugs)} data-base={base}>
+    <form id="contact-form" novalidate data-paths={JSON.stringify(servicePaths)} data-base={base}>
       <div class="grid">
         <label>
           <span>Name <i>*</i></span>
@@ -87,7 +98,7 @@ const budgets = [
         <label>
           <span>Service</span>
           <select name="service">
-            {enquiryOptions.map(([label]) => <option value={label}>{label}</option>)}
+            {options.map(([label]) => <option value={label}>{label}</option>)}
           </select>
         </label>
 
@@ -164,7 +175,7 @@ const budgets = [
   const status = document.getElementById('contact-status') as HTMLParagraphElement;
   const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-  const slugs: Record<string, string> = JSON.parse(form.dataset.slugs || '{}');
+  const paths: Record<string, string> = JSON.parse(form.dataset.paths || '{}');
   const base = form.dataset.base || '';
 
   // Prefill the service when a service page links here with ?service=…
@@ -214,7 +225,7 @@ const budgets = [
         // replace, not assign: the form drops out of history, so Back returns
         // to the page they came from instead of a filled form they could
         // resubmit — which would double both the enquiry and the conversion.
-        location.replace(`${base}/contact/thank-you/${slugs[service] || 'not-sure'}`);
+        location.replace(`${base}${paths[service] ?? '/contact/thank-you/not-sure/'}`);
       } else {
         status.textContent = data.error || 'Something went wrong. Please try again.';
         status.className = 'err';

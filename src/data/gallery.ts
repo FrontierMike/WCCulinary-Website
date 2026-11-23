@@ -26,6 +26,9 @@ const EXCLUDE = new Set([
   'screenshot-2026-08-14-205449',
   'burrowinowlwinedinner22sept2022',
   'wccc-logo-circle',
+  // Stock photo bought in for the Christmas takeout page. Not Jan's work, so
+  // it does not belong in a gallery of it.
+  'christmas-turkey-dinner',
   // Six Signal copies of the November plates, dropped straight in here on
   // 19 Nov instead of through originals/. Never committed, and the same shots
   // ship as nov-2026-* — excluded so a local build matches production.

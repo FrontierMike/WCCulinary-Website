@@ -1,0 +1,172 @@
+---
+// Christmas takeout turkey dinners. A seasonal page, not a service page — it
+// is deliberately not in services.ts and so not in the Services menu, which is
+// the permanent shape of the business. It is reached from the strip above the
+// header and from the social posts.
+//
+// The page stays up all year. After the deadline it says so itself rather than
+// 404ing, so anything shared on Facebook still lands somewhere, and next
+// December is a date change in christmas.ts rather than a new page.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceSections from '../components/ServiceSections.astro';
+import CTA from '../components/CTA.astro';
+import type { Section } from '../data/services';
+import { EMAIL } from '../lib/seo';
+import { ORDER_BY_LABEL, PICKUP, PICKUP_WHERE, PRICE, YEAR, inSeason, takingOrders } from '../data/christmas';
+
+const taking = takingOrders();
+const live = inSeason();
+const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(`Christmas turkey dinner order`)}`;
+
+const sections: Section[] = [
+  {
+    type: 'lists',
+    kicker: 'The menu',
+    heading: 'Everything that goes with a turkey.',
+    lead: 'Each dinner includes generous portions of:',
+    lists: [
+      {
+        title: 'The dinner',
+        items: [
+          'Roast turkey',
+          'Mashed potatoes',
+          'Bread and butter stuffing',
+          'Mixed vegetables',
+          'Plenty of gravy',
+          'Fresh cranberry sauce',
+        ],
+      },
+      {
+        title: 'Salad and dessert',
+        items: [
+          'Mixed greens salad with maple balsamic dressing',
+          'Sticky toffee pudding with toffee sauce',
+        ],
+      },
+    ],
+  },
+  // A price and a deadline stop being true the moment orders close — left
+  // standing under "orders have closed" they are the contradiction this page
+  // exists to avoid. The pickup time outlives them by a few days, because
+  // the people still reading this page are the ones who already ordered.
+  ...(live
+    ? [{
+      type: 'cards',
+      kicker: 'The details',
+      heading: taking ? 'Price, deadline, pickup.' : 'If you have already ordered.',
+      cards: [
+        ...(taking
+          ? [
+              { title: `${PRICE} a dinner`, body: 'GST included. One dinner is one plate, and a very large one.' },
+              { title: `Order by ${ORDER_BY_LABEL}`, body: 'Email or call with how many you would like. There is no minimum.' },
+            ]
+          : []),
+        { title: 'Pick up, then heat at home', body: `${PICKUP}. ${PICKUP_WHERE} It comes cold: take it home and put it in your own oven when you are ready to eat.` },
+      ],
+    } satisfies Section]
+    : []),
+  {
+    type: 'narrative',
+    kicker: 'Gluten-free',
+    heading: 'The stuffing and the pudding too.',
+    paras: [
+      'Not a turkey dinner with the stuffing left off. The bread in the stuffing is gluten-free, the sticky toffee pudding is gluten-free, and so is everything else on the list. The whole dinner, start to finish.',
+      'I am a Red Seal chef, and I ran a gluten-free program daily through service for the twelve years I had a restaurant on the beach in White Rock. It is the same work I now do for other kitchens as a consultant. If someone at your table cannot eat gluten, this is a Christmas dinner they can eat all of.',
+    ],
+    photo: {
+      slot: 'christmas-turkey',
+      alt: 'A roast turkey dinner plated with mashed potatoes, stuffing, carrots, green beans and gravy',
+    },
+  },
+];
+---
+<Base
+  noindex={!live}
+  title={`Gluten-free Christmas turkey dinners, ready to pick up — White Rock`}
+  description={taking
+    ? `Takeout roast turkey dinners for Christmas, entirely gluten-free — turkey, stuffing, gravy, cranberry sauce, salad and sticky toffee pudding. ${PRICE} a dinner, GST included. White Rock and South Surrey.`
+    : `Takeout roast turkey dinners for Christmas, entirely gluten-free — turkey, stuffing, gravy, cranberry sauce, salad and sticky toffee pudding. Orders for ${YEAR} have closed. White Rock and South Surrey.`}
+  breadcrumbs={[['Christmas turkey dinners', '/christmas-turkey-dinners']]}
+  ogImage="christmas-turkey"
+  ogImageAlt="A roast turkey dinner plated with mashed potatoes, stuffing, carrots, green beans and gravy"
+  actionBar={false}
+>
+  <div class="hero-dim">
+  <PageHero
+    kicker={`Christmas takeout · White Rock & South Surrey`}
+    heading="A whole Christmas dinner, and all of it gluten-free."
+    lead={taking
+      ? `${PRICE} a dinner, GST included — one plate each, and a very generous one. Roast turkey and everything that goes with it, picked up cold and heated in your own oven.`
+      : `Orders for Christmas ${YEAR} have closed.`}
+    photo="christmas-turkey"
+    alt="A roast turkey dinner plated with mashed potatoes, stuffing, carrots, green beans and gravy"
+    objectPosition="center 58%"
+  />
+  </div>
+
+  <ServiceSections sections={sections} />
+
+  <section class="order divider-top" id="order" data-reveal>
+    <div class="wrap">
+      <p class="kicker">{taking ? 'Ordering' : `Christmas ${YEAR}`}</p>
+      {taking ? (
+        <>
+          <h2>Tell me how many, and I will put you down.</h2>
+          <p class="body-copy">Email or call with your name, how many dinners you would like, and a number to reach you on. Orders close {ORDER_BY_LABEL}.</p>
+          <div class="buttons">
+            <a class="btn btn-primary" href={mailto}>Email {EMAIL}</a>
+            <a class="btn btn-secondary" href="tel:+16046266527">Call 604 626 6527</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h2>Orders for Christmas {YEAR} have closed.</h2>
+          <p class="body-copy">Thank you to everyone who ordered. Email if you would like to hear first when next year's dinners open.</p>
+          <div class="buttons">
+            <a class="btn btn-primary" href={mailto}>Email {EMAIL}</a>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  {/* Someone who came for a turkey dinner is someone who hosts. */}
+  <CTA
+    kicker="The rest of the year"
+    heading="The other eleven months, I cook in your kitchen."
+    body="Private dinners, weddings and corporate events across White Rock, South Surrey and the Lower Mainland — cooked on site and served to your table."
+  />
+</Base>
+
+<style>
+  /* The hero photo is a white plate in full light, and the headline sits on
+     top of it. The shared scrims are tuned for the darker photographs the
+     rest of the site uses, so this page deepens the left-hand one — the side
+     the text is on — and leaves the right side of the plate bright.
+     PageHero has no prop for either, and one page does not justify adding
+     them. */
+  .hero-dim :global(img) { filter: brightness(0.82); }
+  .hero-dim :global(.scrim-lr) {
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-bg) 94%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 66%, transparent) 46%,
+      color-mix(in srgb, var(--color-bg) 8%, transparent) 100%
+    );
+  }
+
+  .order { padding: calc(104px * var(--section-gap)) 0; }
+  .order h2 {
+    max-width: 22ch;
+    font-size: clamp(32px, 4.4vw, 58px);
+    line-height: 1.05;
+  }
+  .order .kicker { margin-bottom: 18px; }
+  .order .body-copy { margin-top: 24px; max-width: 52ch; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  @media (max-width: 640px) {
+    .buttons { flex-direction: column; }
+    .buttons .btn { width: 100%; justify-content: center; }
+  }
+</style>

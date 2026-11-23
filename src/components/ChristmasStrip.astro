@@ -1,0 +1,69 @@
+---
+// The Christmas takeout notice, above the sticky header on every page but its
+// own. Deliberately a strip and not a hero: the business is private dining and
+// catering all year, and one seasonal offer should read as an announcement
+// rather than as what the company now does.
+//
+// It comes down twice over. The build-time check below drops it out of the
+// HTML at the next deploy; the inline script removes it on the visitor's own
+// clock, so a site nobody rebuilds over the holidays is not still advertising
+// a closed order list in January.
+import { href } from '../lib/href';
+import { ORDER_BY, ORDER_BY_LABEL, takingOrders } from '../data/christmas';
+
+const path = href('christmas-turkey-dinners');
+// Not on the page it points at.
+const show = takingOrders() && Astro.url.pathname !== path;
+---
+{show && (
+  <>
+    <aside id="xmas-strip">
+      <a href={path}>
+        <strong>Gluten-free roast turkey dinners for Christmas.</strong>
+        <span class="when">Ready to pick up — order by {ORDER_BY_LABEL}.</span>
+        <span class="go">See the menu<span aria-hidden="true"> →</span></span>
+      </a>
+    </aside>
+    <script is:inline set:html={`if(new Date().toLocaleDateString('en-CA')>'${ORDER_BY}')document.getElementById('xmas-strip').remove()`}></script>
+  </>
+)}
+
+<style>
+  /* Accent, not red and green: the strip has to look like this site making an
+     announcement, not like a different business borrowed the top of the page. */
+  #xmas-strip {
+    background: color-mix(in srgb, var(--color-accent) 26%, var(--color-bg));
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 32%, transparent);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  /* Not sticky. It scrolls away and the header takes the top of the screen
+     back, which is how a notice is supposed to behave. */
+  #xmas-strip a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 2px 10px;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 11px var(--page-pad);
+    color: var(--color-neutral-300);
+    text-decoration: none;
+  }
+  #xmas-strip strong { font-weight: 500; color: var(--color-text); }
+  #xmas-strip .go {
+    color: var(--color-accent-300);
+    border-bottom: 1px solid var(--color-accent-700);
+  }
+  #xmas-strip a:hover .go { color: var(--color-accent); border-color: var(--color-accent); }
+
+  /* Phones: three short lines, left aligned, smaller. Nothing is dropped —
+     "pick up" is what stops a visitor reading this as another catering
+     quote, and the deadline is what makes them tap today. */
+  @media (max-width: 760px) {
+    #xmas-strip { font-size: 0.8125rem; line-height: 1.4; }
+    #xmas-strip a { justify-content: flex-start; gap: 1px 8px; padding: 8px var(--page-pad); }
+    #xmas-strip .go { margin-left: auto; white-space: nowrap; }
+  }
+</style>

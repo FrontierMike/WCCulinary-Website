@@ -1,0 +1,84 @@
+---
+// Where the contact form lands a Christmas turkey order.
+//
+// Deliberately outside /contact/thank-you/: that prefix is the catering
+// enquiry count in Cloudflare analytics and the GA4 key event behind the
+// Google Ads conversion, and a takeout order is neither. See ORDER_THANK_YOU
+// in src/data/christmas.ts.
+import Base from '../../layouts/Base.astro';
+import { href } from '../../lib/href';
+import { PICKUP, PICKUP_WHERE, inSeason } from '../../data/christmas';
+---
+<Base
+  noindex
+  actionBar={false}
+  title="Order received — West Coast Culinary Creations"
+  description="Your Christmas turkey dinner order has been received."
+>
+  <section class="wrap thanks">
+    <p class="kicker">Order received</p>
+    <h1>Thank you — your order is with me.</h1>
+
+    <p class="lead">
+      It has come straight to my inbox. I read and answer every one myself,
+      within one business day, and I will confirm back before anything is
+      cooked.
+    </p>
+
+    {inSeason() && (
+      <p class="body-copy urgent">
+        Pickup is {PICKUP}. {PICKUP_WHERE} It comes cold — heat it through
+        in your own oven when you are ready to eat.
+      </p>
+    )}
+
+    <p class="body-copy urgent">
+      If something has changed or you need to add to the order, call me on
+      <a href="tel:+16046266527">604 626 6527</a> rather than waiting on email.
+    </p>
+
+    <div class="next">
+      <p class="next-label">While you wait</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={href('christmas-turkey-dinners')}>What is in the dinner →</a>
+        <a class="btn btn-secondary" href={href('gallery')}>Gallery →</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* padding-block, not the shorthand — see the same note in 404.astro. */
+  .thanks {
+    padding-block: calc(128px * var(--section-gap)) calc(112px * var(--section-gap));
+    max-width: calc(68ch + 2 * var(--page-pad));
+  }
+
+  .thanks h1 {
+    margin: 22px 0 28px;
+    max-width: 18ch;
+    font-size: clamp(38px, 5.4vw, 68px);
+    line-height: 1.04;
+  }
+
+  .lead { max-width: 54ch; }
+
+  .urgent { margin-top: 26px; max-width: 52ch; }
+  .urgent a { color: var(--color-accent-300); border-bottom: 1px solid var(--color-accent-700); }
+
+  .next {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .next-label {
+    margin-bottom: 14px;
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+</style>

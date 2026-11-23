@@ -3,15 +3,23 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import { inSeason } from './src/data/christmas.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://wcculinary.com',
-  // Thank-you pages are noindex — keep them out of the sitemap too, so nothing
-  // invites a crawler to hit the pages that count enquiries.
+  // Post-submit pages are noindex — keep them out of the sitemap too, so
+  // nothing invites a crawler to hit the pages that count enquiries. The
+  // Christmas page joins them once the season is over: it stays at its URL
+  // for anyone holding a link, but it goes noindex and should not be
+  // submitted for crawling while it is out of date.
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/contact/thank-you/'),
+      filter: (page) => {
+        const hidden = ['/contact/thank-you/', '/contact/order-received/'];
+        if (!inSeason()) hidden.push('/christmas-turkey-dinners/');
+        return !hidden.some((p) => page.includes(p));
+      },
       // priority is a hint about relative importance within this site, not a
       // ranking lever — crawlers use it to budget. The home page and the
       // services people search for lead; about, gallery and reviews support

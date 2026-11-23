@@ -19,8 +19,10 @@ const show = takingOrders() && Astro.url.pathname !== path;
   <>
     <aside id="xmas-strip">
       <a href={path}>
-        <strong>Gluten-free roast turkey dinners for Christmas.</strong>
-        <span class="when">Ready to pick up — order by {ORDER_BY_LABEL}.</span>
+        <span class="text">
+          <strong>Gluten-free roast turkey dinners for Christmas.</strong>
+          <span class="when">Ready to pick up — order by {ORDER_BY_LABEL}.</span>
+        </span>
         <span class="go">See the menu<span aria-hidden="true"> →</span></span>
       </a>
     </aside>
@@ -30,40 +32,56 @@ const show = takingOrders() && Astro.url.pathname !== path;
 
 <style>
   /* Accent, not red and green: the strip has to look like this site making an
-     announcement, not like a different business borrowed the top of the page. */
+     announcement, not like a different business borrowed the top of the page.
+     Solid accent with dark type is the one band on the site that is not dark,
+     which is what makes it read as news before anything else on the page. */
   #xmas-strip {
-    background: color-mix(in srgb, var(--color-accent) 26%, var(--color-bg));
-    border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 32%, transparent);
-    font-size: 0.875rem;
-    line-height: 1.45;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    line-height: 1.3;
   }
   /* Not sticky. It scrolls away and the header takes the top of the screen
      back, which is how a notice is supposed to behave. */
   #xmas-strip a {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
-    gap: 2px 10px;
+    gap: 10px 28px;
     max-width: var(--page-max);
     margin: 0 auto;
-    padding: 11px var(--page-pad);
-    color: var(--color-neutral-300);
+    padding: 14px var(--page-pad);
+    color: inherit;
     text-decoration: none;
   }
-  #xmas-strip strong { font-weight: 500; color: var(--color-text); }
+  /* The global focus ring is accent, which vanishes on an accent band. */
+  #xmas-strip a:focus-visible { outline: 2px solid var(--color-bg); outline-offset: -5px; }
+  #xmas-strip .text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; }
+  #xmas-strip strong { font: 400 1.5rem/1.1 var(--font-serif); }
+  #xmas-strip .when { font-size: 0.9375rem; font-weight: 500; }
+  /* A button, dark on the band, shaped like the site's own buttons. */
   #xmas-strip .go {
+    flex: none;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
     color: var(--color-accent-300);
-    border-bottom: 1px solid var(--color-accent-700);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background .25s var(--ease), color .25s var(--ease);
   }
-  #xmas-strip a:hover .go { color: var(--color-accent); border-color: var(--color-accent); }
+  #xmas-strip a:hover .go { background: var(--color-surface); color: var(--color-text); }
 
-  /* Phones: three short lines, left aligned, smaller. Nothing is dropped —
-     "pick up" is what stops a visitor reading this as another catering
-     quote, and the deadline is what makes them tap today. */
+  /* Phones: headline, then the deadline, with the button beside them.
+     Nothing is dropped — "pick up" is what stops a visitor reading this as
+     another catering quote, and the deadline is what makes them tap today. */
   @media (max-width: 760px) {
-    #xmas-strip { font-size: 0.8125rem; line-height: 1.4; }
-    #xmas-strip a { justify-content: flex-start; gap: 1px 8px; padding: 8px var(--page-pad); }
-    #xmas-strip .go { margin-left: auto; white-space: nowrap; }
+    #xmas-strip a { justify-content: space-between; flex-wrap: nowrap; gap: 14px; padding: 12px var(--page-pad); }
+    #xmas-strip .text { flex-direction: column; gap: 3px; min-width: 0; }
+    #xmas-strip strong { font-size: 1.1875rem; }
+    #xmas-strip .when { font-size: 0.8125rem; }
+    #xmas-strip .go { padding: 9px 12px; font-size: 0.6875rem; letter-spacing: 0.12em; }
   }
 </style>

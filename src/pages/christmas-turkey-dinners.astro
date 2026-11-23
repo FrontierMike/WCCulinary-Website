@@ -24,7 +24,10 @@ const sections: Section[] = [
     type: 'lists',
     kicker: 'The menu',
     heading: 'Everything that goes with a turkey.',
-    lead: 'Each dinner includes generous portions of:',
+    // The price only while orders are open; see the note on the details below.
+    lead: taking
+      ? `${PRICE} a dinner, GST included — one plate each, and a very generous one. Roast turkey and everything that goes with it, picked up cold and heated in your own oven. Each dinner includes:`
+      : 'Each dinner includes generous portions of:',
     lists: [
       {
         title: 'The dinner',
@@ -68,6 +71,7 @@ const sections: Section[] = [
     : []),
   {
     type: 'narrative',
+    id: 'gluten-free',
     kicker: 'Gluten-free',
     heading: 'The stuffing and the pudding too.',
     paras: [
@@ -96,9 +100,7 @@ const sections: Section[] = [
   <PageHero
     kicker={`Christmas takeout · White Rock & South Surrey`}
     heading="A whole Christmas dinner, and all of it gluten-free."
-    lead={taking
-      ? `${PRICE} a dinner, GST included — one plate each, and a very generous one. Roast turkey and everything that goes with it, picked up cold and heated in your own oven.`
-      : `Orders for Christmas ${YEAR} have closed.`}
+    lead={taking ? undefined : `Orders for Christmas ${YEAR} have closed.`}
     photo="christmas-turkey"
     alt="A roast turkey dinner plated with mashed potatoes, stuffing, carrots, green beans and gravy"
     objectPosition="center 58%"
@@ -154,6 +156,16 @@ const sections: Section[] = [
       color-mix(in srgb, var(--color-bg) 66%, transparent) 46%,
       color-mix(in srgb, var(--color-bg) 8%, transparent) 100%
     );
+  }
+
+  /* Gluten-free is what this dinner is sold on, so on this page that one label
+     is set as large as a headline instead of in the usual small caps. */
+  :global(#gluten-free .kicker) {
+    font-size: clamp(2.25rem, 5.6vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    margin-bottom: 22px;
   }
 
   .order { padding: calc(104px * var(--section-gap)) 0; }
